@@ -1,0 +1,14 @@
+[
+  { language: "Java 8"
+  , technologies: "Jersey, Guice, Lombok, Maven, Gradle"
+  , skill: 4
+  }
+  { language: "Javascript"
+  , technologies: "ES6, Typescript, Angular 1&2, Ionic 1&2"
+  , skill: 3
+  }
+  { language: "Elm"
+  , technologies: ""
+  , skill: 3
+  }
+]

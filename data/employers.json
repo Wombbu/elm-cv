@@ -1,0 +1,14 @@
+[
+  { name: "Elisa"
+  , description:
+    [ "Create API"
+    , "Test automation with Robot Framework"
+    ]
+  },
+  { name: "Sasken"
+  , description: 
+    [ "Create 2 nettiarpaa"
+    , "Mobile software with ionic 2"
+    ]
+  }
+]
