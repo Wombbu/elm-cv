@@ -1,30 +1,14 @@
-module File exposing (..)
+module TextArea.File exposing (..)
 
-
--- Types
-
-
-type alias Employer =
-  { employerName : String
-  , description : String
-  , startDate : Int
-  , endDate : Int }
-
-type alias Project =
-  { videos : List String
-  , description : String
-  , imageUrl : String }
-
-type alias File =
-  { employers : List Employer
-  , projects : List Project
-  }
+import Html exposing (Html, div, h1, text)
+import Html.Events exposing (..)
+import TextArea.Types as Types
 
 
 -- Init
 
 
-initFile : File
+initFile : Types.File
 initFile =
   { employers =
     [ { employerName = "Elisa"
@@ -43,3 +27,13 @@ initFile =
     , description = "Juuh elicks 2"
     , imageUrl = "www.imgur.com" } ]
   }
+
+
+  -- Render
+
+
+renderJava : Types.File -> Html Types.Msg
+renderJava model =
+  div []
+  [ h1 [onClick Types.Click] [ text "Java" ]
+  ]
