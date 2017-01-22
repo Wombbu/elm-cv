@@ -2,6 +2,7 @@ module App.State exposing (..)
 
 import TextArea.View exposing (..)
 import TextArea.State exposing (..)
+import SideBar.State
 import App.Types as Types exposing (..)
 
 
@@ -16,11 +17,13 @@ update msg model =
     (Debug.log "Model:" model, Cmd.none)
   Types.ClickTextArea msg ->
     (Debug.log "Text area clicked" model, Cmd.none)
+  Types.ClickSideBar msg ->
+    (Debug.log "Text area clicked" model, Cmd.none)
 
 
 init : (Model, Cmd msg)
 init =
-  ({ sidebarShortcuts = initShortcuts
+  ({ sidebarShortcuts = SideBar.State.initShortcuts
   , tabs = [ {file = TextArea.State.initFile, text = "Intro.elm" }]
   , textArea = TextArea.State.initFile
   , renderFunction = TextArea.View.java
@@ -30,9 +33,3 @@ init =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.none
-
-
-initShortcuts : List FileShortcut
-initShortcuts =
-  [ { name = "Intro.elm", file = TextArea.State.initFile }
-  , { name = "Juuh.elm", file = TextArea.State.initFile }]
