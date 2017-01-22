@@ -4,9 +4,11 @@
     "repository": "https://github.com/Wombbu/elm-cv.git",
     "license": "BSD3",
     "source-directories": [
-        "./src/",
+        "./src",
         "./src/TextArea",
-        "./src/App"
+        "./src/App",
+        "./src/TabBar",
+        "./src/SideBar"
     ],
     "exposed-modules": [],
     "dependencies": {

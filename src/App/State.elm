@@ -2,6 +2,7 @@ module App.State exposing (..)
 
 import TextArea.View exposing (..)
 import TextArea.State exposing (..)
+import TabBar.State exposing (..)
 import SideBar.State
 import App.Types as Types exposing (..)
 
@@ -24,7 +25,7 @@ update msg model =
 init : (Model, Cmd msg)
 init =
   ({ sidebarShortcuts = SideBar.State.initShortcuts
-  , tabs = [ {file = TextArea.State.initFile, text = "Intro.elm" }]
+  , tabs = TabBar.State.init
   , textArea = TextArea.State.initFile
   , renderFunction = TextArea.View.java
   }, Cmd.none)
