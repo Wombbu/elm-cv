@@ -1,6 +1,7 @@
 module App.State exposing (..)
 
-import TextArea.File as File exposing (..)
+import TextArea.View exposing (..)
+import TextArea.State exposing (..)
 import App.Types as Types exposing (..)
 
 
@@ -9,7 +10,7 @@ update msg model =
   case msg of
   Types.AppendModel ->
     ({ model
-    | tabs = [ {file = File.initFile, text = "Intro.elm" }, {file = File.initFile, text = "Eiss.elm" }]
+    | tabs = [ {file = TextArea.State.initFile, text = "Intro.elm" }, {file = TextArea.State.initFile, text = "Eiss.elm" }]
     }, Cmd.none)
   Types.LogModel ->
     (Debug.log "Model:" model, Cmd.none)
@@ -20,9 +21,9 @@ update msg model =
 init : (Model, Cmd msg)
 init =
   ({ sidebarShortcuts = initShortcuts
-  , tabs = [ {file = File.initFile, text = "Intro.elm" }]
-  , textArea = File.initFile
-  , renderFunction = File.renderJava
+  , tabs = [ {file = TextArea.State.initFile, text = "Intro.elm" }]
+  , textArea = TextArea.State.initFile
+  , renderFunction = TextArea.View.java
   }, Cmd.none)
 
 
@@ -31,8 +32,7 @@ subscriptions model =
   Sub.none
 
 
-
 initShortcuts : List FileShortcut
 initShortcuts =
-  [ { name = "Intro.elm", file = File.initFile }
-  , { name = "Juuh.elm", file = File.initFile }]
+  [ { name = "Intro.elm", file = TextArea.State.initFile }
+  , { name = "Juuh.elm", file = TextArea.State.initFile }]

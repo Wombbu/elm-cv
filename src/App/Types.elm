@@ -2,7 +2,7 @@ module App.Types exposing (..)
 
 import Html exposing (Html)
 
-import TextArea.Types exposing (..)
+import TextArea.Types
 
 type Msg
   = ClickTextArea TextArea.Types.Msg
@@ -13,18 +13,21 @@ type Msg
 type alias Model =
   { sidebarShortcuts: List FileShortcut
   , tabs : List TabButton
-  , textArea : File
-  , renderFunction :  File -> Html TextArea.Types.Msg
+  , textArea : TextArea.Types.Model
+  , renderFunction :  (TextArea.Types.Model -> Html TextArea.Types.Msg)
   }
 
 
+-- TODO split types under to their own modules
+
+
 type alias TabButton =
-  { file : File
+  { file : TextArea.Types.Model
   , text : String
   }
 
 
 type alias FileShortcut =
   { name : String
-  , file : File
+  , file : TextArea.Types.Model
   }

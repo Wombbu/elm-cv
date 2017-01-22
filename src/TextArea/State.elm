@@ -1,14 +1,12 @@
-module TextArea.File exposing (..)
+module TextArea.State exposing (..)
 
-import Html exposing (Html, div, h1, text)
-import Html.Events exposing (..)
-import TextArea.Types as Types
+import TextArea.Types
 
 
 -- Init
 
 
-initFile : Types.File
+initFile : TextArea.Types.Model
 initFile =
   { employers =
     [ { employerName = "Elisa"
@@ -27,13 +25,3 @@ initFile =
     , description = "Juuh elicks 2"
     , imageUrl = "www.imgur.com" } ]
   }
-
-
-  -- Render
-
-
-renderJava : Types.File -> Html Types.Msg
-renderJava model =
-  div []
-  [ h1 [onClick Types.Click] [ text "Java" ]
-  ]

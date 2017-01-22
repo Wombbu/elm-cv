@@ -5,6 +5,7 @@ import Html.Events exposing (..)
 
 import App.Types exposing (Msg(..), Model)
 
+
 view : Model -> Html Msg
 view model =
   div []
