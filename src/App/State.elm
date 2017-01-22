@@ -12,7 +12,7 @@ update msg model =
   case msg of
   Types.AppendModel ->
     ({ model
-    | tabs = [ {file = TextArea.State.initFile, text = "Intro.elm" }, {file = TextArea.State.initFile, text = "Eiss.elm" }]
+    | tabs = [ {file = TextArea.State.init, text = "Intro.elm" }, {file = TextArea.State.init, text = "Eiss.elm" }]
     }, Cmd.none)
   Types.LogModel ->
     (Debug.log "Model:" model, Cmd.none)
@@ -26,7 +26,7 @@ init : (Model, Cmd msg)
 init =
   ({ sidebarShortcuts = SideBar.State.initShortcuts
   , tabs = TabBar.State.init
-  , textArea = TextArea.State.initFile
+  , textArea = TextArea.State.init
   , renderFunction = TextArea.View.java
   }, Cmd.none)
 

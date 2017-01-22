@@ -6,8 +6,8 @@ import TextArea.Types
 -- Init
 
 
-initFile : TextArea.Types.Model
-initFile =
+init : TextArea.Types.Model
+init =
   { employers =
     [ { employerName = "Elisa"
     , description = "Made stuff"
