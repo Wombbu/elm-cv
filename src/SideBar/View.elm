@@ -5,7 +5,7 @@ import Html.Events exposing (..)
 
 import SideBar.Types
 
-java : TextArea.Types.Model -> Html TextArea.Types.Msg
+java : SideBar.Types.Model -> Html SideBar.Types.Msg
 java model =
   div []
   [ h1 [onClick SideBar.Types.Open] [ text "Sidebar" ]

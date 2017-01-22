@@ -1,8 +1,8 @@
 module App.State exposing (..)
 
-import TextArea.View exposing (..)
-import TextArea.State exposing (..)
-import TabBar.State exposing (..)
+import TextArea.View
+import TextArea.State
+import TabBar.State
 import SideBar.State
 import App.Types as Types exposing (..)
 

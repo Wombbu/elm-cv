@@ -2,7 +2,7 @@ module SideBar.Types exposing (..)
 
 import TextArea.Types
 
-type alias FileShortcut =
+type alias Model =
   { name : String
   , file : TextArea.Types.Model
   }

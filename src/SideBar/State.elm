@@ -7,7 +7,7 @@ import TextArea.State
 -- Init
 
 
-initShortcuts : List SideBar.Types.FileShortcut
+initShortcuts : List SideBar.Types.Model
 initShortcuts =
   [ { name = "Intro.elm", file = TextArea.State.init }
   , { name = "Juuh.elm", file = TextArea.State.init }]
