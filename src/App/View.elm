@@ -1,14 +1,13 @@
 module App.View exposing (..)
 
 import Html exposing (Html, div, button)
-import Html.Events exposing (onClick)
-
 import Css exposing (..)
 import Shared.Styles exposing (..)
 
 import App.Types exposing (Msg(..), Model)
 
 import SideBar.View
+import TabBar.View
 
 
 view : Model -> Html Msg
@@ -24,8 +23,7 @@ view model =
     [
       div [styleTabContainer]
       [
-        button [onClick App.Types.LogModel] [Html.text "Log model"],
-        button [onClick App.Types.AppendModel ] [Html.text "Append to model"]
+        Html.map App.Types.ClickTabBar (TabBar.View.view model.tabs)
       ],
 
       div [styleTextAreaContainer]
@@ -67,12 +65,15 @@ styleTabAndTextAreaContainer=
     , flexDirection column
     ]
 
+
 styleTabContainer : Html.Attribute msg
 styleTabContainer =
   styles
-    [ height ( px 40 )
-    ,  backgroundColor colorMain
+    [ height ( px 50 )
+    , displayFlex
+    , flexDirection row
     ]
+
 
 styleTextAreaContainer : Html.Attribute msg
 styleTextAreaContainer =

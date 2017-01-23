@@ -9,6 +9,7 @@ import SideBar.Types
 type Msg
   = ClickTextArea TextArea.Types.Msg
   | ClickSideBar SideBar.Types.Msg
+  | ClickTabBar TabBar.Types.Msg
   |  AppendModel
   |  LogModel
 

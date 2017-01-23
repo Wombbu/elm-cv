@@ -9,4 +9,6 @@ import TextArea.View
 
 init : List TabBar.Types.Model
 init =
-  [ {textAreaRenderFunc = TextArea.View.java, text = "Intro.java" }]
+  [ {textAreaRenderFunc = TextArea.View.java, text = "Intro.java" }
+  , {textAreaRenderFunc = TextArea.View.java, text = "Juuh.java" }
+  ]

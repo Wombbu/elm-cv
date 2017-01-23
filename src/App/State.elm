@@ -20,6 +20,8 @@ update msg model =
     (Debug.log "Text area clicked" model, Cmd.none)
   Types.ClickSideBar msg ->
     (Debug.log "Text area clicked" model, Cmd.none)
+  Types.ClickTabBar msg ->
+    (Debug.log "Tab bar clicked" model, Cmd.none)
 
 
 init : (Model, Cmd msg)

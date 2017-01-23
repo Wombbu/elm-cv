@@ -15,7 +15,7 @@ colorMain =
 
 colorHighlight: Color
 colorHighlight =
-  hex "#999c97"
+  hex "#fff"
 
 
 -- Translate mixins to native elm styles
