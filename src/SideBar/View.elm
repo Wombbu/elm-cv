@@ -23,15 +23,17 @@ renderFolder model =
     ( map (\folder ->
       div []
       [
-        div [ styleSidebarEntry, onClick ToggleFolder ]
+        div [ styleSidebarEntry, onClick (ToggleFolder folder.folderName) ]
         [
           p [] [ Html.text folder.folderName ]
         ],
-
-        div []
-          [
-            renderFiles folder.files
-          ]
+        if folder.expanded then
+          div []
+            [
+              renderFiles folder.files
+            ]
+        else
+          Html.text ""
       ]
     )
     model)

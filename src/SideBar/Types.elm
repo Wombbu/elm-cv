@@ -5,6 +5,7 @@ import TabBar.Types
 
 type alias Model =
   { folderName: String
+  , expanded: Bool
   , files: List SideBarFile
   }
 
@@ -15,4 +16,4 @@ type alias SideBarFile =
 
 type Msg =
     Open TabBar.Types.Model
-    | ToggleFolder
+    | ToggleFolder String

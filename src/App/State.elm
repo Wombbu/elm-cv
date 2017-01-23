@@ -1,5 +1,6 @@
 module App.State exposing (..)
 
+import List exposing (map)
 import TextArea.View
 import TextArea.State
 import TabBar.State
@@ -11,24 +12,31 @@ import SideBar.Types
 update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
-  AppendModel ->
-    ({ model
-    | tabs = model.tabs ++ TabBar.State.init
-    }, Cmd.none)
-  LogModel ->
-    (Debug.log "Model:" model, Cmd.none)
-  ClickTextArea msg ->
-    (Debug.log "Text area clicked" model, Cmd.none)
-  ClickSideBar msg ->
-    case msg of
-      SideBar.Types.ToggleFolder ->
-        (Debug.log "Toggle folder" model, Cmd.none)
-      SideBar.Types.Open newTab ->
-        ({ model
-        | tabs = newTab :: model.tabs
-        }, Cmd.none)
-  ClickTabBar msg ->
-    (Debug.log "Tab bar clicked" model, Cmd.none)
+    AppendModel ->
+      ({ model
+      | tabs = model.tabs ++ TabBar.State.init
+      }, Cmd.none)
+
+    LogModel ->
+      (Debug.log "Model:" model, Cmd.none)
+
+    ClickTextArea msg ->
+      (Debug.log "Text area clicked" model, Cmd.none)
+
+    ClickSideBar msg ->
+      case msg of
+        SideBar.Types.ToggleFolder name ->
+          ({ model
+           | sidebarShortcuts = SideBar.State.toggleExpanded name model.sidebarShortcuts }
+          , Cmd.none)
+
+        SideBar.Types.Open newTab ->
+          ({ model
+          | tabs = newTab :: model.tabs }
+          ,Cmd.none)
+
+    ClickTabBar msg ->
+      (Debug.log "Tab bar clicked" model, Cmd.none)
 
 
 init : (Model, Cmd msg)
