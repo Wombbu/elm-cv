@@ -26,14 +26,20 @@ update msg model =
     ClickSideBar msg ->
       case msg of
         SideBar.Types.ToggleFolder name ->
-          ({ model
-           | sidebarShortcuts = SideBar.State.toggleExpanded name model.sidebarShortcuts }
-          , Cmd.none)
+          (
+            { model |
+              sidebarShortcuts = SideBar.State.toggleExpanded name model.sidebarShortcuts
+            }
+            , Cmd.none
+          )
 
         SideBar.Types.Open newTab ->
-          ({ model
-          | tabs = newTab :: model.tabs }
-          ,Cmd.none)
+          (
+            { model |
+              tabs = newTab :: model.tabs,
+              renderFunction = newTab.textAreaRenderFunc
+           }
+           , Cmd.none)
 
     ClickTabBar msg ->
       (Debug.log "Tab bar clicked" model, Cmd.none)
