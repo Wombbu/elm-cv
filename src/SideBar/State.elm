@@ -1,13 +1,20 @@
 module SideBar.State exposing (..)
 
-import SideBar.Types
+import SideBar.Types exposing (..)
 import TextArea.View
 
 
 -- Init
 
 
-initShortcuts : List SideBar.Types.Model
-initShortcuts =
-  [ { name = "Skills.java", textAreaRenderFunc = TextArea.View.java }
-  , { name = "Employers.java", textAreaRenderFunc = TextArea.View.java }]
+init : List Model
+init =
+  [ Model "Java" (initFiles ".java")
+  , Model "Elm" (initFiles ".elm")
+  ]
+
+initFiles : String -> List SideBarFile
+initFiles name =
+  [ SideBarFile  ("Info" ++ name) TextArea.View.java
+  , SideBarFile ("Skills" ++ name) TextArea.View.java
+  ]

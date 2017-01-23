@@ -26,7 +26,7 @@ update msg model =
 
 init : (Model, Cmd msg)
 init =
-  ({ sidebarShortcuts = SideBar.State.initShortcuts
+  ({ sidebarShortcuts = SideBar.State.init
   , tabs = TabBar.State.init
   , textArea = TextArea.State.init
   , renderFunction = TextArea.View.java

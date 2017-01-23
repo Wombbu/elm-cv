@@ -14,11 +14,31 @@ import SideBar.Types exposing (..)
 
 view : List Model -> Html Msg
 view model =
-  renderFiles model
+  renderFolder model
 
 
-renderFiles : List Model -> Html Msg
-renderFiles model =
+renderFolder : List Model -> Html Msg
+renderFolder model =
+  div []
+    ( map (\folder ->
+      div []
+      [
+        div [ styleSidebarEntry, onClick Open ]
+        [
+          p [] [ Html.text folder.folderName ]
+        ],
+
+        div []
+          [
+            renderFiles folder.files
+          ]
+      ]
+    )
+    model)
+
+
+renderFiles : List SideBarFile -> Html Msg
+renderFiles files =
   div []
     (map (\file ->
       div [styleSidebarEntry, onClick SideBar.Types.Open]
@@ -26,7 +46,7 @@ renderFiles model =
           p [] [ Html.text file.name ]
         ]
     )
-    model)
+    files)
 
 
 -- Styles
