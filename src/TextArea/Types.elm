@@ -1,5 +1,7 @@
 module TextArea.Types exposing (..)
 
+import Html exposing (Html)
+
 type alias Model =
   { info : List (String, String)
   , languages : List (String, Int)
@@ -26,3 +28,6 @@ type alias Project =
 
 type Msg =
     Click
+
+type alias SyntaxRenderFunc =
+  Model -> Html Msg

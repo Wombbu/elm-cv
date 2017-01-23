@@ -1,7 +1,7 @@
 module SideBar.State exposing (..)
 
 import SideBar.Types
-import TextArea.State
+import TextArea.View
 
 
 -- Init
@@ -9,5 +9,5 @@ import TextArea.State
 
 initShortcuts : List SideBar.Types.Model
 initShortcuts =
-  [ { name = "Intro.elm", file = TextArea.State.init }
-  , { name = "Juuh.elm", file = TextArea.State.init }]
+  [ { name = "Skills.java", textAreaRenderFunc = TextArea.View.java }
+  , { name = "Employers.java", textAreaRenderFunc = TextArea.View.java }]

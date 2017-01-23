@@ -1,11 +1,12 @@
 module TabBar.State exposing (..)
 
 import TabBar.Types
-import TextArea.State
+import TextArea.View
+
 
 -- Init
 
 
 init : List TabBar.Types.Model
 init =
-  [ {file = TextArea.State.init, text = "Intro.elm" }]
+  [ {textAreaRenderFunc = TextArea.View.java, text = "Intro.java" }]

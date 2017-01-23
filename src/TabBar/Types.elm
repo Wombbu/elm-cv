@@ -3,7 +3,7 @@ module TabBar.Types exposing (..)
 import TextArea.Types
 
 type alias Model =
-  { file : TextArea.Types.Model
+  { textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
   , text : String
   }
 

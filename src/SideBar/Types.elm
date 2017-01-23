@@ -4,9 +4,8 @@ import TextArea.Types
 
 type alias Model =
   { name : String
-  , file : TextArea.Types.Model
+  , textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
   }
-
 
 type Msg =
     Open

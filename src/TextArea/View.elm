@@ -8,7 +8,7 @@ import List exposing (map)
 import TextArea.Types exposing (..)
 
 
-java : TextArea.Types.Model -> Html TextArea.Types.Msg
+java : SyntaxRenderFunc
 java model =
   div []
   [
