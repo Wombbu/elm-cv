@@ -8,4 +8,4 @@ type alias Model =
   }
 
 type Msg =
-    Open
+    Open TextArea.Types.SyntaxRenderFunc

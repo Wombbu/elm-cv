@@ -1,6 +1,5 @@
 module TabBar.View exposing (..)
 
-import Debug
 import List exposing (map)
 import Html exposing (Html, div, h1, p)
 import Html.Events exposing (onClick)
@@ -21,7 +20,7 @@ renderTabs model =
     (map (\tab ->
       div [styleTab]
       [
-        p [ onClick Open ] [ Html.text tab.text ]
+        p [ onClick (Open tab.textAreaRenderFunc) ] [ Html.text tab.text ]
       ]
     ) model)
 

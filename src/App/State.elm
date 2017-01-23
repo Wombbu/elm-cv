@@ -7,6 +7,7 @@ import TabBar.State
 import SideBar.State
 import App.Types exposing (..)
 import SideBar.Types
+import TabBar.Types
 
 
 update : Msg -> Model -> (Model, Cmd msg)
@@ -42,7 +43,14 @@ update msg model =
            , Cmd.none)
 
     ClickTabBar msg ->
-      (Debug.log "Tab bar clicked" model, Cmd.none)
+      case msg of TabBar.Types.Open syntax ->
+        (
+          { model |
+            renderFunction = syntax
+          }
+          , Cmd.none
+        )
+
 
 
 init : (Model, Cmd msg)
