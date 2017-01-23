@@ -78,5 +78,6 @@ styleTextAreaContainer : Html.Attribute msg
 styleTextAreaContainer =
   styles
     [ flex ( int 1 )
-    ,  backgroundColor colorHighlight
+    , backgroundColor colorHighlight
+    , overflow scroll
     ]
