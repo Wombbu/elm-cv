@@ -12,7 +12,7 @@ update msg model =
   case msg of
   Types.AppendModel ->
     ({ model
-    | tabs = [ {file = TextArea.State.init, text = "Intro.elm" }, {file = TextArea.State.init, text = "Eiss.elm" }]
+    | tabs = model.tabs ++ TabBar.State.init
     }, Cmd.none)
   Types.LogModel ->
     (Debug.log "Model:" model, Cmd.none)
