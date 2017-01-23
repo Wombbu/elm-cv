@@ -44,15 +44,15 @@ initFrameworks =
 
 initEmployers : List Employer
 initEmployers =
-  [ { employerName = "Elisa"
+  [ { name = "Elisa"
   , description = "Made stuff"
-  , startDate = 999999
-  , endDate = 999999 },
+  , startDate = "05/2016"
+  , endDate = "08/2016" },
 
-  { employerName = "Sasken"
+  { name = "Sasken"
   , description = "Made other stuff"
-  , startDate = 888888
-  , endDate = 8888888 }
+  , startDate = "09/2016"
+  , endDate = "Present" }
   ]
 
 

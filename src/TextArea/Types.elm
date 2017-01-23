@@ -10,10 +10,10 @@ type alias Model =
 
 
 type alias Employer =
-  { employerName : String
+  { name : String
   , description : String
-  , startDate : Int
-  , endDate : Int
+  , startDate : String
+  , endDate : String
   }
 
 
