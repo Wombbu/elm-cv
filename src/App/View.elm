@@ -4,7 +4,7 @@ import Html exposing (Html, div, button)
 import Html.Events exposing (onClick)
 
 import Css exposing (..)
-import Shared.Styles exposing (styles, colorMain, colorHighlight)
+import Shared.Styles exposing (..)
 
 import App.Types exposing (Msg(..), Model)
 

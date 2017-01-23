@@ -1,23 +1,32 @@
 module SideBar.View exposing (..)
 
+import List exposing (map)
 import Html exposing (Html, div, p)
 import Html.Events exposing (onClick)
-
 import Css exposing (..)
-import Shared.Styles exposing (styles)
 
-import SideBar.Types
+import Shared.Styles exposing (..)
+import SideBar.Types exposing (..)
 
 
 -- Html
 
 
-view : List SideBar.Types.Model -> Html SideBar.Types.Msg
+view : List Model -> Html Msg
 view model =
-  div [styleSidebarEntry, onClick SideBar.Types.Open]
-  [
-    p [] [ Html.text "Sidebar entry" ]
-  ]
+  renderFiles model
+
+
+renderFiles : List Model -> Html Msg
+renderFiles model =
+  div []
+    (map (\file ->
+      div [styleSidebarEntry, onClick SideBar.Types.Open]
+        [
+          p [] [ Html.text file.name ]
+        ]
+    )
+    model)
 
 
 -- Styles
@@ -29,5 +38,6 @@ styleSidebarEntry =
     [ backgroundColor ( Shared.Styles.colorHighlight )
     , overflowX hidden
     , overflowY hidden
-    , height ( px 40)
+    , height ( px 40 )
+    , border ( px 1 )
     ]
