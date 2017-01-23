@@ -7,7 +7,7 @@ import Css exposing (..)
 
 import Shared.Styles exposing (..)
 import SideBar.Types exposing (..)
-
+import TabBar.Types
 
 -- Html
 
@@ -23,7 +23,7 @@ renderFolder model =
     ( map (\folder ->
       div []
       [
-        div [ styleSidebarEntry, onClick Open ]
+        div [ styleSidebarEntry, onClick ToggleFolder ]
         [
           p [] [ Html.text folder.folderName ]
         ],
@@ -41,7 +41,7 @@ renderFiles : List SideBarFile -> Html Msg
 renderFiles files =
   div []
     (map (\file ->
-      div [styleSidebarEntry, onClick SideBar.Types.Open]
+      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name))]
         [
           p [] [ Html.text file.name ]
         ]

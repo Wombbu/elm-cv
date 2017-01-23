@@ -4,23 +4,30 @@ import TextArea.View
 import TextArea.State
 import TabBar.State
 import SideBar.State
-import App.Types as Types exposing (..)
+import App.Types exposing (..)
+import SideBar.Types
 
 
 update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
-  Types.AppendModel ->
+  AppendModel ->
     ({ model
     | tabs = model.tabs ++ TabBar.State.init
     }, Cmd.none)
-  Types.LogModel ->
+  LogModel ->
     (Debug.log "Model:" model, Cmd.none)
-  Types.ClickTextArea msg ->
+  ClickTextArea msg ->
     (Debug.log "Text area clicked" model, Cmd.none)
-  Types.ClickSideBar msg ->
-    (Debug.log "Text area clicked" model, Cmd.none)
-  Types.ClickTabBar msg ->
+  ClickSideBar msg ->
+    case msg of
+      SideBar.Types.ToggleFolder ->
+        (Debug.log "Toggle folder" model, Cmd.none)
+      SideBar.Types.Open newTab ->
+        ({ model
+        | tabs = newTab :: model.tabs
+        }, Cmd.none)
+  ClickTabBar msg ->
     (Debug.log "Tab bar clicked" model, Cmd.none)
 
 

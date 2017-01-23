@@ -1,10 +1,11 @@
 module SideBar.Types exposing (..)
 
 import TextArea.Types
+import TabBar.Types
 
 type alias Model =
   { folderName: String
-  , files: List SideBarFile 
+  , files: List SideBarFile
   }
 
 type alias SideBarFile =
@@ -13,4 +14,5 @@ type alias SideBarFile =
   }
 
 type Msg =
-    Open
+    Open TabBar.Types.Model
+    | ToggleFolder
