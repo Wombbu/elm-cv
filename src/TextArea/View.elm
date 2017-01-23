@@ -8,5 +8,5 @@ import TextArea.Types
 java : TextArea.Types.Model -> Html TextArea.Types.Msg
 java model =
   div []
-  [ h1 [onClick TextArea.Types.Click] [ text "Java" ]
+  [ h1 [onClick TextArea.Types.Click] [ model |> toString |> text]
   ]
