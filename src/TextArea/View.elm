@@ -7,6 +7,15 @@ import List exposing (map)
 
 import TextArea.Types exposing (..)
 
+elm : SyntaxRenderFunc
+elm model =
+  div []
+  [
+    renderFrameworks model.frameworks,
+    renderLanguages model.languages,
+    renderEmployers model.employers,
+    renderInfo model.info
+  ]
 
 java : SyntaxRenderFunc
 java model =

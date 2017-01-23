@@ -3,6 +3,7 @@ module SideBar.State exposing (..)
 import List exposing (map)
 import SideBar.Types exposing (..)
 import TextArea.View
+import TextArea.Types
 
 
 -- Init
@@ -10,14 +11,14 @@ import TextArea.View
 
 init : List Model
 init =
-  [ Model "Java" False (initFiles ".java")
-  , Model "Elm" True (initFiles ".elm")
+  [ Model "Java" False (initFiles ".java" TextArea.View.java)
+  , Model "Elm" True (initFiles ".elm" TextArea.View.elm)
   ]
 
-initFiles : String -> List SideBarFile
-initFiles name =
-  [ SideBarFile  ("Info" ++ name) TextArea.View.java
-  , SideBarFile ("Skills" ++ name) TextArea.View.java
+initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
+initFiles name syntax =
+  [ SideBarFile  ("Info" ++ name) syntax
+  , SideBarFile ("Skills" ++ name) syntax
   ]
 
 
