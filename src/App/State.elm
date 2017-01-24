@@ -38,10 +38,11 @@ update msg model =
 
     ClickTabBar msg ->
       case msg of
-        TabBar.Types.Open syntaxFunc ->
+        TabBar.Types.Open (syntaxFunc, textAreaModel) ->
           (
             { model |
-              renderFunction = syntaxFunc
+              renderFunction = syntaxFunc,
+              textArea = textAreaModel
             }
             , Cmd.none
           )

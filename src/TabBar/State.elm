@@ -2,6 +2,7 @@ module TabBar.State exposing (..)
 
 import TabBar.Types exposing (..)
 import TextArea.View.Java
+import TextArea.State
 
 
 -- Init
@@ -9,7 +10,7 @@ import TextArea.View.Java
 
 init : List Model
 init =
-  [ Model TextArea.View.Java.view "Intro.java" True ]
+  [ Model TextArea.View.Java.view "Intro.java" True TextArea.State.init]
 
 
 -- Helper functions

@@ -20,7 +20,7 @@ renderTabs model =
     (map (\tab ->
       div [styleTab]
       [
-        p [ onClick (Open tab.textAreaRenderFunc) ] [ Html.text tab.text ],
+        p [ onClick (Open (tab.textAreaRenderFunc, tab.textAreaModel)) ] [ Html.text tab.text ],
         p [ onClick (Close tab.text) ] [Html.text "Close"]
       ]
     ) model)

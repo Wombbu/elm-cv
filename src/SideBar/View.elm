@@ -8,6 +8,7 @@ import Css exposing (..)
 import Shared.Styles exposing (..)
 import SideBar.Types exposing (..)
 import TabBar.Types
+import TextArea.State
 
 -- Html
 
@@ -43,7 +44,7 @@ renderFiles : List SideBarFile -> Html Msg
 renderFiles files =
   div []
     (map (\file ->
-      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True))]
+      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))]
         [
           p [] [ Html.text file.name ]
         ]
