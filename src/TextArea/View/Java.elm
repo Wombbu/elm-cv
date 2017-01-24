@@ -1,4 +1,4 @@
-module TextArea.View exposing (..)
+module TextArea.View.Java exposing (..)
 
 import Html exposing (Html, div, h1, text, ul, li, p)
 -- import Html.Events exposing (..)
@@ -17,8 +17,8 @@ elm model =
     renderInfo model.info
   ]
 
-java : SyntaxRenderFunc
-java model =
+view : SyntaxRenderFunc
+view model =
   div []
   [
     renderInfo model.info,

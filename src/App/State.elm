@@ -2,7 +2,7 @@ module App.State exposing (..)
 
 import Maybe exposing (withDefault)
 import List exposing (filter, head, map)
-import TextArea.View
+import TextArea.View.Java
 import TextArea.State
 import TextArea.Types
 import TabBar.State
@@ -63,7 +63,6 @@ update msg model =
                       map (setTabActive tab) tabRemoved
                     Nothing ->
                       tabRemoved
-
             in
               { model |
                 tabs = tabRemovedAndFirstTabActive,
@@ -92,7 +91,7 @@ firstTabRenderFunc model =
       Just tab ->
         tab.textAreaRenderFunc
       Nothing ->
-        TextArea.View.elm
+        TextArea.View.Java.view
 
 
 -- Init
@@ -103,7 +102,7 @@ init =
   ({ sidebarShortcuts = SideBar.State.init
   , tabs = TabBar.State.init
   , textArea = TextArea.State.init
-  , renderFunction = TextArea.View.java
+  , renderFunction = TextArea.View.Java.view
   }, Cmd.none)
 
 
