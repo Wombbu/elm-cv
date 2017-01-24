@@ -16,6 +16,14 @@ init =
 
 -- Helper functions
 
+
 removeTabsWithName : String -> Model -> Bool
 removeTabsWithName name tab =
-       tab.text /= name
+  tab.text /= name
+
+
+-- makeTabActive Model -> Model
+-- makeTabActive tab
+--   { tab |
+--
+--   }

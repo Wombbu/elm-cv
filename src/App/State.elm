@@ -1,8 +1,10 @@
 module App.State exposing (..)
 
-import List exposing (filter)
+import Maybe exposing (withDefault)
+import List exposing (filter, head)
 import TextArea.View
 import TextArea.State
+import TextArea.Types
 import TabBar.State
 import SideBar.State
 import App.Types exposing (..)
@@ -54,11 +56,31 @@ update msg model =
 
         TabBar.Types.Close text ->
           (
-            { model |
-              tabs = filter ( TabBar.State.removeTabsWithName text ) model.tabs
-            }
-            , Cmd.none
+            let newTabs =
+              filter ( TabBar.State.removeTabsWithName text ) model.tabs
+            in
+              { model |
+                tabs = newTabs,
+                renderFunction = openFirstTab newTabs
+              }
+              , Cmd.none
           )
+
+
+openFirstTab : List TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
+openFirstTab model =
+  let
+    firstTab =
+      head model
+  in
+    case firstTab of
+      Just tab ->
+        tab.textAreaRenderFunc
+      Nothing ->
+        TextArea.View.elm
+
+
+-- Init
 
 
 init : (Model, Cmd msg)
