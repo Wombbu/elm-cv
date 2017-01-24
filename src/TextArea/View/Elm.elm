@@ -1,7 +1,6 @@
-module TextArea.View.Java exposing (..)
+module TextArea.View.Elm exposing (..)
 
 import Html exposing (Html, div, h1, text, ul, li, p)
--- import Html.Events exposing (..)
 import Tuple exposing (first, second)
 import List exposing (map)
 
@@ -12,7 +11,7 @@ view : SyntaxRenderFunc
 view model =
   div []
   [
-    h1 [] [Html.text "Java"],
+    h1 [] [Html.text "elm"],
     renderInfo model.info,
     renderEmployers model.employers,
     renderLanguages model.languages,

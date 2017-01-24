@@ -2,7 +2,7 @@ module App.State exposing (..)
 
 import Maybe exposing (withDefault)
 import List exposing (filter, head, map)
-import TextArea.View.Java
+import TextArea.View.Base
 import TextArea.State
 import TextArea.Types
 import TabBar.State
@@ -91,7 +91,7 @@ firstTabRenderFunc model =
       Just tab ->
         tab.textAreaRenderFunc
       Nothing ->
-        TextArea.View.Java.view
+        TextArea.View.Base.view
 
 
 -- Init
@@ -102,7 +102,7 @@ init =
   ({ sidebarShortcuts = SideBar.State.init
   , tabs = TabBar.State.init
   , textArea = TextArea.State.init
-  , renderFunction = TextArea.View.Java.view
+  , renderFunction = TextArea.View.Base.view
   }, Cmd.none)
 
 
