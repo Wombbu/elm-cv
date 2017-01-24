@@ -32,7 +32,7 @@ renderTabs model =
 styleTab : Html.Attribute msg
 styleTab =
   styles
-    [ backgroundColor colorHighlight
+    [ backgroundColor colorTextArea
     , displayFlex
     , flexDirection row
     , flex ( int 1 )
@@ -44,7 +44,7 @@ styleTab =
 styleTabContainer : Html.Attribute msg
 styleTabContainer =
   styles
-    [ backgroundColor colorMain
+    [ backgroundColor colorSidebarBg
     , displayFlex
     , flex  ( int 1 )
     , flexDirection row

@@ -58,7 +58,7 @@ renderFiles files =
 styleSidebarEntry : Html.Attribute msg
 styleSidebarEntry =
   styles
-    [ backgroundColor ( Shared.Styles.colorHighlight )
+    [ backgroundColor ( Shared.Styles.colorSidebarHilight )
     , overflowX hidden
     , overflowY hidden
     , height ( px 40 )

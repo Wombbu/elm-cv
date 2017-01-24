@@ -9,37 +9,29 @@ import Html.Attributes
 -- Colors
 
 
-colorMain : Color
-colorMain =
-  hex "#333c37"
-
-colorHighlight : Color
-colorHighlight =
-  hex "#fff"
-
 colorTextArea : Color
 colorTextArea =
-  rgb 30 33 39
+  rgb 45 48 55
 
 colorSidebarBg : Color
 colorSidebarBg =
-  rgb 25 28 32
+  rgb 39 41 47
 
 colorSidebarHilight : Color
 colorSidebarHilight =
-  rgb 33 36 44
+  rgb 49 52 61
 
 colorTextMain : Color
 colorTextMain =
-  rgb 139 147 164
+  rgb 158 163 178
 
 colorTextHilight : Color
 colorTextHilight =
-  rgb 204 208 216
+  rgb 215 217 223
 
 colorBlue : Color
 colorBlue =
-  rgb 94 138 255
+  rgb 127 158 252
 
 
 

@@ -52,7 +52,7 @@ styleSidebarContainer=
   styles
     [ height ( pct 100 )
     , flex ( int 1 )
-    , backgroundColor colorMain
+    , backgroundColor colorSidebarBg
     ]
 
 
@@ -79,6 +79,6 @@ styleTextAreaContainer : Html.Attribute msg
 styleTextAreaContainer =
   styles
     [ flex ( int 1 )
-    , backgroundColor colorHighlight
+    , backgroundColor colorTextArea
     , overflow scroll
     ]
