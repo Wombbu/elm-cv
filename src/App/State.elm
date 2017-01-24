@@ -1,7 +1,7 @@
 module App.State exposing (..)
 
 import Maybe exposing (withDefault)
-import List exposing (filter, head)
+import List exposing (filter, head, map)
 import TextArea.View
 import TextArea.State
 import TextArea.Types
@@ -47,20 +47,43 @@ update msg model =
           )
 
         TabBar.Types.Close text ->
+          -- TODO refactor this
           (
-            let newTabs =
-              filter ( TabBar.State.removeTabsWithName text ) model.tabs
+            let
+              tabRemoved =
+                filter ( TabBar.State.removeTabsWithName text ) model.tabs
+
+              tabRemovedAndFirstTabActive =
+                let
+                  firstTab =
+                    head model.tabs
+                in
+                  case firstTab of
+                    Just tab ->
+                      map (setTabActive tab) tabRemoved
+                    Nothing ->
+                      tabRemoved
+
             in
               { model |
-                tabs = newTabs,
-                renderFunction = openFirstTab newTabs
+                tabs = tabRemovedAndFirstTabActive,
+                renderFunction = firstTabRenderFunc tabRemovedAndFirstTabActive
               }
               , Cmd.none
           )
 
 
-openFirstTab : List TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
-openFirstTab model =
+setTabActive : TabBar.Types.Model -> TabBar.Types.Model -> TabBar.Types.Model
+setTabActive tab1 tab2 =
+  if tab1.text == tab2.text then
+    { tab2 |
+     active = True
+    }
+  else
+    tab2
+
+firstTabRenderFunc : List TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
+firstTabRenderFunc model =
   let
     firstTab =
       head model

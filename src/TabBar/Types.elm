@@ -5,6 +5,7 @@ import TextArea.Types
 type alias Model =
   { textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
   , text : String
+  , active : Bool
   }
 
 type Msg =

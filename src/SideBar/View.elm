@@ -43,7 +43,7 @@ renderFiles : List SideBarFile -> Html Msg
 renderFiles files =
   div []
     (map (\file ->
-      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name))]
+      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True))]
         [
           p [] [ Html.text file.name ]
         ]

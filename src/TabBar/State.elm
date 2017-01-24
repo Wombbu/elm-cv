@@ -9,9 +9,7 @@ import TextArea.View
 
 init : List Model
 init =
-  [ {textAreaRenderFunc = TextArea.View.java, text = "Intro.java" }
-  , {textAreaRenderFunc = TextArea.View.java, text = "Juuh.java" }
-  ]
+  [ Model TextArea.View.java "Intro.java" True ]
 
 
 -- Helper functions
@@ -22,8 +20,8 @@ removeTabsWithName name tab =
   tab.text /= name
 
 
--- makeTabActive Model -> Model
--- makeTabActive tab
---   { tab |
---
---   }
+setActive : Bool -> Model -> Model
+setActive isActive tab =
+  { tab |
+    active = isActive
+  }
