@@ -15,14 +15,6 @@ import TabBar.Types
 update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
-    AppendModel ->
-      ({ model
-      | tabs = model.tabs ++ TabBar.State.init
-      }, Cmd.none)
-
-    LogModel ->
-      (Debug.log "Model:" model, Cmd.none)
-
     ClickTextArea msg ->
       (Debug.log "Text area clicked" model, Cmd.none)
 
