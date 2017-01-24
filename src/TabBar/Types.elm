@@ -9,3 +9,4 @@ type alias Model =
 
 type Msg =
     Open TextArea.Types.SyntaxRenderFunc
+    | Close String

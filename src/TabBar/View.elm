@@ -20,7 +20,8 @@ renderTabs model =
     (map (\tab ->
       div [styleTab]
       [
-        p [ onClick (Open tab.textAreaRenderFunc) ] [ Html.text tab.text ]
+        p [ onClick (Open tab.textAreaRenderFunc) ] [ Html.text tab.text ],
+        p [ onClick (Close tab.text) ] [Html.text "Close"]
       ]
     ) model)
 
@@ -33,6 +34,7 @@ styleTab =
   styles
     [ backgroundColor colorHighlight
     , displayFlex
+    , flexDirection row
     , flex ( int 1 )
     , textAlign center
     , width ( px 100 )

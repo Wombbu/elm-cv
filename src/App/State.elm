@@ -1,6 +1,6 @@
 module App.State exposing (..)
 
-import List exposing (map)
+import List exposing (filter)
 import TextArea.View
 import TextArea.State
 import TabBar.State
@@ -37,20 +37,28 @@ update msg model =
         SideBar.Types.Open newTab ->
           (
             { model |
-              tabs = newTab :: model.tabs,
+              tabs = newTab :: filter (TabBar.State.removeTabsWithName newTab.text) model.tabs,
               renderFunction = newTab.textAreaRenderFunc
            }
            , Cmd.none)
 
     ClickTabBar msg ->
-      case msg of TabBar.Types.Open syntax ->
-        (
-          { model |
-            renderFunction = syntax
-          }
-          , Cmd.none
-        )
+      case msg of
+        TabBar.Types.Open syntaxFunc ->
+          (
+            { model |
+              renderFunction = syntaxFunc
+            }
+            , Cmd.none
+          )
 
+        TabBar.Types.Close text ->
+          (
+            { model |
+              tabs = filter ( TabBar.State.removeTabsWithName text ) model.tabs
+            }
+            , Cmd.none
+          )
 
 
 init : (Model, Cmd msg)
