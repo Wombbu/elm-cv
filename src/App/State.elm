@@ -67,7 +67,7 @@ update msg model =
             in
               { model |
                 tabs = tabRemovedAndFirstTabActive,
-                renderFunction = firstTabRenderFunc tabRemovedAndFirstTabActive
+                renderFunction = getRenderingFunc (head tabRemovedAndFirstTabActive)
               }
               , Cmd.none
           )
@@ -82,17 +82,14 @@ setTabActive tab1 tab2 =
   else
     tab2
 
-firstTabRenderFunc : List TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
-firstTabRenderFunc model =
-  let
-    firstTab =
-      head model
-  in
-    case firstTab of
-      Just tab ->
-        tab.textAreaRenderFunc
-      Nothing ->
-        TextArea.View.Base.view
+
+getRenderingFunc : Maybe TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
+getRenderingFunc model =
+  case model of
+    Just tab ->
+      tab.textAreaRenderFunc
+    Nothing ->
+      TextArea.View.Base.view
 
 
 -- Init
