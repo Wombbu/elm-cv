@@ -1,11 +1,10 @@
 module App.State exposing (..)
 
-import Maybe exposing (withDefault)
+import Maybe exposing (withDefault, andThen)
 import List exposing (filter, head, map)
 import TextArea.View.Base
 import TextArea.State
-import TextArea.Types
-import TabBar.State
+import TabBar.State exposing (setTabActiveWithText)
 import SideBar.State
 import App.Types exposing (..)
 import SideBar.Types
@@ -48,48 +47,27 @@ update msg model =
           )
 
         TabBar.Types.Close text ->
-          -- TODO refactor this
           (
             let
               tabRemoved =
-                filter ( TabBar.State.removeTabsWithName text ) model.tabs
+                model.tabs |> filter (TabBar.State.removeTabsWithName text)
 
-              tabRemovedAndFirstTabActive =
-                let
-                  firstTab =
-                    head model.tabs
-                in
-                  case firstTab of
-                    Just tab ->
-                      map (setTabActive tab) tabRemoved
-                    Nothing ->
-                      tabRemoved
+              firstTabActive =
+                head tabRemoved
+                |> andThen
+                  (\tab -> Just (tabRemoved |> map (setTabActiveWithText tab.text)))
+                |> withDefault tabRemoved
+
             in
               { model |
-                tabs = tabRemovedAndFirstTabActive,
-                renderFunction = getRenderingFunc (head tabRemovedAndFirstTabActive)
+                tabs = firstTabActive,
+                renderFunction =
+                  (head firstTabActive)
+                  |> andThen (\tab -> Just (tab.textAreaRenderFunc))
+                  |> withDefault TextArea.View.Base.view
               }
               , Cmd.none
           )
-
-
-setTabActive : TabBar.Types.Model -> TabBar.Types.Model -> TabBar.Types.Model
-setTabActive tab1 tab2 =
-  if tab1.text == tab2.text then
-    { tab2 |
-     active = True
-    }
-  else
-    tab2
-
-
-getRenderingFunc : Maybe TabBar.Types.Model -> TextArea.Types.SyntaxRenderFunc
-getRenderingFunc model =
-  case model of
-    Just tab ->
-      tab.textAreaRenderFunc
-    Nothing ->
-      TextArea.View.Base.view
 
 
 -- Init
