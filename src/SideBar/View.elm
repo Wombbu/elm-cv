@@ -26,7 +26,7 @@ renderFolder : Model -> Html Msg
 renderFolder folder =
       div []
       [
-        div [ onClick (ToggleFolder folder.folderName) ]
+        div [ class [Folder, active folder.active], onClick (ToggleFolder folder.folderName) ]
         [
           p [] [ Html.text folder.folderName ]
         ],
@@ -41,7 +41,7 @@ renderFolder folder =
 renderFiles : SideBarFile -> Html Msg
 renderFiles file =
       div
-      [ class [FileShared,  active file.active]
+      [ class [File,  active file.active]
         -- TODO create tabbar-model at the app.state, not here
       , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
       ]
@@ -62,18 +62,56 @@ active isActive =
 
 
 type CssClass
-    = FileShared
+    = File
     | FileInactive
     | FileActive
+
+    | Folder
+    | FolderActive
+    | FolderInactive
 
 
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "text-area")
-  [ (.) FileShared
-    [ height ( pt 40 )
+  [ (.) Folder
+    [ height ( pt 30 )
     , margin ( px 0 )
     , padding ( px 0 )
+    , textAlign center
+    , children
+      [ Css.Elements.p
+        [ backgroundColor Shared.Styles.colorSidebarBg
+        , color Shared.Styles.colorTextMain
+        ]
+      ]
+    ]
+
+  , (.) FolderActive
+    [ backgroundColor Shared.Styles.colorSidebarHilight
+    , children
+      [ Css.Elements.p
+        [ backgroundColor Shared.Styles.colorSidebarBg
+        , color Shared.Styles.colorTextMain
+        ]
+      ]
+    ]
+
+  , (.) FolderInactive
+      [ backgroundColor Shared.Styles.colorSidebarHilight
+      , children
+        [ Css.Elements.p
+          [ backgroundColor Shared.Styles.colorSidebarHilight
+          , color Shared.Styles.colorTextHilight
+          ]
+        ]
+      ]
+
+  , (.) File
+    [ height ( pt 30 )
+    , margin ( px 0 )
+    , padding ( px 0 )
+    , textAlign center
     ]
 
   , (.) FileInactive

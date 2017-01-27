@@ -7,6 +7,7 @@ type alias Model =
   { folderName: String
   , expanded: Bool
   , files: List SideBarFile
+  , active: Bool
   }
 
 

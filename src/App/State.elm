@@ -5,7 +5,7 @@ import List exposing (filter, head, map)
 import TextArea.View.Base
 import TextArea.State
 import TabBar.State exposing (setTabActiveWithText)
-import SideBar.State exposing (setFileActiveWithName)
+import SideBar.State exposing (setFileActiveWithName, setFolderActiveWithName)
 import App.Types exposing (..)
 import SideBar.Types
 import TabBar.Types
@@ -22,7 +22,12 @@ update msg model =
         SideBar.Types.ToggleFolder name ->
           (
             { model |
-              sideBarFolders = SideBar.State.toggleExpanded name model.sideBarFolders
+              sideBarFolders =
+                model.sideBarFolders
+                |> map (SideBar.State.goThroughAllFiles (\file -> {file | active = False}))
+                |> map (\folder -> { folder | active = False})
+                |> map (SideBar.State.setFolderActiveWithName name)
+                |> map (SideBar.State.toggleExpanded name)
             }
             , Cmd.none
           )
@@ -39,7 +44,9 @@ update msg model =
               tabs = newTab :: inActiveUnDeletedTabs,
               renderFunction = newTab.textAreaRenderFunc,
               sideBarFolders =
-                model.sideBarFolders |> map (setFileActiveWithName newTab.text)
+                model.sideBarFolders
+                |> map (\folder -> { folder | active = False})
+                |> map (setFileActiveWithName newTab.text)
             }
             , Cmd.none
           )

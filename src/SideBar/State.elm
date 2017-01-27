@@ -12,8 +12,8 @@ import TextArea.Types
 
 init : List Model
 init =
-  [ Model "Java" False (initFiles ".java" TextArea.View.Java.view)
-  , Model "Elm" True (initFiles ".elm" TextArea.View.Elm.view)
+  [ Model "Java" False (initFiles ".java" TextArea.View.Java.view) False
+  , Model "Elm" True (initFiles ".elm" TextArea.View.Elm.view) False
   ]
 
 
@@ -27,18 +27,26 @@ initFiles name syntax =
 -- Helper functions
 
 
-toggleExpanded : String -> List Model -> List Model
-toggleExpanded name model =
-  (map (\folder ->
+setFolderActiveWithName : String -> Model -> Model
+setFolderActiveWithName name folder =
+  if folder.folderName == name then
+    { folder |
+      active = True
+    }
+  else
+    { folder |
+      active = False
+    }
+
+
+toggleExpanded : String -> Model -> Model
+toggleExpanded name folder =
       if folder.folderName == name then
           { folder
           | expanded = not folder.expanded
           }
       else
         folder
-      )
-    model
-  )
 
 
 setFileActiveWithName : String -> Model -> Model
