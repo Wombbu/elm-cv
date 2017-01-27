@@ -5,7 +5,7 @@ import List exposing (filter, head, map)
 import TextArea.View.Base
 import TextArea.State
 import TabBar.State exposing (setTabActiveWithText)
-import SideBar.State
+import SideBar.State exposing (setFileActiveWithName)
 import App.Types exposing (..)
 import SideBar.Types
 import TabBar.Types
@@ -22,7 +22,7 @@ update msg model =
         SideBar.Types.ToggleFolder name ->
           (
             { model |
-              sidebarShortcuts = SideBar.State.toggleExpanded name model.sidebarShortcuts
+              sideBarFolders = SideBar.State.toggleExpanded name model.sideBarFolders
             }
             , Cmd.none
           )
@@ -31,9 +31,12 @@ update msg model =
           (
             { model |
               tabs = newTab :: filter (TabBar.State.removeTabsWithName newTab.text) model.tabs,
-              renderFunction = newTab.textAreaRenderFunc
-           }
-           , Cmd.none)
+              renderFunction = newTab.textAreaRenderFunc,
+              sideBarFolders =
+                model.sideBarFolders |> map (setFileActiveWithName newTab.text)
+            }
+            , Cmd.none
+          )
 
     ClickTabBar msg ->
       case msg of
@@ -58,13 +61,20 @@ update msg model =
                   (\tab -> Just (tabRemoved |> map (setTabActiveWithText tab.text)))
                 |> withDefault tabRemoved
 
+              newActiveTabName =
+                head tabRemoved
+                |> andThen
+                  (\tab -> Just (tab.text))
+                |> withDefault ""
+
             in
               { model |
                 tabs = firstTabActive,
                 renderFunction =
                   (head firstTabActive)
                   |> andThen (\tab -> Just (tab.textAreaRenderFunc))
-                  |> withDefault TextArea.View.Base.view
+                  |> withDefault TextArea.View.Base.view,
+                sideBarFolders = model.sideBarFolders |> map (setFileActiveWithName newActiveTabName)
               }
               , Cmd.none
           )
@@ -75,7 +85,7 @@ update msg model =
 
 init : (Model, Cmd msg)
 init =
-  ({ sidebarShortcuts = SideBar.State.init
+  ({ sideBarFolders = SideBar.State.init
   , tabs = TabBar.State.init
   , textArea = TextArea.State.init
   , renderFunction = TextArea.View.Base.view

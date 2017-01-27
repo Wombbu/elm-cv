@@ -12,6 +12,7 @@ type alias Model =
 type alias SideBarFile =
   { name : String
   , textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
+  , active : Bool
   }
 
 type Msg =

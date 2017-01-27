@@ -17,7 +17,7 @@ view model =
   [
     div [ id SideBarContainer ]
     [
-      Html.map App.Types.ClickSideBar (SideBar.View.view model.sidebarShortcuts)
+      Html.map App.Types.ClickSideBar (SideBar.View.view model.sideBarFolders)
     ],
 
     div [id TabAndTextAreaContainer]
@@ -67,8 +67,9 @@ css =
     [ margin ( px 0 )
     , padding ( px 0 )
     , flex ( int 1 )
-    , backgroundColor ( rgb 100 100 0 )
+    , backgroundColor Shared.Styles.colorSidebarBg
     , maxHeight ( vh 80 )
+    , minHeight (vh 80 )
     , overflow scroll
     ]
 

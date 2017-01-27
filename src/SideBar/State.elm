@@ -18,12 +18,13 @@ init =
 
 initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
 initFiles name syntax =
-  [ SideBarFile  ("Info" ++ name) syntax
-  , SideBarFile ("Skills" ++ name) syntax
+  [ SideBarFile  ("Info" ++ name) syntax False
+  , SideBarFile ("Skills" ++ name) syntax False
   ]
 
 
 -- Helper functions
+
 
 toggleExpanded : String -> List Model -> List Model
 toggleExpanded name model =
@@ -35,4 +36,26 @@ toggleExpanded name model =
       else
         folder
       )
-    model)
+    model
+  )
+
+setFileActiveWithName : String -> Model -> Model
+setFileActiveWithName name model =
+  model |> goThroughAllFiles (setActive name)
+
+goThroughAllFiles : (SideBarFile -> SideBarFile) -> Model -> Model
+goThroughAllFiles function model =
+  { model |
+    files = model.files |> map function
+  }
+
+setActive : String -> SideBarFile -> SideBarFile
+setActive withName file =
+  if file.name == withName then
+      { file |
+       active = True
+      }
+  else
+    { file |
+     active = False
+    }

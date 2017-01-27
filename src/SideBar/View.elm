@@ -41,34 +41,49 @@ renderFolder folder =
 renderFiles : SideBarFile -> Html Msg
 renderFiles file =
       div
-      [ class [SidebarCommon, SidebarHilight]
+      [ class [FileShared,  active file.active]
         -- TODO create tabbar-model at the app.state, not here
       , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
       ]
       [ p [] [ Html.text file.name ] ]
 
 
+
 -- Styles
+
+
+active : Bool -> CssClass
+active isActive =
+  pickClass FileActive FileInactive isActive
+
+pickClass : CssClass -> CssClass -> Bool -> CssClass
+pickClass first second pickFirst =
+  if pickFirst then
+    first
+  else
+    second
 
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
 
-type CssClasses
-    = SidebarCommon
-    | SidebarDefault
-    | SidebarHilight
+
+type CssClass
+    = FileShared
+    | FileInactive
+    | FileActive
+
 
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "text-area")
-  [ (.) SidebarCommon
+  [ (.) FileShared
     [ height ( pt 40 )
     , margin ( px 0 )
     , padding ( px 0 )
     ]
 
-  , (.) SidebarDefault
+  , (.) FileInactive
     [ backgroundColor Shared.Styles.colorSidebarBg
     , children
       [ Css.Elements.p
@@ -78,7 +93,7 @@ css =
       ]
     ]
 
-  , (.) SidebarHilight
+  , (.) FileActive
       [ backgroundColor Shared.Styles.colorSidebarHilight
       , children
         [ Css.Elements.p
