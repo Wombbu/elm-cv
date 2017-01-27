@@ -3,6 +3,7 @@ module App.View exposing (..)
 import Html exposing (Html, div, button)
 import Html.CssHelpers
 import Css exposing (..)
+import Css.Elements exposing (p)
 import Css.Namespace exposing (namespace)
 import Shared.Styles exposing (..)
 
@@ -61,6 +62,11 @@ css =
     , alignItems flexStart
     , backgroundColor ( rgb 255 100 0 )
     , overflow scroll
+    , children
+      [ Css.Elements.p
+        [ padding ( px 0 )
+        , margin ( px 0 ) ]
+      ]
     ]
 
   , (#) SideBarContainer
