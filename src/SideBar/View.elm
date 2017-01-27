@@ -13,6 +13,7 @@ import SideBar.Types exposing (..)
 import TabBar.Types
 import TextArea.State
 
+
 -- Html
 
 
@@ -26,9 +27,12 @@ renderFolder : Model -> Html Msg
 renderFolder folder =
       div []
       [
-        div [ class [Folder, active folder.active], onClick (ToggleFolder folder.folderName) ]
+        div [ class [Button, active folder.active], onClick (ToggleFolder folder.folderName) ]
         [
-          p [] [ Html.text folder.folderName ]
+          div [ class [FolderContent] ]
+          [
+            p [] [ Html.text folder.folderName ]
+          ]
         ],
         if folder.expanded then
           div []
@@ -41,12 +45,16 @@ renderFolder folder =
 renderFiles : SideBarFile -> Html Msg
 renderFiles file =
       div
-      [ class [File,  active file.active]
+      [ class [Button,  active file.active]
         -- TODO create tabbar-model at the app.state, not here
       , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
       ]
-      [ p [] [ Html.text file.name ] ]
-
+      [
+        div [ class [ FileContent ] ]
+        [
+          p [] [ Html.text file.name ]
+        ]
+      ]
 
 
 -- Styles
@@ -54,7 +62,7 @@ renderFiles file =
 
 active : Bool -> CssClass
 active isActive =
-  pickClass FileActive FileInactive isActive
+  pickClass Active Inactive isActive
 
 
 { id, class, classList } =
@@ -62,75 +70,51 @@ active isActive =
 
 
 type CssClass
-    = File
-    | FileInactive
-    | FileActive
-
-    | Folder
-    | FolderActive
-    | FolderInactive
+    = Button
+    | FileContent
+    | FolderContent
+    | Inactive
+    | Active
 
 
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "text-area")
-  [ (.) Folder
+  [ (.) Button
     [ height ( pt 30 )
     , margin ( px 0 )
     , padding ( px 0 )
-    , textAlign center
-    , children
-      [ Css.Elements.p
-        [ backgroundColor Shared.Styles.colorSidebarBg
-        , color Shared.Styles.colorTextMain
-        ]
-      ]
+    , displayFlex
+    , flexDirection row
+    , alignItems center
     ]
 
-  , (.) FolderActive
-    [ backgroundColor Shared.Styles.colorSidebarHilight
-    , children
-      [ Css.Elements.p
-        [ backgroundColor Shared.Styles.colorSidebarBg
-        , color Shared.Styles.colorTextMain
-        ]
-      ]
+  , (.) FolderContent
+    [ paddingLeft ( em 2 )
+
     ]
 
-  , (.) FolderInactive
-      [ backgroundColor Shared.Styles.colorSidebarHilight
-      , children
-        [ Css.Elements.p
-          [ backgroundColor Shared.Styles.colorSidebarHilight
-          , color Shared.Styles.colorTextHilight
-          ]
-        ]
-      ]
+  , (.) FileContent
+    [ paddingLeft ( em 3 )
 
-  , (.) File
-    [ height ( pt 30 )
-    , margin ( px 0 )
-    , padding ( px 0 )
-    , textAlign center
     ]
 
-  , (.) FileInactive
+  , (.) Inactive
     [ backgroundColor Shared.Styles.colorSidebarBg
-    , children
+    , descendants
       [ Css.Elements.p
-        [ backgroundColor Shared.Styles.colorSidebarBg
-        , color Shared.Styles.colorTextMain
+        [ color Shared.Styles.colorTextMain
         ]
       ]
     ]
 
-  , (.) FileActive
+  , (.) Active
       [ backgroundColor Shared.Styles.colorSidebarHilight
-      , children
+      , descendants
         [ Css.Elements.p
-          [ backgroundColor Shared.Styles.colorSidebarHilight
-          , color Shared.Styles.colorTextHilight
+          [ color Shared.Styles.colorTextHilight
           ]
         ]
       ]
+
   ]

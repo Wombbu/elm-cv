@@ -80,6 +80,11 @@ css =
     , displayFlex
     , flexDirection row
     , backgroundColor ( rgb 100 100 200 )
+    , descendants
+      [ Css.Elements.p
+        [ fontFamily sansSerif
+        ]
+      ]
     ]
 
   , (#) TextAreaContainer
