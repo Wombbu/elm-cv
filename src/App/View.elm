@@ -73,6 +73,8 @@ css =
     , maxHeight ( vh 80 )
     , minHeight (vh 80 )
     , overflow scroll
+    , descendants
+      [ Css.Elements.p uiTextStyle ]
     ]
 
   , (#) TabBarContainer
@@ -81,10 +83,7 @@ css =
     , flexDirection row
     , backgroundColor ( rgb 100 100 200 )
     , descendants
-      [ Css.Elements.p
-        [ fontFamily sansSerif
-        ]
-      ]
+      [ Css.Elements.p uiTextStyle ]
     ]
 
   , (#) TextAreaContainer
@@ -92,6 +91,12 @@ css =
     , backgroundColor colorTextArea
     , backgroundColor ( rgb 100 200 0 )
     , overflow scroll
+    , descendants
+      [ Css.Elements.p
+        [ fontFamily monospace
+        , color Shared.Styles.colorTextMain
+        ]
+      ]
     ]
 
   , (#) TabAndTextAreaContainer
@@ -106,9 +111,18 @@ css =
     ]
   ]
 
+
+
+uiTextStyle : List Mixin
+uiTextStyle =
+  [ fontFamily sansSerif
+  ]
+
 reset : List Mixin
 reset =
   [ padding ( px 0 )
   , margin ( px 0 )
   , border ( px 0 )
+  , cursor default
+  , userSelectNone
   ]

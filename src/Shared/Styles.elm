@@ -52,3 +52,21 @@ pickClass first second pickFirst =
     first
   else
     second
+
+
+-- Not in elm-css
+
+
+userSelectNone : Mixin
+userSelectNone  =
+    property "userSelect" <| "none"
+
+
+justifyContentSpaceBetween : Mixin
+justifyContentSpaceBetween  =
+  property "justify-content" <| "space-between"
+
+
+-- justifyContentCenter : Mixin
+-- justifyContentCenter  =
+--     property "justify-content" <| "center"
