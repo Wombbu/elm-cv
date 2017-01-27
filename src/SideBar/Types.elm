@@ -9,11 +9,13 @@ type alias Model =
   , files: List SideBarFile
   }
 
+
 type alias SideBarFile =
   { name : String
   , textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
   , active : Bool
   }
+
 
 type Msg =
     Open TabBar.Types.Model

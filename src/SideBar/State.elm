@@ -16,6 +16,7 @@ init =
   , Model "Elm" True (initFiles ".elm" TextArea.View.Elm.view)
   ]
 
+
 initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
 initFiles name syntax =
   [ SideBarFile  ("Info" ++ name) syntax False
@@ -39,15 +40,18 @@ toggleExpanded name model =
     model
   )
 
+
 setFileActiveWithName : String -> Model -> Model
 setFileActiveWithName name model =
   model |> goThroughAllFiles (setActive name)
+
 
 goThroughAllFiles : (SideBarFile -> SideBarFile) -> Model -> Model
 goThroughAllFiles function model =
   { model |
     files = model.files |> map function
   }
+
 
 setActive : String -> SideBarFile -> SideBarFile
 setActive withName file =
