@@ -61,28 +61,3 @@ css =
     , padding ( px 0 )
     ]
   ]
-
-
-styleTab : Html.Attribute msg
-styleTab =
-  styles
-    [ backgroundColor colorTextArea
-    , displayFlex
-    , flexDirection row
-    , flex ( int 1 )
-    , textAlign center
-    , width ( px 100 )
-    ]
-
-
-styleTabContainer : Html.Attribute msg
-styleTabContainer =
-  styles
-    [ backgroundColor colorSidebarBg
-    , displayFlex
-    , flex  ( int 1 )
-    , flexDirection row
-    , alignItems flexStart
-    , overflowX scroll
-    , padding ( px 0 )
-    ]
