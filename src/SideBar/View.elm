@@ -4,6 +4,9 @@ import List exposing (map)
 import Html exposing (Html, div, p)
 import Html.Events exposing (onClick)
 import Css exposing (..)
+import Css.Elements
+import Css.Namespace exposing (namespace)
+import Html.CssHelpers
 
 import Shared.Styles exposing (..)
 import SideBar.Types exposing (..)
@@ -24,7 +27,7 @@ renderFolder model =
     ( map (\folder ->
       div []
       [
-        div [ styleSidebarEntry, onClick (ToggleFolder folder.folderName) ]
+        div [ onClick (ToggleFolder folder.folderName) ]
         [
           p [] [ Html.text folder.folderName ]
         ],
@@ -44,7 +47,7 @@ renderFiles : List SideBarFile -> Html Msg
 renderFiles files =
   div []
     (map (\file ->
-      div [styleSidebarEntry, onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))]
+      div [ class [SidebarHilight], onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))]
         [
           p [] [ Html.text file.name ]
         ]
@@ -54,13 +57,40 @@ renderFiles files =
 
 -- Styles
 
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace "text-area"
 
-styleSidebarEntry : Html.Attribute msg
-styleSidebarEntry =
-  styles
-    [ backgroundColor ( Shared.Styles.colorSidebarHilight )
-    , overflowX hidden
-    , overflowY hidden
-    , height ( px 40 )
-    , border ( px 1 )
+type CssClasses
+    = SidebarCommon
+    | SidebarDefault
+    | SidebarHilight
+
+
+type CssIds
+    = Page
+
+
+css : Css.Stylesheet
+css =
+  (stylesheet << namespace "text-area")
+  [ (.) SidebarCommon
+    [ height ( px 60 ) ]
+  , (.) SidebarDefault
+    [ backgroundColor Shared.Styles.colorSidebarBg
+    , children
+      [ Css.Elements.p
+        [ backgroundColor Shared.Styles.colorSidebarBg
+        , color Shared.Styles.colorTextMain
+        ]
+      ]
     ]
+  , (.) SidebarHilight
+      [ backgroundColor Shared.Styles.colorSidebarHilight
+      , children
+        [ Css.Elements.p
+          [ backgroundColor Shared.Styles.colorSidebarHilight
+          , color Shared.Styles.colorTextHilight
+          ]
+        ]
+      ]
+  ]
