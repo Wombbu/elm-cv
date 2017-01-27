@@ -41,3 +41,14 @@ colorBlue =
 styles : List Mixin -> Html.Attribute msg
 styles =
   Css.asPairs >> Html.Attributes.style
+
+
+-- Helpers
+
+
+pickClass : a -> a -> Bool -> a
+pickClass first second pickFirst =
+  if pickFirst then
+    first
+  else
+    second

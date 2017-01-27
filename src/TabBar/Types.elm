@@ -10,5 +10,5 @@ type alias Model =
   }
 
 type Msg =
-    Open (TextArea.Types.SyntaxRenderFunc, TextArea.Types.Model)
+    Open (Model)
     | Close String

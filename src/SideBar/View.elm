@@ -8,7 +8,7 @@ import Css.Elements
 import Css.Namespace exposing (namespace)
 import Html.CssHelpers
 
-import Shared.Styles exposing (..)
+import Shared.Styles exposing (pickClass)
 import SideBar.Types exposing (..)
 import TabBar.Types
 import TextArea.State
@@ -55,13 +55,6 @@ renderFiles file =
 active : Bool -> CssClass
 active isActive =
   pickClass FileActive FileInactive isActive
-
-pickClass : CssClass -> CssClass -> Bool -> CssClass
-pickClass first second pickFirst =
-  if pickFirst then
-    first
-  else
-    second
 
 
 { id, class, classList } =

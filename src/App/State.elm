@@ -29,8 +29,13 @@ update msg model =
 
         SideBar.Types.Open newTab ->
           (
+            let
+             newTabs =
+               filter (TabBar.State.removeTabsWithName newTab.text) model.tabs
+               |> map (\tab -> {tab | active = False})
+            in
             { model |
-              tabs = newTab :: filter (TabBar.State.removeTabsWithName newTab.text) model.tabs,
+              tabs = newTab :: newTabs,
               renderFunction = newTab.textAreaRenderFunc,
               sideBarFolders =
                 model.sideBarFolders |> map (setFileActiveWithName newTab.text)
@@ -40,11 +45,14 @@ update msg model =
 
     ClickTabBar msg ->
       case msg of
-        TabBar.Types.Open (syntaxFunc, textAreaModel) ->
+        TabBar.Types.Open (tabModel) ->
           (
             { model |
-              renderFunction = syntaxFunc,
-              textArea = textAreaModel
+              renderFunction = tabModel.textAreaRenderFunc,
+              textArea = tabModel.textAreaModel,
+              tabs = model.tabs
+                |> map (\tab -> { tab | active = False})
+                |> map ( setTabActiveWithText tabModel.text )
             }
             , Cmd.none
           )

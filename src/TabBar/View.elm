@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import Html.CssHelpers
 import Css exposing (..)
 import Css.Namespace exposing (namespace)
-import Shared.Styles exposing (..)
+import Shared.Styles
 
 import TabBar.Types exposing (..)
 
@@ -20,12 +20,17 @@ renderTabs : List Model -> Html Msg
 renderTabs model =
   div [ class [ TabContainer ] ]
     (map (\tab ->
-      div [class [ Tab ]]
+      div [class [ Tab, active tab.active ]]
       [
-        p [ onClick (Open (tab.textAreaRenderFunc, tab.textAreaModel)) ] [ Html.text tab.text ],
+        p [ onClick (Open (tab)) ] [ Html.text tab.text ],
         p [ onClick (Close tab.text) ] [Html.text "Close"]
       ]
     ) model)
+
+
+active : Bool -> CssClass
+active isActive =
+  Shared.Styles.pickClass Active Inactive isActive
 
 
 -- Styles
@@ -34,17 +39,22 @@ renderTabs model =
 { id, class, classList } =
     Html.CssHelpers.withNamespace "tab-bar"
 
-type CssClasses =
+type CssClass =
   Tab
   | TabContainer
+  | Active
+  | Inactive
 
 
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "tab-bar")
-  [ (.) Tab
-    [ backgroundColor colorTextArea
-    , displayFlex
+  [ (.) Inactive
+    [ backgroundColor Shared.Styles.colorSidebarBg ]
+  , (.) Active
+    [ backgroundColor Shared.Styles.colorSidebarHilight ]
+  , (.) Tab
+    [ displayFlex
     , flexDirection row
     , flex ( int 1 )
     , textAlign center
@@ -52,7 +62,7 @@ css =
     ]
 
   , (.) TabContainer
-    [ backgroundColor colorSidebarBg
+    [ backgroundColor Shared.Styles.colorSidebarBg
     , displayFlex
     , flex  ( int 1 )
     , flexDirection row
