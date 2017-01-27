@@ -3,7 +3,7 @@ module App.View exposing (..)
 import Html exposing (Html, div, button)
 import Html.CssHelpers
 import Css exposing (..)
-import Css.Elements exposing (p)
+import Css.Elements exposing (p, h1)
 import Css.Namespace exposing (namespace)
 import Shared.Styles exposing (..)
 
@@ -48,11 +48,12 @@ type CssIds =
   | TextAreaContainer
   | TabAndTextAreaContainer
 
-
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "app")
-  [ (#) AppContainer
+  [ p reset
+  , h1 reset
+  , (#) AppContainer
     [ minWidth ( vw 80 )
     , maxWidth (vw 80 )
     , maxHeight ( vh 80 )
@@ -62,11 +63,6 @@ css =
     , alignItems flexStart
     , backgroundColor ( rgb 255 100 0 )
     , overflow scroll
-    , children
-      [ Css.Elements.p
-        [ padding ( px 0 )
-        , margin ( px 0 ) ]
-      ]
     ]
 
   , (#) SideBarContainer
@@ -80,7 +76,7 @@ css =
     ]
 
   , (#) TabBarContainer
-    [ height ( pt 40 )
+    [ height ( em 3 )
     , displayFlex
     , flexDirection row
     , backgroundColor ( rgb 100 100 200 )
@@ -103,4 +99,11 @@ css =
     , maxHeight ( vh 80 )
     , minHeight ( vh 80 )
     ]
+  ]
+
+reset : List Mixin
+reset =
+  [ padding ( px 0 )
+  , margin ( px 0 )
+  , border ( px 0 )
   ]

@@ -9,9 +9,9 @@ import TextArea.Types exposing (..)
 
 view : SyntaxRenderFunc
 view model =
-  div [ class [ TextWrapper ], indent 2]
+  div [ class [ TextWrapper ]]
   [
-    h1 [ indent 2 ] [Html.text "Base"]
+    p [ indent 2 ] [Html.text "Base"]
   ]
 
 
