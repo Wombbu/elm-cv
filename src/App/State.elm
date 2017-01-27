@@ -30,12 +30,13 @@ update msg model =
         SideBar.Types.Open newTab ->
           (
             let
-             newTabs =
-               filter (TabBar.State.removeTabsWithName newTab.text) model.tabs
+             inActiveUnDeletedTabs =
+               model.tabs
+               |> filter (TabBar.State.removeTabsWithName newTab.text)
                |> map (\tab -> {tab | active = False})
             in
             { model |
-              tabs = newTab :: newTabs,
+              tabs = newTab :: inActiveUnDeletedTabs,
               renderFunction = newTab.textAreaRenderFunc,
               sideBarFolders =
                 model.sideBarFolders |> map (setFileActiveWithName newTab.text)
