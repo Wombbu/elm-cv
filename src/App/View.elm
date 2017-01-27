@@ -52,35 +52,38 @@ css : Css.Stylesheet
 css =
   (stylesheet << namespace "app")
   [ (#) AppContainer
-    [ width ( pct 100 )
-    , height ( pct 100 )
+    [ minWidth ( vw 80 )
+    , maxWidth (vw 80 )
+    , maxHeight ( vh 80 )
+    , minHeight ( vh 80 )
     , displayFlex
     , flexDirection row
     , alignItems flexStart
     , backgroundColor ( rgb 255 100 0 )
+    , overflow scroll
     ]
 
   , (#) SideBarContainer
-    [ height ( px 40 )
-    , margin ( px 0 )
+    [ margin ( px 0 )
     , padding ( px 0 )
     , flex ( int 1 )
     , backgroundColor ( rgb 100 100 0 )
+    , maxHeight ( vh 80 )
+    , overflow scroll
     ]
 
   , (#) TabBarContainer
-    [ height ( px 50 )
+    [ height ( pt 40 )
     , displayFlex
     , flexDirection row
     , backgroundColor ( rgb 100 100 200 )
-
     ]
 
   , (#) TextAreaContainer
     [ flex ( int 1 )
     , backgroundColor colorTextArea
-    , overflow scroll
     , backgroundColor ( rgb 100 200 0 )
+    , overflow scroll
     ]
 
   , (#) TabAndTextAreaContainer
@@ -89,5 +92,8 @@ css =
     , displayFlex
     , flexDirection column
     , backgroundColor ( rgb 99 40 150 )
+    , overflow scroll
+    , maxHeight ( vh 80 )
+    , minHeight ( vh 80 )
     ]
   ]
