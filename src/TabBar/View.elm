@@ -7,25 +7,21 @@ import Html.CssHelpers
 import Css exposing (..)
 import Css.Namespace exposing (namespace)
 import Shared.Styles
-
 import TabBar.Types exposing (..)
 
 
 view : List Model -> Html Msg
 view model =
-  renderTabs model
-
-
-renderTabs : List Model -> Html Msg
-renderTabs model =
   div [ class [ TabContainer ] ]
-    (map (\tab ->
-      div [class [ Tab, active tab.active ]]
-      [
-        p [ onClick (Open (tab)) ] [ Html.text tab.text ],
-        p [ onClick (Close tab.text) ] [Html.text "Close"]
+    ( model |> map renderTab )
+
+
+renderTab : Model -> Html Msg
+renderTab tab =
+    div [ class [ Tab, active tab.active ] ]
+      [ p [ onClick (Open (tab)) ] [ Html.text tab.text ]
+      , p [ onClick (Close tab.text) ] [Html.text "Close"]
       ]
-    ) model)
 
 
 active : Bool -> CssClass
@@ -38,6 +34,7 @@ active isActive =
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "tab-bar"
+
 
 type CssClass =
   Tab
