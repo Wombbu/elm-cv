@@ -1,15 +1,19 @@
 module TextArea.View.Elm exposing (..)
 
 import Html exposing (Html, div, h1, text, ul, li, p)
+import Html.CssHelpers
 import Tuple exposing (first, second)
 import List exposing (map)
-
+import TextArea.Styles exposing (..)
 import TextArea.Types exposing (..)
+
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace "text-area"
 
 
 view : SyntaxRenderFunc
 view model =
-  div []
+  div [ class [ TextWrapper ]]
   [
     h1 [] [Html.text "elm"],
     renderInfo model.info,

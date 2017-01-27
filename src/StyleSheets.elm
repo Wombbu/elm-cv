@@ -1,7 +1,11 @@
 port module Stylesheets exposing (..)
 
-import SideBar.View
 import Css.File exposing (CssFileStructure, CssCompilerProgram)
+
+import SideBar.View
+import App.View
+import TextArea.Styles
+import TabBar.View
 
 
 port files : CssFileStructure -> Cmd msg
@@ -13,8 +17,10 @@ fileStructure =
     [
       ( "dist/styles.css"
       , Css.File.compile
-        [
-          SideBar.View.css
+        [ SideBar.View.css
+        , App.View.css
+        , TabBar.View.css
+        , TextArea.Styles.css
         ]
       )
     ]

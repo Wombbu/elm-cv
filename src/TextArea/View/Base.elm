@@ -1,20 +1,25 @@
 module TextArea.View.Base exposing (..)
 
 import Html exposing (Html, div, h1, text, ul, li, p)
-import Shared.Styles exposing (..)
+import Html.CssHelpers
+import TextArea.Styles exposing (Classes(..), indent)
 import Css exposing (..)
 
 import TextArea.Types exposing (..)
 
 view : SyntaxRenderFunc
 view model =
-  div [styles [ backgroundColor colorSidebarBg] ]
+  div [ class [ TextWrapper ], indent 2]
   [
-    h1 [ styles [ color colorText]] [Html.text "Base"]
+    h1 [ indent 2 ] [Html.text "Base"]
   ]
 
 
 -- Styles
+
+
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace "text-area"
 
 
 colorText : Color

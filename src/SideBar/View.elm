@@ -47,7 +47,11 @@ renderFiles : List SideBarFile -> Html Msg
 renderFiles files =
   div []
     (map (\file ->
-      div [ class [SidebarHilight], onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))]
+      div
+      [ class [SidebarCommon, SidebarHilight]
+        -- TODO create tabbar-model at the app.state, not here
+      , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
+      ]
         [
           p [] [ Html.text file.name ]
         ]
@@ -57,6 +61,7 @@ renderFiles files =
 
 -- Styles
 
+
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
 
@@ -65,16 +70,15 @@ type CssClasses
     | SidebarDefault
     | SidebarHilight
 
-
-type CssIds
-    = Page
-
-
 css : Css.Stylesheet
 css =
   (stylesheet << namespace "text-area")
   [ (.) SidebarCommon
-    [ height ( px 60 ) ]
+    [ height ( px 40 )
+    , margin ( px 0 )
+    , padding ( px 0 )
+    ]
+
   , (.) SidebarDefault
     [ backgroundColor Shared.Styles.colorSidebarBg
     , children
@@ -84,6 +88,7 @@ css =
         ]
       ]
     ]
+    
   , (.) SidebarHilight
       [ backgroundColor Shared.Styles.colorSidebarHilight
       , children

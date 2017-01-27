@@ -1,16 +1,19 @@
 module TextArea.View.Java exposing (..)
 
 import Html exposing (Html, div, h1, text, ul, li, p)
--- import Html.Events exposing (..)
+import Html.CssHelpers
 import Tuple exposing (first, second)
 import List exposing (map)
-
+import TextArea.Styles exposing (Classes(..), indent)
 import TextArea.Types exposing (..)
+
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace "text-area"
 
 
 view : SyntaxRenderFunc
 view model =
-  div []
+  div [ class [ TextWrapper ]]
   [
     h1 [] [Html.text "Java"],
     renderInfo model.info,
