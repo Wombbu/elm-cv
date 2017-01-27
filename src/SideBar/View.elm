@@ -18,13 +18,12 @@ import TextArea.State
 
 view : List Model -> Html Msg
 view model =
-  renderFolder model
-
-
-renderFolder : List Model -> Html Msg
-renderFolder model =
   div []
-    ( map (\folder ->
+    (model |> map renderFolder)
+
+
+renderFolder : Model -> Html Msg
+renderFolder folder =
       div []
       [
         div [ onClick (ToggleFolder folder.folderName) ]
@@ -33,30 +32,20 @@ renderFolder model =
         ],
         if folder.expanded then
           div []
-            [
-              renderFiles folder.files
-            ]
+            (folder.files |> map renderFiles)
         else
           Html.text ""
       ]
-    )
-    model)
 
 
-renderFiles : List SideBarFile -> Html Msg
-renderFiles files =
-  div []
-    (map (\file ->
+renderFiles : SideBarFile -> Html Msg
+renderFiles file =
       div
       [ class [SidebarCommon, SidebarHilight]
         -- TODO create tabbar-model at the app.state, not here
       , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
       ]
-        [
-          p [] [ Html.text file.name ]
-        ]
-    )
-    files)
+      [ p [] [ Html.text file.name ] ]
 
 
 -- Styles
@@ -74,7 +63,7 @@ css : Css.Stylesheet
 css =
   (stylesheet << namespace "text-area")
   [ (.) SidebarCommon
-    [ height ( px 40 )
+    [ height ( pt 40 )
     , margin ( px 0 )
     , padding ( px 0 )
     ]
@@ -88,7 +77,7 @@ css =
         ]
       ]
     ]
-    
+
   , (.) SidebarHilight
       [ backgroundColor Shared.Styles.colorSidebarHilight
       , children
