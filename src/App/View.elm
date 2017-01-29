@@ -14,24 +14,34 @@ import TabBar.View
 
 view : Model -> Html Msg
 view model =
-  div [id AppContainer]
+  div [ id AppContainer ]
   [
-    div [ id SideBarContainer ]
+    div [ id NavigationAndTextContainer ]
     [
-      Html.map App.Types.ClickSideBar (SideBar.View.view model.sideBarFolders)
+      sidebar model,
+      tabsAndTextArea model
+    ]
+  ]
+
+sidebar : Model -> Html Msg
+sidebar model =
+  div [ id SideBarContainer ]
+  [
+    Html.map App.Types.ClickSideBar (SideBar.View.view model.sideBarFolders)
+  ]
+
+tabsAndTextArea : Model -> Html Msg
+tabsAndTextArea model =
+  div [id TabAndTextAreaContainer]
+  [
+    div [id TabBarContainer]
+    [
+      Html.map App.Types.ClickTabBar (TabBar.View.view model.tabs)
     ],
 
-    div [id TabAndTextAreaContainer]
+    div [id TextAreaContainer]
     [
-      div [id TabBarContainer]
-      [
-        Html.map App.Types.ClickTabBar (TabBar.View.view model.tabs)
-      ],
-
-      div [id TextAreaContainer]
-      [
-        Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
-      ]
+      Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
     ]
   ]
 
@@ -43,6 +53,7 @@ view model =
 
 type CssIds =
   AppContainer
+  | NavigationAndTextContainer
   | SideBarContainer
   | TabBarContainer
   | TextAreaContainer
@@ -54,14 +65,21 @@ css =
   [ p reset
   , h1 reset
   , Css.Elements.div reset
+
   , (#) AppContainer
     [ minWidth inherit
     , maxWidth inherit
     , maxHeight inherit
     , minHeight inherit
     , displayFlex
+    , flexDirection column
+    ]
+
+  , (#) NavigationAndTextContainer
+    [ flex ( int 1 )
+    , displayFlex
     , flexDirection row
-    , alignItems flexStart
+    , alignItems stretch
     , backgroundColor ( rgb 255 100 0 )
     , overflow scroll
     ]
@@ -70,10 +88,10 @@ css =
     [ margin ( px 0 )
     , padding ( px 0 )
     , flex ( int 1 )
+    , minHeight inherit
+    , maxHeight inherit
     , displayFlex
     , backgroundColor ( rgb 199 18 242 )
-    , maxHeight inherit
-    , minHeight inherit
     , overflow scroll
     , descendants
       [ Css.Elements.p uiTextStyle ]
@@ -99,13 +117,10 @@ css =
     ]
 
   , (#) TabAndTextAreaContainer
-    [ height ( pct 100 )
-    , flex ( int 3 )
+    [ flex ( int 3 )
     , displayFlex
     , flexDirection column
     , backgroundColor ( rgb 99 40 150 )
-    , maxHeight inherit
-    , minHeight inherit
     ]
   ]
 

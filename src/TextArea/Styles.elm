@@ -36,7 +36,7 @@ css =
     , borderColor colorBorder
     , borderStyle solid
     , descendants [ Css.Elements.p textStyle ]
-    , overflow scroll
+    , overflow auto
     ]
   ]
 
