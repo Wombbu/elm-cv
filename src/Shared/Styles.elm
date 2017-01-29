@@ -33,6 +33,10 @@ colorTextHilight : Color
 colorTextHilight =
   rgb 215 218 224
 
+colorTabBlue : Color
+colorTabBlue =
+  rgb 82 139 255
+
 colorBlue : Color
 colorBlue =
   rgb 97 175 239
@@ -55,7 +59,7 @@ colorTabTextHilight =
 
 borderWidth : Float
 borderWidth =
-  1.5
+  1.7
 
 tabBarHeight : Float
 tabBarHeight =

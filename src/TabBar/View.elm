@@ -7,7 +7,7 @@ import Html.CssHelpers
 import Css exposing (..)
 import Css.Elements
 import Css.Namespace exposing (namespace)
-import Shared.Styles exposing (styles, tabBarHeight, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
+import Shared.Styles exposing (styles, colorTabBlue, tabBarHeight, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
 import TabBar.Types exposing (..)
 
 
@@ -24,11 +24,16 @@ renderTab tab =
       [ onClick (Open tab)
       , class [ Tab, active tab.active ]
       ]
-      [ div [ class [ Content ] ]
-          [ p [] []
-          , p [ styles [ paddingLeft ( em 2 ) ] ] [ Html.text tab.text ]
-          , p [ onClick (Close tab.text), styles [ paddingRight ( px 10 ) ] ] [ Html.text "X" ]
-          ]
+      [ if tab.active then
+           div [ class [ ActiveIndicator ] ] [ ]
+        else
+          Html.text ""
+
+      , div [ class [ Content ] ]
+        [ p [] [ Html.text "" ] -- Help align the next object center because parent flex align is space between ¯\_(ツ)_/¯
+        , p [ styles [ textAlign right ] ] [ Html.text tab.text ]
+        , p [ onClick (Close tab.text), styles [ paddingRight ( px 10 ) ] ] [ Html.text "X" ]
+        ]
       ]
 
 
@@ -50,6 +55,7 @@ type CssClass =
   | Content
   | Active
   | Inactive
+  | ActiveIndicator
 
 
 css : Css.Stylesheet
@@ -94,6 +100,7 @@ css =
     , minWidth ( em 7 )
     , minHeight ( pct 85 )
     , maxHeight ( pct 85 )
+    , alignItems stretch
     -- , marginBottom ( px -borderWidth)
     , transform ( translateY ( px (borderWidth ) ) )
     , zIndex 1
@@ -109,6 +116,14 @@ css =
     , borderStyle inset
     , backgroundColor colorSidebarBg
     , overflowY visible
+    ]
+
+  , (.) ActiveIndicator
+    [ backgroundColor colorTabBlue
+    , maxWidth ( px 2 )
+    , minWidth ( px 2 )
+    , flex ( int 1 )
+    , borderRadius2 (px 2) (px 0)
     ]
   ]
 
