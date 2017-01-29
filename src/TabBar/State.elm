@@ -1,6 +1,8 @@
 module TabBar.State exposing (..)
 
 import TabBar.Types exposing (..)
+import TextArea.View.Java
+import TextArea.State
 
 
 -- Init
@@ -8,8 +10,15 @@ import TabBar.Types exposing (..)
 
 init : List Model
 init =
-  [ ]
+  [ initModel "Eiss" True
+  -- , initModel "juuh" False
+  -- , initModel "juum" False
+  , initModel "juud" False
+  ]
 
+initModel : String -> Bool -> Model
+initModel text active =
+  Model TextArea.View.Java.view text active TextArea.State.init
 
 -- Helper functions
 
