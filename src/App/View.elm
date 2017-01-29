@@ -70,7 +70,8 @@ css =
     [ margin ( px 0 )
     , padding ( px 0 )
     , flex ( int 1 )
-    , backgroundColor Shared.Styles.colorSidebarBg
+    , displayFlex
+    , backgroundColor ( rgb 199 18 242 )
     , maxHeight inherit
     , minHeight inherit
     , overflow scroll
@@ -79,8 +80,8 @@ css =
     ]
 
   , (#) TabBarContainer
-    [ maxHeight ( em 2.3 )
-    , minHeight ( em 2.3 )
+    [ maxHeight ( em tabBarHeight )
+    , minHeight ( em tabBarHeight )
     , overflow visible
     , displayFlex
     , flexDirection row

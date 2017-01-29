@@ -8,7 +8,7 @@ import Css.Elements
 import Css.Namespace exposing (namespace)
 import Html.CssHelpers
 
-import Shared.Styles exposing (pickClass)
+import Shared.Styles exposing (pickClass, tabBarHeight, tabHeightPct, colorSidebarBg, styles)
 import SideBar.Types exposing (..)
 import TabBar.Types
 import TextArea.State
@@ -19,8 +19,23 @@ import TextArea.State
 
 view : List Model -> Html Msg
 view model =
-  div []
-    (model |> map renderFolder)
+  div [ class [ Container ] ]
+    ( renderProjectFolder
+    :: (model |> map renderFolder))
+
+
+renderProjectFolder : Html msg
+renderProjectFolder =
+  div
+  [ class [ Button, Inactive ]
+  , styles
+    [ minHeight (em (tabBarHeight * tabHeightPct))
+    , maxHeight (em (tabBarHeight * tabHeightPct))
+    ]
+  ]
+  [
+    p [] [Html.text "[ ] v elm-cv"]
+  ]
 
 
 renderFolder : Model -> Html Msg
@@ -66,11 +81,12 @@ active isActive =
 
 
 { id, class, classList } =
-    Html.CssHelpers.withNamespace "text-area"
+    Html.CssHelpers.withNamespace "sidebar"
 
 
 type CssClass
     = Button
+    | Container
     | FileContent
     | FolderContent
     | Inactive
@@ -79,14 +95,21 @@ type CssClass
 
 css : Css.Stylesheet
 css =
-  (stylesheet << namespace "text-area")
+  (stylesheet << namespace "sidebar")
   [ (.) Button
     [ height ( pt 30 )
     , margin ( px 0 )
     , padding ( px 0 )
+    , paddingLeft ( px 14 )
     , displayFlex
     , flexDirection row
     , alignItems center
+    ]
+
+  , (.) Container
+    [ paddingTop ( em (tabBarHeight - (tabBarHeight * tabHeightPct)))
+    , flex ( int 1 )
+    , backgroundColor ( colorSidebarBg )
     ]
 
   , (.) FolderContent

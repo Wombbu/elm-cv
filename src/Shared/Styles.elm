@@ -57,6 +57,14 @@ borderWidth : Float
 borderWidth =
   1.5
 
+tabBarHeight : Float
+tabBarHeight =
+  2.7
+
+tabHeightPct : Float
+tabHeightPct =
+  0.85
+
 
 -- Translate mixins to native elm styles
 
