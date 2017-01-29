@@ -72,37 +72,32 @@ css =
     , maxHeight inherit
     , minHeight inherit
     , displayFlex
+    , alignItems stretch
     , flexDirection column
     ]
 
   , (#) NavigationAndTextContainer
     [ flex ( int 1 )
     , displayFlex
-    , flexDirection row
     , alignItems stretch
     , backgroundColor ( rgb 255 100 0 )
-    , overflow scroll
     ]
 
   , (#) SideBarContainer
-    [ margin ( px 0 )
-    , padding ( px 0 )
-    , flex ( int 1 )
-    , minHeight inherit
-    , maxHeight inherit
+    [ minWidth ( px 200 )
+    , maxWidth ( px 200 )
     , displayFlex
-    , backgroundColor ( rgb 199 18 242 )
+    , alignItems stretch
     , overflow scroll
+    , backgroundColor ( rgb 199 18 242 )
     , descendants
       [ Css.Elements.p uiTextStyle ]
     ]
 
   , (#) TabBarContainer
-    [ maxHeight ( em tabBarHeight )
-    , minHeight ( em tabBarHeight )
-    , overflow visible
+    [ minHeight ( em tabBarHeight )
     , displayFlex
-    , flexDirection row
+    , alignItems stretch
     , backgroundColor ( rgb 100 100 200 )
     , descendants
       [ Css.Elements.p uiTextStyle ]
@@ -111,15 +106,17 @@ css =
   , (#) TextAreaContainer
     [ displayFlex
     , flex ( int 1 )
+    , alignItems stretch
     , backgroundColor ( rgb 43 11 150 )
-    , overflow scroll
     , padding ( px 0 )
     ]
 
   , (#) TabAndTextAreaContainer
-    [ flex ( int 3 )
+    [ flex ( int 1 )
     , displayFlex
     , flexDirection column
+    , alignItems stretch
+    , overflow hidden
     , backgroundColor ( rgb 99 40 150 )
     ]
   ]

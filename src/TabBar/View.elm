@@ -7,7 +7,7 @@ import Html.CssHelpers
 import Css exposing (..)
 import Css.Elements
 import Css.Namespace exposing (namespace)
-import Shared.Styles exposing (styles, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
+import Shared.Styles exposing (styles, tabBarHeight, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
 import TabBar.Types exposing (..)
 
 
@@ -99,15 +99,16 @@ css =
     ]
 
   , (.) TabContainer
-    [ backgroundColor colorSidebarBg
-    , displayFlex
+    [ displayFlex
     , alignItems flexEnd
     , flex  ( int 1 )
-    , overflow visible
     , padding ( px 0 )
     , customBorder [ 0, 0, borderWidth, 0 ]
     , borderColor colorBorder
-    , borderStyle solid
+    , borderStyle inset
+    , backgroundColor colorSidebarBg
+    , overflowY visible
+    , paddingBottom ( px (-borderWidth) )
     ]
   ]
 
