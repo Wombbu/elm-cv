@@ -67,19 +67,17 @@ css =
   , Css.Elements.div reset
 
   , (#) AppContainer
-    [ minWidth inherit
-    , maxWidth inherit
-    , maxHeight inherit
-    , minHeight inherit
+    [ flex ( int 1 )
     , displayFlex
     , alignItems stretch
-    , flexDirection column
+    , flexDirection row
     ]
 
   , (#) NavigationAndTextContainer
     [ flex ( int 1 )
     , displayFlex
     , alignItems stretch
+    , overflow hidden
     , backgroundColor ( rgb 255 100 0 )
     ]
 
@@ -116,7 +114,7 @@ css =
     , displayFlex
     , flexDirection column
     , alignItems stretch
-    , overflow hidden
+    , overflow auto
     , backgroundColor ( rgb 99 40 150 )
     ]
   ]
