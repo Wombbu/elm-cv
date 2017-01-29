@@ -21,7 +21,7 @@ renderTab : Model -> Html Msg
 renderTab tab =
     div
       -- Causes a bug when trying to close: Calls open and close at same time
-      [ onClick (Open (tab))
+      [ onClick (Open tab)
       , class [ Tab, active tab.active ]
       ]
       [ div [ class [ Content ] ]
@@ -90,11 +90,12 @@ css =
     [ displayFlex
     , flexDirection row
     , flex ( int 1 )
-    , maxWidth ( em 10 )
+    , maxWidth ( em 14 )
     , minWidth ( em 7 )
     , minHeight ( pct 85 )
     , maxHeight ( pct 85 )
     , marginBottom ( px -borderWidth)
+    , zIndex 1
     ]
 
   , (.) TabContainer
@@ -104,7 +105,6 @@ css =
     , flex  ( int 1 )
     , overflow visible
     , padding ( px 0 )
-    , width ( pct 100 )
     , customBorder [ 0, 0, borderWidth, 0 ]
     , borderColor colorBorder
     , borderStyle solid
