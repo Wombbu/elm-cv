@@ -53,11 +53,12 @@ css =
   (stylesheet << namespace "app")
   [ p reset
   , h1 reset
+  , Css.Elements.div reset
   , (#) AppContainer
-    [ minWidth ( vw 80 )
-    , maxWidth (vw 80 )
-    , maxHeight ( vh 80 )
-    , minHeight ( vh 80 )
+    [ minWidth inherit
+    , maxWidth inherit
+    , maxHeight inherit
+    , minHeight inherit
     , displayFlex
     , flexDirection row
     , alignItems flexStart
@@ -70,15 +71,17 @@ css =
     , padding ( px 0 )
     , flex ( int 1 )
     , backgroundColor Shared.Styles.colorSidebarBg
-    , maxHeight ( vh 80 )
-    , minHeight (vh 80 )
+    , maxHeight inherit
+    , minHeight inherit
     , overflow scroll
     , descendants
       [ Css.Elements.p uiTextStyle ]
     ]
 
   , (#) TabBarContainer
-    [ height ( em 3 )
+    [ maxHeight ( em 2.3 )
+    , minHeight ( em 2.3 )
+    , overflow visible
     , displayFlex
     , flexDirection row
     , backgroundColor ( rgb 100 100 200 )
@@ -87,16 +90,11 @@ css =
     ]
 
   , (#) TextAreaContainer
-    [ flex ( int 1 )
-    , backgroundColor colorTextArea
-    , backgroundColor ( rgb 100 200 0 )
+    [ displayFlex
+    , flex ( int 1 )
+    , backgroundColor ( rgb 43 11 150 )
     , overflow scroll
-    , descendants
-      [ Css.Elements.p
-        [ fontFamily monospace
-        , color Shared.Styles.colorTextMain
-        ]
-      ]
+    , padding ( px 0 )
     ]
 
   , (#) TabAndTextAreaContainer
@@ -105,18 +103,16 @@ css =
     , displayFlex
     , flexDirection column
     , backgroundColor ( rgb 99 40 150 )
-    , overflow scroll
-    , maxHeight ( vh 80 )
-    , minHeight ( vh 80 )
+    , maxHeight inherit
+    , minHeight inherit
     ]
   ]
-
-
 
 uiTextStyle : List Mixin
 uiTextStyle =
   [ fontFamily sansSerif
   ]
+
 
 reset : List Mixin
 reset =

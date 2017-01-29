@@ -1,9 +1,11 @@
 module TextArea.Styles exposing (..)
 
 import Css exposing (..)
+import Css.Elements
 import Css.Namespace exposing (namespace)
 import Html
-import Shared.Styles exposing (..)
+import Shared.Styles exposing
+  (colorBorder, colorTextArea, styles, customBorder, borderWidth, colorBorder)
 
 
 -- Styles
@@ -27,7 +29,14 @@ css =
   ( stylesheet << namespace "text-area")
   [ (.) TextWrapper
     [ backgroundColor colorTextArea
-    ,  indentMixin 2
+    , paddingLeft ( em 2 )
+    , paddingTop ( em 1 )
+    , flex ( int 1 )
+    , customBorder [ 0, borderWidth, borderWidth, borderWidth ]
+    , borderColor colorBorder
+    , borderStyle solid
+    , descendants [ Css.Elements.p textStyle ]
+    , overflow scroll
     ]
   ]
 
@@ -35,17 +44,20 @@ css =
 -- Helpers
 
 
-fontSize : Float
-fontSize =
-  12
+textStyle : List Css.Mixin
+textStyle =
+  [ fontFamily monospace
+  , fontSize ( em 5 )
+  , color Shared.Styles.colorTextMain
+  ]
 
 
 indentMixin : Float -> Css.Mixin
 indentMixin spaces =
-  paddingLeft (pt (spaces * fontSize))
+  paddingLeft (em (spaces))
 
 
 
 indent : Float -> Html.Attribute msg
 indent spaces =
-  styles [paddingLeft (pt (spaces * fontSize))]
+  styles [paddingLeft (em (spaces))]

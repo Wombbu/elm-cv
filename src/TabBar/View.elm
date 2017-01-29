@@ -7,7 +7,7 @@ import Html.CssHelpers
 import Css exposing (..)
 import Css.Elements
 import Css.Namespace exposing (namespace)
-import Shared.Styles exposing (styles, justifyContentSpaceBetween)
+import Shared.Styles exposing (styles, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
 import TabBar.Types exposing (..)
 
 
@@ -19,13 +19,16 @@ view model =
 
 renderTab : Model -> Html Msg
 renderTab tab =
-    div [ class [ Tab, active tab.active ] ]
-      [
-        div [ class [ Content ] ]
-        [ p [] []
-        , p [ onClick (Open (tab)), styles [ paddingLeft ( em 2 ) ] ] [ Html.text tab.text ]
-        , p [ onClick (Close tab.text) ] [Html.text "Close"]
-        ]
+    div
+      -- Causes a bug when trying to close: Calls open and close at same time
+      [ onClick (Open (tab))
+      , class [ Tab, active tab.active ]
+      ]
+      [ div [ class [ Content ] ]
+          [ p [] []
+          , p [ styles [ paddingLeft ( em 2 ) ] ] [ Html.text tab.text ]
+          , p [ onClick (Close tab.text), styles [ paddingRight ( px 10 ) ] ] [ Html.text "X" ]
+          ]
       ]
 
 
@@ -54,14 +57,25 @@ css =
   (stylesheet << namespace "tab-bar")
   [ (.) Inactive
     [ backgroundColor Shared.Styles.colorSidebarBg
+    , borderStyle solid
+    , borderColor colorSidebarBg
+    , borderBottomColor colorBorder
+    , customBorder [ borderWidth, borderWidth, borderWidth, borderWidth ]
     , descendants
-      [ Css.Elements.p [ color Shared.Styles.colorTextMain ] ]
+      [ Css.Elements.p [ color Shared.Styles.colorTabText ] ]
     ]
 
   , (.) Active
-    [ backgroundColor Shared.Styles.colorSidebarHilight
+    [ boxShadowOnTop
+    , color ( rgb 100 100 100 )
+    , backgroundColor Shared.Styles.colorTextArea
+    , customBorder [ borderWidth, borderWidth, borderWidth, borderWidth ]
+    , borderStyle solid
+    , borderColor colorBorder
+    , borderBottomColor colorTextArea
+    , borderRadius4 (px 3) (px 3) (px 0) (px 0)
     , descendants
-      [ Css.Elements.p [ color Shared.Styles.colorTextHilight ] ]
+      [ Css.Elements.p [ color Shared.Styles.colorTabTextHilight ] ]
     ]
 
   , (.) Content
@@ -74,19 +88,29 @@ css =
 
   , (.) Tab
     [ displayFlex
-    , flexDirection column
+    , flexDirection row
     , flex ( int 1 )
-    , maxWidth ( em 15 )
+    , maxWidth ( em 10 )
     , minWidth ( em 7 )
-    , minHeight ( pct 100 )
+    , minHeight ( pct 85 )
+    , maxHeight ( pct 85 )
+    , marginBottom ( px -borderWidth)
     ]
 
   , (.) TabContainer
-    [ backgroundColor Shared.Styles.colorSidebarBg
+    [ backgroundColor colorSidebarBg
     , displayFlex
+    , alignItems flexEnd
     , flex  ( int 1 )
-    , overflowX scroll
+    , overflow visible
     , padding ( px 0 )
     , width ( pct 100 )
+    , customBorder [ 0, 0, borderWidth, 0 ]
+    , borderColor colorBorder
+    , borderStyle solid
     ]
   ]
+
+boxShadowOnTop: Css.Mixin
+boxShadowOnTop =
+  property "box-shadow" <| "inset 1px 4px 6px -6px"
