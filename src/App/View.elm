@@ -19,7 +19,15 @@ view model =
     div [ id NavigationAndTextContainer ]
     [
       sidebar model,
-      tabsAndTextArea model
+      tabsAndTextArea model,
+
+      div
+        [ styles
+          [ backgroundColor colorSidebarBg
+          , minWidth ( px 7 )
+          , maxWidth ( px 7 )
+        ]
+      ] []
     ]
   ]
 
@@ -42,7 +50,16 @@ tabsAndTextArea model =
     div [id TextAreaContainer]
     [
       Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
+    ],
+
+    div
+    [ styles
+      [ backgroundColor colorSidebarBg
+      , minHeight ( px 30 )
+      , maxHeight ( px 30 )
+      , borderTop ( px borderWidth )
     ]
+    ] []
   ]
 
 
@@ -70,21 +87,21 @@ css =
     [ flex ( int 1 )
     , displayFlex
     , alignItems stretch
-    , flexDirection row
+    , flexDirection column
     ]
 
   , (#) NavigationAndTextContainer
     [ flex ( int 1 )
     , displayFlex
     , alignItems stretch
-    , overflow hidden
     , backgroundColor ( rgb 255 100 0 )
     ]
 
   , (#) SideBarContainer
-    [ minWidth ( px 200 )
+    [ minWidth ( px 150 )
     , maxWidth ( px 200 )
     , displayFlex
+    , flex ( int 2 )
     , alignItems stretch
     , overflow scroll
     , backgroundColor ( rgb 199 18 242 )
@@ -110,7 +127,7 @@ css =
     ]
 
   , (#) TabAndTextAreaContainer
-    [ flex ( int 1 )
+    [ flex ( int 6 )
     , displayFlex
     , flexDirection column
     , alignItems stretch
