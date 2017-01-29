@@ -65,6 +65,7 @@ tabsAndTextArea model =
 
 -- Styles
 
+
 { id, class, classList } =
     Html.CssHelpers.withNamespace "app"
 
@@ -113,6 +114,7 @@ css =
     [ minHeight ( em tabBarHeight )
     , displayFlex
     , alignItems stretch
+    , overflowX auto
     , backgroundColor ( rgb 100 100 200 )
     , descendants
       [ Css.Elements.p uiTextStyle ]

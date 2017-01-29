@@ -94,7 +94,8 @@ css =
     , minWidth ( em 7 )
     , minHeight ( pct 85 )
     , maxHeight ( pct 85 )
-    , marginBottom ( px -borderWidth)
+    -- , marginBottom ( px -borderWidth)
+    , transform ( translateY ( px (borderWidth ) ) )
     , zIndex 1
     ]
 
@@ -108,7 +109,6 @@ css =
     , borderStyle inset
     , backgroundColor colorSidebarBg
     , overflowY visible
-    , paddingBottom ( px (-borderWidth) )
     ]
   ]
 
