@@ -39,7 +39,7 @@ css =
     , borderStyle solid
 
     , overflow auto
-    
+
     , descendants [ Css.Elements.p textStyle ]
     ]
   ]
@@ -50,7 +50,7 @@ css =
 
 textStyle : List Css.Mixin
 textStyle =
-  [ fontFamily monospace
+  [ property "font-family" <| "Inconsolata, monospace"
   , fontSize ( em 5 )
   , color Shared.Styles.colorTextMain
   ]

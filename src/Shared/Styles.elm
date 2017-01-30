@@ -94,7 +94,7 @@ pickClass first second pickFirst =
 
 concatParameters : List a -> String -> String
 concatParameters list unit =
-  Debug.log "muna" (List.foldl (\a b -> b ++ toString a ++ unit ++ " ") "" list)
+  List.foldl (\a b -> b ++ toString a ++ unit ++ " ") "" list
 
 
 userSelectNone : Mixin

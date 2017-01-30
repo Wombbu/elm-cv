@@ -7,7 +7,10 @@ import Html.CssHelpers
 import Css exposing (..)
 import Css.Elements
 import Css.Namespace exposing (namespace)
-import Shared.Styles exposing (styles, colorTabBlue, tabBarHeight, justifyContentSpaceBetween, zIndex, customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea)
+import Shared.Styles exposing
+  ( styles, colorTabBlue, tabBarHeight, justifyContentSpaceBetween, zIndex
+  , customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea
+  )
 import TabBar.Types exposing (..)
 
 

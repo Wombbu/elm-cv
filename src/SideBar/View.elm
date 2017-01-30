@@ -97,7 +97,7 @@ css : Css.Stylesheet
 css =
   (stylesheet << namespace "sidebar")
   [ (.) Button
-    [ height ( pt 30 )
+    [ height ( em 1.6 )
     , margin ( px 0 )
     , padding ( px 0 )
     , paddingLeft ( px 14 )
