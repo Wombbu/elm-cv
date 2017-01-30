@@ -101,8 +101,6 @@ css =
     , minHeight ( pct 85 )
     , maxHeight ( pct 85 )
     , alignItems stretch
-    -- , marginBottom ( px -borderWidth)
-    , transform ( translateY ( px (borderWidth ) ) )
     , zIndex 1
     ]
 
@@ -111,11 +109,9 @@ css =
     , alignItems flexEnd
     , flex  ( int 1 )
     , padding ( px 0 )
-    , customBorder [ 0, 0, borderWidth, 0 ]
-    , borderColor colorBorder
-    , borderStyle inset
+    , bottomBorder borderWidth
     , backgroundColor colorSidebarBg
-    , overflowY visible
+    , overflowY hidden
     ]
 
   , (.) ActiveIndicator
@@ -126,6 +122,10 @@ css =
     , borderRadius2 (px 2) (px 0)
     ]
   ]
+
+bottomBorder : Float -> Mixin
+bottomBorder width =
+    property "box-shadow" <| "inset 0px " ++ toString -width ++ "px 0px 0px rgb(24, 26, 31)"
 
 boxShadowOnTop: Css.Mixin
 boxShadowOnTop =
