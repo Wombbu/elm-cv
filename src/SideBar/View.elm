@@ -12,6 +12,7 @@ import Shared.Styles exposing (pickClass, tabBarHeight, tabHeightPct, colorSideb
 import SideBar.Types exposing (..)
 import TabBar.Types
 import TextArea.State
+import Shared.Icons exposing (icon, Icon(..))
 
 
 -- Html
@@ -41,19 +42,18 @@ renderProjectFolder =
 renderFolder : Model -> Html Msg
 renderFolder folder =
       div []
-      [
-        div [ class [Button, active folder.active], onClick (ToggleFolder folder.folderName) ]
-        [
-          div [ class [FolderContent] ]
-          [
-            p [] [ Html.text folder.folderName ]
+      [ div [ class [Button, active folder.active], onClick (ToggleFolder folder.folderName) ]
+        [ div [ class [FolderContent] ]
+          [ p [ icon (arrowDown folder.expanded) ] []
+          , p [ icon SidebarFolder1 ] []
+          , p [styles [paddingLeft ( px 3 )]] [ Html.text folder.folderName ]
           ]
-        ],
-        if folder.expanded then
-          div []
-            (folder.files |> map renderFiles)
-        else
-          Html.text ""
+        ]
+        , if folder.expanded then
+            div []
+              (folder.files |> map renderFiles)
+          else
+            Html.text ""
       ]
 
 
@@ -64,16 +64,18 @@ renderFiles file =
         -- TODO create tabbar-model at the app.state, not here
       , onClick (Open (TabBar.Types.Model file.textAreaRenderFunc file.name True TextArea.State.init))
       ]
-      [
-        div [ class [ FileContent ] ]
-        [
-          p [] [ Html.text file.name ]
+      [ div [ class [ FileContent ] ]
+        [ p [ icon SidebarTextFile ] []
+        , p [styles [paddingLeft ( px 3 )]] [ Html.text file.name ]
         ]
       ]
 
 
 -- Styles
 
+arrowDown : Bool -> Icon
+arrowDown down =
+  pickClass SidebarArrowRight SidebarArrowLeft down
 
 active : Bool -> CssClass
 active isActive =
@@ -113,13 +115,13 @@ css =
     ]
 
   , (.) FolderContent
-    [ paddingLeft ( em 2 )
-
+    [ paddingLeft ( px 8 )
+    , displayFlex
     ]
 
   , (.) FileContent
-    [ paddingLeft ( em 3 )
-
+    [ paddingLeft ( px 42 )
+    , displayFlex
     ]
 
   , (.) Inactive

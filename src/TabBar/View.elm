@@ -12,6 +12,7 @@ import Shared.Styles exposing
   , customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea
   )
 import TabBar.Types exposing (..)
+import Shared.Icons exposing (Icon(..), icon)
 
 
 view : List Model -> Html Msg
@@ -35,7 +36,7 @@ renderTab tab =
       , div [ class [ Content ] ]
         [ p [] [ Html.text "" ] -- Help align the next object center because parent flex align is space between ¯\_(ツ)_/¯
         , p [ styles [ textAlign right ] ] [ Html.text tab.text ]
-        , p [ onClick (Close tab.text), styles [ paddingRight ( px 10 ) ] ] [ Html.text "X" ]
+        , p [ icon TabbarClose1, onClick (Close tab.text), styles [ fontSize (em 1) ] ] []
         ]
       ]
 
@@ -99,8 +100,8 @@ css =
     [ displayFlex
     , flexDirection row
     , flex ( int 1 )
-    , maxWidth ( em 14 )
-    , minWidth ( em 7 )
+    , maxWidth ( em 8 )
+    , minWidth ( em 6 )
     , minHeight ( pct 85 )
     , maxHeight ( pct 85 )
     , alignItems stretch

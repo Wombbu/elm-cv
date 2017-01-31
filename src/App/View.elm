@@ -141,7 +141,7 @@ css =
 uiTextStyle : List Mixin
 uiTextStyle =
   [ property "font-family" <| "Heebo, sans-serif"
-  , fontSize ( em 0.85 )
+  , fontSize ( em 0.8 )
   ]
 
 

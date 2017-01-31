@@ -63,22 +63,19 @@ borderWidth =
 
 tabBarHeight : Float
 tabBarHeight =
-  2.7
+  2.2
 
 tabHeightPct : Float
 tabHeightPct =
   0.85
 
 
--- Translate mixins to native elm styles
+-- Helpers
 
 
 styles : List Mixin -> Html.Attribute msg
 styles =
   Css.asPairs >> Html.Attributes.style
-
-
--- Helpers
 
 
 pickClass : a -> a -> Bool -> a
