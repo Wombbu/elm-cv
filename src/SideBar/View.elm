@@ -32,10 +32,14 @@ renderProjectFolder =
   , styles
     [ minHeight (em (tabBarHeight * tabHeightPct))
     , maxHeight (em (tabBarHeight * tabHeightPct))
+    , paddingLeft (px 0)
     ]
   ]
-  [
-    p [] [Html.text "[ ] v elm-cv"]
+  [ div [ class [FolderContent], styles [paddingLeft (px 5)]]
+    [ p [ icon (arrowDown True) ] []
+    , p [ icon SidebarArchive ] []
+    , p [styles [paddingLeft ( px 3 )]] [ Html.text "elm-cv" ]
+    ]
   ]
 
 
