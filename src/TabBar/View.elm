@@ -10,6 +10,7 @@ import Css.Namespace exposing (namespace)
 import Shared.Styles exposing
   ( styles, colorTabBlue, tabBarHeight, justifyContentSpaceBetween, zIndex
   , customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea
+  , justifyContentCenter, colorTextHilight
   )
 import TabBar.Types exposing (..)
 import Shared.Icons exposing (Icon(..), icon)
@@ -36,7 +37,9 @@ renderTab tab =
       , div [ class [ Content ] ]
         [ p [] [ Html.text "" ] -- Help align the next object center because parent flex align is space between ¯\_(ツ)_/¯
         , p [ styles [ textAlign right ] ] [ Html.text tab.text ]
-        , p [ icon TabbarClose1, onClick (Close tab.text), styles [ fontSize (em 1) ] ] []
+        , div [ class [CloseButton] ]
+          [ p [ icon TabbarClose1, onClick (Close tab.text) ] []
+          ]
         ]
       ]
 
@@ -60,6 +63,7 @@ type CssClass =
   | Active
   | Inactive
   | ActiveIndicator
+  | CloseButton
 
 
 css : Css.Stylesheet
@@ -94,6 +98,16 @@ css =
     , alignItems center
     , flexWrap noWrap
     , flex  ( int 1 )
+    , hover
+      [ children
+        [ (.) CloseButton
+          [ maxWidth ( px 13 )
+          , maxHeight ( px 13 )
+          , marginRight ( px 3 )
+          , marginLeft ( px 0 )
+          ]
+        ]
+      ]
     ]
 
   , (.) Tab
@@ -124,6 +138,29 @@ css =
     , minWidth ( px 2 )
     , flex ( int 1 )
     , borderRadius2 (px 2) (px 0)
+    ]
+
+  , (.) CloseButton
+    [ maxWidth ( px 0 )
+    , maxHeight ( px 0 )
+
+    , overflow hidden
+    , borderRadius ( px 3 )
+    , fontSize ( em 1 )
+    , marginRight ( px 9.5 )
+    , marginLeft ( px 6.5 )
+    , displayFlex
+    , alignItems center
+    , justifyContentCenter
+    , property "transition" <| "background-color 0.3s, max-width 0.3s, max-height 0.3s, margin-right 0.3s, margin-left 0.3s"
+    , hover
+      [ backgroundColor colorTabBlue
+      , children
+        [ Css.Elements.p
+          [ color colorTextHilight
+          ]
+        ]
+      ]
     ]
   ]
 

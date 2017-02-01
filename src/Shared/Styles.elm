@@ -107,6 +107,10 @@ justifyContentSpaceBetween : Mixin
 justifyContentSpaceBetween  =
   property "justify-content" <| "space-between"
 
+justifyContentCenter : Mixin
+justifyContentCenter  =
+  property "justify-content" <| "center"
+
 
 zIndex : Int ->  Mixin
 zIndex index  =
