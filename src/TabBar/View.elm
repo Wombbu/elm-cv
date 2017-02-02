@@ -36,9 +36,9 @@ renderTab tab =
 
       , div [ class [ Content ] ]
         [ p [] [ Html.text "" ] -- Help align the next object center because parent flex align is space between ¯\_(ツ)_/¯
-        , p [ styles [ textAlign right ] ] [ Html.text tab.text ]
-        , div [ class [CloseButton] ]
-          [ p [ icon TabbarClose1, onClick (Close tab.text) ] []
+        , p [ styles [ textAlign right, paddingLeft ( px closeButtonWidth )] ] [ Html.text tab.text ]
+        , div [ class [CloseButton], onClick (Close tab.text) ]
+          [ p [ icon TabbarClose1 ] []
           ]
         ]
       ]
@@ -97,7 +97,7 @@ css =
     , justifyContentSpaceBetween
     , alignItems center
     , flexWrap noWrap
-    , flex  ( int 1 )
+    , flex ( int 1 )
     , hover
       [ children
         [ (.) CloseButton
@@ -114,17 +114,15 @@ css =
     [ displayFlex
     , flexDirection row
     , flex ( int 1 )
-    , maxWidth ( em 8 )
-    , minWidth ( em 6 )
-    , minHeight ( pct 85 )
-    , maxHeight ( pct 85 )
+    , maxWidth ( em 7 )
+    , minWidth ( em 5 )
     , alignItems stretch
     , zIndex 1
     ]
 
   , (.) TabContainer
     [ displayFlex
-    , alignItems flexEnd
+    , alignItems stretch
     , flex  ( int 1 )
     , padding ( px 0 )
     , bottomBorder borderWidth

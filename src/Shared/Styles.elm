@@ -67,7 +67,7 @@ borderWidth =
 
 tabBarHeight : Float
 tabBarHeight =
-  2.2
+  2.1
 
 tabHeightPct : Float
 tabHeightPct =
