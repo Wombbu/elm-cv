@@ -83,6 +83,7 @@ css =
   [ p reset
   , h1 reset
   , Css.Elements.div reset
+  , Css.Elements.span reset
 
   , (#) AppContainer
     [ flex ( int 1 )

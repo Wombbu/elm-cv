@@ -10,7 +10,7 @@ import Css.Namespace exposing (namespace)
 import Shared.Styles exposing
   ( styles, colorTabBlue, tabBarHeight, justifyContentSpaceBetween, zIndex
   , customBorder, colorBorder, colorSidebarBg, borderWidth, colorTextArea
-  , justifyContentCenter, colorTextHilight
+  , justifyContentCenter, colorTextHilight, colorTabCloseActive
   )
 import TabBar.Types exposing (..)
 import Shared.Icons exposing (Icon(..), icon)
@@ -101,9 +101,9 @@ css =
     , hover
       [ children
         [ (.) CloseButton
-          [ maxWidth ( px 13 )
-          , maxHeight ( px 13 )
-          , marginRight ( px 3 )
+          [ maxWidth ( px closeButtonWidth )
+          , maxHeight ( px closeButtonWidth )
+          , marginRight ( px closeButtonMarginRight )
           , marginLeft ( px 0 )
           ]
         ]
@@ -143,16 +143,15 @@ css =
   , (.) CloseButton
     [ maxWidth ( px 0 )
     , maxHeight ( px 0 )
-
     , overflow hidden
-    , borderRadius ( px 3 )
+    , borderRadius ( px 2 )
     , fontSize ( em 1 )
-    , marginRight ( px 9.5 )
-    , marginLeft ( px 6.5 )
+    , marginRight ( px ((closeButtonWidth * 0.5) + closeButtonMarginRight))
+    , marginLeft ( px ((closeButtonWidth + closeButtonMarginRight) * 0.333))
     , displayFlex
     , alignItems center
     , justifyContentCenter
-    , property "transition" <| "background-color 0.3s, max-width 0.3s, max-height 0.3s, margin-right 0.3s, margin-left 0.3s"
+    , property "transition" <| "max-width 0.3s, max-height 0.3s, margin-right 0.3s, margin-left 0.3s"
     , hover
       [ backgroundColor colorTabBlue
       , children
@@ -161,8 +160,18 @@ css =
           ]
         ]
       ]
+    , Css.active
+      [ backgroundColor colorTabCloseActive ]
     ]
   ]
+
+closeButtonWidth : Float
+closeButtonWidth =
+  14
+
+closeButtonMarginRight : Float
+closeButtonMarginRight =
+  6
 
 bottomBorder : Float -> Mixin
 bottomBorder width =

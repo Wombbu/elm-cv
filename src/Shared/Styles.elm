@@ -37,6 +37,10 @@ colorTabBlue : Color
 colorTabBlue =
   rgb 82 139 255
 
+colorTabCloseActive : Color
+colorTabCloseActive =
+  rgb 61 91 153
+
 colorBlue : Color
 colorBlue =
   rgb 97 175 239
@@ -97,6 +101,7 @@ concatParameters list unit =
 userSelectNone : Mixin
 userSelectNone  =
     property "userSelect" <| "none"
+
 
 customBorder : List Float -> Mixin
 customBorder list =
