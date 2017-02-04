@@ -6,6 +6,7 @@ import SideBar.View
 import App.View
 import TextArea.Styles
 import TabBar.View
+import BottomBar.View
 
 
 port files : CssFileStructure -> Cmd msg
@@ -21,6 +22,7 @@ fileStructure =
         , App.View.css
         , TabBar.View.css
         , TextArea.Styles.css
+        , BottomBar.View.css
         ]
       )
     ]

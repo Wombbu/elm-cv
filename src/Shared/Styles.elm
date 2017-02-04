@@ -116,6 +116,10 @@ justifyContentCenter : Mixin
 justifyContentCenter  =
   property "justify-content" <| "center"
 
+justifyContentFlexEnd : Mixin
+justifyContentFlexEnd  =
+  property "justify-content" <| "flex-end"
+
 
 zIndex : Int ->  Mixin
 zIndex index  =

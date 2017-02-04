@@ -149,7 +149,7 @@ css =
     , displayFlex
     , alignItems center
     , justifyContentCenter
-    , property "transition" <| "max-width 0.3s, max-height 0.3s, margin-right 0.3s, margin-left 0.3s"
+    , property "transition" <| "max-width 0.15s, max-height 0.15s, margin-right 0.15s, margin-left 0.15s"
     , hover
       [ backgroundColor colorTabBlue
       , children

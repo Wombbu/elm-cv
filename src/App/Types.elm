@@ -10,6 +10,7 @@ type Msg
   = ClickTextArea TextArea.Types.Msg
   | ClickSideBar SideBar.Types.Msg
   | ClickTabBar TabBar.Types.Msg
+  | OnlyHtml ()
 
 
 type alias Model =

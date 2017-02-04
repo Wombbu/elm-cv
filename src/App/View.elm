@@ -10,6 +10,7 @@ import Shared.Styles exposing (..)
 import App.Types exposing (Msg(..), Model)
 import SideBar.View
 import TabBar.View
+import BottomBar.View
 
 
 view : Model -> Html Msg
@@ -17,19 +18,21 @@ view model =
   div [ id AppContainer ]
   [
     div [ id NavigationAndTextContainer ]
-    [
-      sidebar model,
-      tabsAndTextArea model,
-
-      div
-        [ styles
-          [ backgroundColor colorSidebarBg
-          , minWidth ( px 7 )
-          , maxWidth ( px 7 )
-        ]
-      ] []
+    [ sidebar model
+    , tabsAndTextArea model
+    , sideBorder
     ]
   ]
+
+sideBorder : Html Msg
+sideBorder =
+  div
+    [ styles
+      [ backgroundColor colorSidebarBg
+      , minWidth ( px 7 )
+      , maxWidth ( px 7 )
+    ]
+  ] []
 
 sidebar : Model -> Html Msg
 sidebar model =
@@ -52,14 +55,10 @@ tabsAndTextArea model =
       Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
     ],
 
-    div
-    [ styles
-      [ backgroundColor colorSidebarBg
-      , minHeight ( px 30 )
-      , maxHeight ( px 30 )
-      , borderTop ( px borderWidth )
+    div [id BottomBarContainer]
+    [
+      Html.map App.Types.OnlyHtml BottomBar.View.view
     ]
-    ] []
   ]
 
 
@@ -76,6 +75,7 @@ type CssIds =
   | TabBarContainer
   | TextAreaContainer
   | TabAndTextAreaContainer
+  | BottomBarContainer
 
 css : Css.Stylesheet
 css =
@@ -136,6 +136,17 @@ css =
     , alignItems stretch
     , overflow auto
     , backgroundColor ( rgb 99 40 150 )
+    ]
+
+  , (#) BottomBarContainer
+    [ backgroundColor colorSidebarBg
+    , minHeight ( px 30 )
+    , maxHeight ( px 30 )
+    , borderTop ( px borderWidth )
+    , displayFlex
+    , descendants
+      [ Css.Elements.p [property "font-family" <| "Heebo, sans-serif"]
+      , Css.Elements.span [color colorSidebarTextMain] ]
     ]
   ]
 

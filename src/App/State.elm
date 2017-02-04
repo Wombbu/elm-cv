@@ -95,6 +95,9 @@ update msg model =
               , Cmd.none
           )
 
+    OnlyHtml msg ->
+       ( model, Cmd.none )
+
 
 -- Init
 
