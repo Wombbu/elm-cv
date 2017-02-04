@@ -17,6 +17,7 @@ type Icon =
   | SidebarArrowRight
   | SidebarProjectFolder1
   | SidebarProjectFolder2
+  | TextAreaHeart
 
 
 iconClassNames : List (Icon, String)
@@ -34,6 +35,7 @@ iconClassNames =
   , ( SidebarArrowRight, "icon-sidebar-arrow-right" )
   , ( SidebarProjectFolder1, "icon-sidebar-project-folder-1" )
   , ( SidebarProjectFolder2, "icon-sidebar-project-folder-2" )
+  , ( TextAreaHeart, "icon-heart-empty" )
   ]
 
 

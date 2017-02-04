@@ -1,17 +1,24 @@
 module TextArea.View.Base exposing (..)
 
-import Html exposing (Html, div, h1, text, ul, li, p)
+import Html exposing (Html, div, h1, text, ul, li, p, span)
 import Html.CssHelpers
 import TextArea.Styles exposing (Classes(..), indent)
 import Css exposing (..)
+import Css.Namespace exposing (namespace)
+import Html.CssHelpers
+import Shared.Styles exposing (justifyContentCenter, styles)
+-- import Shared.Icons exposing (icon, Icon(..))
 
 import TextArea.Types exposing (..)
 
 view : SyntaxRenderFunc
 view model =
-  div [ class [ TextWrapper ]]
+  div [ class [ TextWrapper ], styles [ displayFlex ]]
   [
-    p [ indent 2 ] [Html.text "Base"]
+    div [ class [ CenterContent ]]
+      [ p [ styles [ fontSize ( em 3 ), textAlign center]] [ Html.text "Open a file to explore" ]
+      -- , span [ icon TextAreaHeart, styles [ fontSize ( em 10 ) ] ] [ ]
+      ]
   ]
 
 
@@ -20,6 +27,22 @@ view model =
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
+
+
+type CssClass =
+  CenterContent
+
+
+css : Css.Stylesheet
+css =
+  ( stylesheet << namespace "text-area")
+  [ (.) CenterContent
+    [ displayFlex
+    , flex ( int 1 )
+    , flexDirection column
+    , justifyContentCenter
+    , alignItems center
+    ]]
 
 
 colorText : Color

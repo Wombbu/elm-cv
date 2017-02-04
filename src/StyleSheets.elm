@@ -5,6 +5,7 @@ import Css.File exposing (CssFileStructure, CssCompilerProgram)
 import SideBar.View
 import App.View
 import TextArea.Styles
+import TextArea.View.Base
 import TabBar.View
 import BottomBar.View
 
@@ -23,6 +24,7 @@ fileStructure =
         , TabBar.View.css
         , TextArea.Styles.css
         , BottomBar.View.css
+        , TextArea.View.Base.css
         ]
       )
     ]

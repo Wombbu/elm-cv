@@ -29,17 +29,11 @@ css =
   ( stylesheet << namespace "text-area")
   [ (.) TextWrapper
     [ backgroundColor colorTextArea
-    , paddingLeft ( em 2 )
-    , paddingTop ( em 1 )
-
     , flex ( int 1 )
-
     , customBorder [ 0, borderWidth, borderWidth, borderWidth ]
     , borderColor colorBorder
     , borderStyle solid
-
     , overflow auto
-
     , descendants [ Css.Elements.p textStyle ]
     ]
   ]

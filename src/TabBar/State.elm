@@ -10,10 +10,7 @@ import TextArea.State
 
 init : List Model
 init =
-  [ initModel "Eiss" True
-  -- , initModel "juuh" False
-  -- , initModel "juum" False
-  , initModel "juud" False
+  [ 
   ]
 
 initModel : String -> Bool -> Model
