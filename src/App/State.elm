@@ -55,12 +55,16 @@ update msg model =
       case msg of
         TabBar.Types.Open (tabModel) ->
           (
+            Debug.log "perse"
             { model |
               renderFunction = tabModel.textAreaRenderFunc,
               textArea = tabModel.textAreaModel,
               tabs = model.tabs
                 |> map (\tab -> { tab | active = False})
-                |> map ( setTabActiveWithText tabModel.text )
+                |> map ( setTabActiveWithText tabModel.text ),
+              sideBarFolders = model.sideBarFolders
+                |> map (\folder -> { folder | active = False })
+                |> map (setFileActiveWithName tabModel.text)
             }
             , Cmd.none
           )

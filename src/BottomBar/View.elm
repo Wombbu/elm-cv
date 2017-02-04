@@ -80,7 +80,7 @@ css =
     , alignItems center
     ]
   , (.) ContainerRight
-    [ flex ( int 1 )
+    [ flex ( int 2 )
     , displayFlex
     , alignItems center
     , justifyContentFlexEnd
