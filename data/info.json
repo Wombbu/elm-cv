@@ -1,0 +1,12 @@
+{ name: "Lauri Nevanperä"
+, born: 1990
+, interests:
+  [ "Cycling"
+  , "Ice swimming"
+  , "Good coffee & beer"
+  , "Design"
+  ]
+, location: "Tampere"
+, photo: "http://imgur.com/32442.jpg"
+, education: "TAMK - Bachelor of Business 2017"
+}
