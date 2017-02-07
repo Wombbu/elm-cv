@@ -3,7 +3,7 @@ module TextArea.Styles exposing (..)
 import Css exposing (..)
 import Css.Elements
 import Css.Namespace exposing (namespace)
-import Html
+import Html exposing (Html, span)
 import Shared.Styles exposing
   (colorBorder, colorTextArea, styles, customBorder, borderWidth, colorBorder)
 
@@ -30,6 +30,7 @@ css =
   [ (.) TextWrapper
     [ backgroundColor colorTextArea
     , flex ( int 1 )
+    , paddingLeft (em 2)
     , customBorder [ 0, borderWidth, borderWidth, borderWidth ]
     , borderColor colorBorder
     , borderStyle solid
@@ -42,10 +43,16 @@ css =
 -- Helpers
 
 
+hi : String -> Css.Color -> Html msg
+hi text textColor =
+  span [styles [color textColor]] [Html.text text]
+
+
 textStyle : List Css.Mixin
 textStyle =
   [ property "font-family" <| "Inconsolata, monospace"
-  , fontSize ( em 5 )
+  , fontSize ( em 1 )
+  -- , fontWeight lighter
   , color Shared.Styles.colorTextMain
   ]
 

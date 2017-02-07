@@ -4,8 +4,11 @@ import Html exposing (Html, div, h1, text, ul, li, p)
 import Html.CssHelpers
 import Tuple exposing (first, second)
 import List exposing (map)
-import TextArea.Styles exposing (Classes(..), indent)
+import TextArea.Styles exposing ( Classes(..), indent, hi )
 import TextArea.Types exposing (..)
+import Css exposing (..)
+import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight)
+
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
@@ -13,52 +16,58 @@ import TextArea.Types exposing (..)
 
 view : SyntaxRenderFunc
 view model =
-  div [ class [ TextWrapper ]]
-  [
-    h1 [] [Html.text "Java"],
-    renderInfo model.info,
-    renderEmployers model.employers,
-    renderLanguages model.languages,
-    renderFrameworks model.frameworks
+  div [ class [ TextWrapper ] ]
+  [ p [][ hi "public class" colorBlue, hi " Info" colorTabTextHilight, Html.text " {" ]
+  , div[indent 2]
+    [
+      renderInfo model.info,
+      renderEmployers model.employers,
+      renderLanguages model.languages,
+      renderFrameworks model.frameworks
+    ]
+  , p [] [ Html.text "}" ]
   ]
 
 
 renderInfo : List (String, String) -> Html msg
 renderInfo infoList =
-  div []
-    (map (\info ->
-        p [] [ text ( first info ++ "     " ++ second info ) ]
+  div [styles [paddingBottom ( em 1 )]]
+    (p [] [hi "private final String" colorBlue, Html.text " LIFE_PREFIX = ", hi "\"NO\"" colorTabTextHilight, Html.text ";"] ::
+    (infoList |> map
+      (\info ->
+        p [styles [ color colorTabText ] ] [ Html.text ("//" ++ Tuple.first info ++ ": " ++ second info ) ]
       )
-      infoList)
+    ))
 
 
 renderLanguages : List (String, Int) -> Html msg
 renderLanguages languageList =
   div []
-    (map (\language ->
-        p [] [ text ( first language ++ ": " ++ toString (second language) ++ "/5" ) ]
+    (languageList |> map (\language ->
+        p [] [ Html.text ( Tuple.first language ++ ": " ++ toString (second language) ++ "/5" ) ]
       )
-      languageList)
+    )
 
 
 renderFrameworks : List (String, Int) -> Html msg
 renderFrameworks fwList =
   div []
-    (map (\fw ->
-        p [] [ text ( first fw ++ ": " ++ toString (second fw) ++ "/5" ) ]
+    (fwList |> map (\fw ->
+        p [] [ Html.text ( Tuple.first fw ++ ": " ++ toString (second fw) ++ "/5" ) ]
       )
-      fwList)
+    )
 
 
 renderEmployers : List Employer -> Html msg
 renderEmployers employers =
   div []
-    (map (\employer ->
-      div []
-      [
-        p [] [ text ("Name: " ++ employer.name)],
-        p [] [ text ("Tasks: " ++ employer.description)],
-        p [] [ text ("Start date: " ++ employer.startDate)],
-        p [] [ text ("End date: " ++ employer.endDate)]
-      ]
-    ) employers)
+    (employers |> map (\employer ->
+        div []
+        [
+          p [] [ Html.text ("Name: " ++ employer.name)],
+          p [] [ Html.text ("Tasks: " ++ employer.description)],
+          p [] [ Html.text ("Start date: " ++ employer.startDate)],
+          p [] [ Html.text ("End date: " ++ employer.endDate)]
+        ]
+      )
+    )
