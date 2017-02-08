@@ -11,110 +11,110 @@ import SideBar.Types
 import TabBar.Types
 
 
-update : Msg -> Model -> (Model, Cmd msg)
+update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
-  case msg of
-    ClickTextArea msg ->
-      (Debug.log "Text area clicked" model, Cmd.none)
+    case msg of
+        ClickTextArea msg ->
+            ( Debug.log "Text area clicked" model, Cmd.none )
 
-    ClickSideBar msg ->
-      case msg of
-        SideBar.Types.ToggleFolder name ->
-          (
-            { model |
-              sideBarFolders =
-                model.sideBarFolders
-                |> map (SideBar.State.goThroughAllFiles (\file -> {file | active = False}))
-                |> map (\folder -> { folder | active = False})
-                |> map (SideBar.State.setFolderActiveWithName name)
-                |> map (SideBar.State.toggleExpanded name)
-            }
-            , Cmd.none
-          )
+        ClickSideBar msg ->
+            case msg of
+                SideBar.Types.ToggleFolder name ->
+                    ( { model
+                        | sideBarFolders =
+                            model.sideBarFolders
+                                |> map (SideBar.State.goThroughAllFiles (\file -> { file | active = False }))
+                                |> map (\folder -> { folder | active = False })
+                                |> map (SideBar.State.setFolderActiveWithName name)
+                                |> map (SideBar.State.toggleExpanded name)
+                      }
+                    , Cmd.none
+                    )
 
-        SideBar.Types.Open newTab ->
-          (
-            let
-             inActiveUnDeletedTabs =
-               model.tabs
-               |> filter (TabBar.State.removeTabsWithName newTab.text)
-               |> map (\tab -> {tab | active = False})
-            in
-            { model |
-              tabs = newTab :: inActiveUnDeletedTabs,
-              renderFunction = newTab.textAreaRenderFunc,
-              sideBarFolders =
-                model.sideBarFolders
-                |> map (\folder -> { folder | active = False})
-                |> map (setFileActiveWithName newTab.text)
-            }
-            , Cmd.none
-          )
+                SideBar.Types.Open newTab ->
+                    ( let
+                        inActiveUnDeletedTabs =
+                            model.tabs
+                                |> filter (TabBar.State.removeTabsWithName newTab.text)
+                                |> map (\tab -> { tab | active = False })
+                      in
+                        { model
+                            | tabs = newTab :: inActiveUnDeletedTabs
+                            , renderFunction = newTab.textAreaRenderFunc
+                            , sideBarFolders =
+                                model.sideBarFolders
+                                    |> map (\folder -> { folder | active = False })
+                                    |> map (setFileActiveWithName newTab.text)
+                        }
+                    , Cmd.none
+                    )
 
-    ClickTabBar msg ->
-      case msg of
-        TabBar.Types.Open (tabModel) ->
-          (
-            Debug.log "perse"
-            { model |
-              renderFunction = tabModel.textAreaRenderFunc,
-              textArea = tabModel.textAreaModel,
-              tabs = model.tabs
-                |> map (\tab -> { tab | active = False})
-                |> map ( setTabActiveWithText tabModel.text ),
-              sideBarFolders = model.sideBarFolders
-                |> map (\folder -> { folder | active = False })
-                |> map (setFileActiveWithName tabModel.text)
-            }
-            , Cmd.none
-          )
+        ClickTabBar msg ->
+            case msg of
+                TabBar.Types.Open tabModel ->
+                    ( Debug.log "perse"
+                        { model
+                            | renderFunction = tabModel.textAreaRenderFunc
+                            , textArea = tabModel.textAreaModel
+                            , tabs =
+                                model.tabs
+                                    |> map (\tab -> { tab | active = False })
+                                    |> map (setTabActiveWithText tabModel.text)
+                            , sideBarFolders =
+                                model.sideBarFolders
+                                    |> map (\folder -> { folder | active = False })
+                                    |> map (setFileActiveWithName tabModel.text)
+                        }
+                    , Cmd.none
+                    )
 
-        TabBar.Types.Close text ->
-          (
-            let
-              tabRemoved =
-                model.tabs |> filter (TabBar.State.removeTabsWithName text)
+                TabBar.Types.Close text ->
+                    ( let
+                        tabRemoved =
+                            model.tabs |> filter (TabBar.State.removeTabsWithName text)
 
-              firstTabActive =
-                head tabRemoved
-                |> andThen
-                  (\tab -> Just (tabRemoved |> map (setTabActiveWithText tab.text)))
-                |> withDefault tabRemoved
+                        firstTabActive =
+                            head tabRemoved
+                                |> andThen
+                                    (\tab -> Just (tabRemoved |> map (setTabActiveWithText tab.text)))
+                                |> withDefault tabRemoved
 
-              newActiveTabName =
-                head tabRemoved
-                |> andThen
-                  (\tab -> Just (tab.text))
-                |> withDefault ""
+                        newActiveTabName =
+                            head tabRemoved
+                                |> andThen
+                                    (\tab -> Just (tab.text))
+                                |> withDefault ""
+                      in
+                        { model
+                            | tabs = firstTabActive
+                            , renderFunction =
+                                (head firstTabActive)
+                                    |> andThen (\tab -> Just (tab.textAreaRenderFunc))
+                                    |> withDefault TextArea.View.Base.view
+                            , sideBarFolders = model.sideBarFolders |> map (setFileActiveWithName newActiveTabName)
+                        }
+                    , Cmd.none
+                    )
 
-            in
-              { model |
-                tabs = firstTabActive,
-                renderFunction =
-                  (head firstTabActive)
-                  |> andThen (\tab -> Just (tab.textAreaRenderFunc))
-                  |> withDefault TextArea.View.Base.view,
-                sideBarFolders = model.sideBarFolders |> map (setFileActiveWithName newActiveTabName)
-              }
-              , Cmd.none
-          )
+        OnlyHtml msg ->
+            ( model, Cmd.none )
 
-    OnlyHtml msg ->
-       ( model, Cmd.none )
 
 
 -- Init
 
 
-init : (Model, Cmd msg)
+init : ( Model, Cmd msg )
 init =
-  ({ sideBarFolders = SideBar.State.init
-  , tabs = TabBar.State.init
-  , textArea = TextArea.State.init
-  , renderFunction = TextArea.View.Base.view
-  }, Cmd.none)
+    ( { sideBarFolders = SideBar.State.init
+      , tabs = TabBar.State.init
+      , textArea = TextArea.State.init
+      , renderFunction = TextArea.View.Base.view
+      }
+    , Cmd.none
+    )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.none
+    Sub.none

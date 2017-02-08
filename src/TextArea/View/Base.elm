@@ -7,19 +7,19 @@ import Css exposing (..)
 import Css.Namespace exposing (namespace)
 import Html.CssHelpers
 import Shared.Styles exposing (justifyContentCenter, styles)
--- import Shared.Icons exposing (icon, Icon(..))
-
 import TextArea.Types exposing (..)
+
 
 view : SyntaxRenderFunc
 view model =
-  div [ class [ TextWrapper ], styles [ displayFlex ]]
-  [
-    div [ class [ CenterContent ]]
-      [ p [ styles [ fontSize ( em 3 ), textAlign center]] [ Html.text "Open a file to explore" ]
-      -- , span [ icon TextAreaHeart, styles [ fontSize ( em 10 ) ] ] [ ]
-      ]
-  ]
+    div [ class [ TextWrapper ], styles [ displayFlex ] ]
+        [ div [ class [ CenterContent ] ]
+            [ p [ styles [ fontSize (em 3), textAlign center ] ]
+                [ Html.text "Open a file to explore" ]
+              -- , span [ icon TextAreaHeart, styles [ fontSize ( em 10 ) ] ] [ ]
+            ]
+        ]
+
 
 
 -- Styles
@@ -29,22 +29,23 @@ view model =
     Html.CssHelpers.withNamespace "text-area"
 
 
-type CssClass =
-  CenterContent
+type CssClass
+    = CenterContent
 
 
 css : Css.Stylesheet
 css =
-  ( stylesheet << namespace "text-area")
-  [ (.) CenterContent
-    [ displayFlex
-    , flex ( int 1 )
-    , flexDirection column
-    , justifyContentCenter
-    , alignItems center
-    ]]
+    (stylesheet << namespace "text-area")
+        [ (.) CenterContent
+            [ displayFlex
+            , flex (int 1)
+            , flexDirection column
+            , justifyContentCenter
+            , alignItems center
+            ]
+        ]
 
 
 colorText : Color
 colorText =
-  rgb 61 64 72
+    rgb 61 64 72
