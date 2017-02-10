@@ -1,0 +1,59 @@
+{ info:
+    { name: "Lauri Nevanperä"
+    , born: 1990
+    , interests:
+        [ "Cycling"
+        , "Ice swimming"
+        , "Good coffee & beer"
+        , "Design"
+        ]
+    , location: "Tampere"
+    , photo: "http://imgur.com/32442.jpg"
+    , education: "TAMK - Bachelor of Business 2017"
+    }
+, projects:
+    [
+      { name: "JavaGameEngine",
+      , video: "http://www.youtube.com",
+      , explanation: "A game engine made with java swing :D:D :("
+      },
+      { name: "Vect",
+      , video: "http://www.youtube.com",
+      , explanation: "A game made with LibGDX"
+      }
+    ]
+, employers:
+    [
+      { name: "Elisa"
+      , description:
+        [ "Create API"
+        , "Test automation with Robot Framework"
+        ]
+      },
+      { name: "Sasken"
+      , description:
+        [ "Create 2 nettiarpaa"
+        , "Mobile software with ionic 2"
+        ]
+      }
+    ]
+, languages:
+    [
+      { language: "Java 8"
+      , technologies: "Jersey, Guice, Lombok, Maven, Gradle"
+      , skill: 4
+      }
+      { language: "Javascript"
+      , technologies: "ES6, Typescript, Angular 1&2, Ionic 1&2"
+      , skill: 3
+      }
+      { language: "Elm"
+      , technologies: ""
+      , skill: 3
+      }
+    ]
+, tools:
+    [ "IntelliJ Idea"
+    , "Atom"
+    ]
+}
