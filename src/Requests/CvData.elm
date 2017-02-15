@@ -2,7 +2,7 @@ module Requests.CvData exposing (get)
 
 import Http
 import Json.Decode as Decode exposing (int, string, field, list)
-import Requests.Types as Types
+import Shared.Types as Types
 import App.Types exposing (Msg(..))
 
 

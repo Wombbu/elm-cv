@@ -3,7 +3,7 @@ module SideBar.Types exposing (..)
 import TextArea.Types
 import TabBar.Types
 import Shared.Types
-import Requests.Types exposing (CvData)
+import Shared.Types exposing (CvData)
 
 
 type alias Model =

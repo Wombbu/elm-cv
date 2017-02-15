@@ -5,7 +5,7 @@ import Http
 import TextArea.Types
 import TabBar.Types
 import SideBar.Types
-import Requests.Types exposing (CvData)
+import Shared.Types exposing (CvData)
 
 
 type Msg
