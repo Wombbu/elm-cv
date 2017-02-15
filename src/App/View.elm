@@ -10,6 +10,7 @@ import App.Types exposing (Msg(..), Model)
 import SideBar.View
 import TabBar.View
 import BottomBar.View
+import TextArea.View
 
 
 view : Model -> Html Msg
@@ -49,7 +50,8 @@ tabsAndTextArea model =
             [ Html.map App.Types.ClickTabBar (TabBar.View.view model.tabs)
             ]
         , div [ id TextAreaContainer ]
-            [ Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
+            -- [ Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
+            [ Html.map App.Types.ClickTextArea (TextArea.View.view model.textArea model.activeTab)
             ]
         , div [ id BottomBarContainer ]
             [ Html.map App.Types.OnlyHtml BottomBar.View.view

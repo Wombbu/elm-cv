@@ -3,7 +3,6 @@ module App.State exposing (..)
 import Requests.CvData
 import Maybe exposing (withDefault, andThen)
 import List exposing (filter, head, map)
-import TextArea.View.Base
 import TextArea.State
 import TabBar.State exposing (setTabActiveWithText)
 import SideBar.State exposing (setFileActiveWithName, setFolderActiveWithName)
@@ -41,11 +40,11 @@ update msg model =
                       in
                         { model
                             | tabs = newTab :: inActiveUnDeletedTabs
-                            , renderFunction = newTab.textAreaRenderFunc
                             , sideBarFolders =
                                 model.sideBarFolders
                                     |> map (\folder -> { folder | active = False })
                                     |> map (setFileActiveWithName newTab.text)
+                            , activeTab = Just newTab
                         }
                     , Cmd.none
                     )
@@ -54,8 +53,7 @@ update msg model =
             case msg of
                 TabBar.Types.Open tabModel ->
                     ( { model
-                        | renderFunction = tabModel.textAreaRenderFunc
-                        , cvData = tabModel.cvModel
+                        | cvData = tabModel.cvModel
                         , textArea = tabModel.textAreaModel
                         , tabs =
                             model.tabs
@@ -89,10 +87,6 @@ update msg model =
                       in
                         { model
                             | tabs = firstTabActive
-                            , renderFunction =
-                                (head firstTabActive)
-                                    |> andThen (\tab -> Just (tab.textAreaRenderFunc))
-                                    |> withDefault TextArea.View.Base.view
                             , sideBarFolders = model.sideBarFolders |> map (setFileActiveWithName newActiveTabName)
                             , activeTab = head model.tabs
                         }
@@ -134,7 +128,6 @@ init =
     ( { sideBarFolders = SideBar.State.init
       , tabs = TabBar.State.init
       , textArea = TextArea.State.init
-      , renderFunction = TextArea.View.Base.view
       , cvData = Nothing
       , activeTab = Nothing
       }

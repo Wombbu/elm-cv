@@ -24,9 +24,9 @@ decodeCvData =
         |> required "tools" (list string)
 
 
-decodeInfo : Decoder Types.Info
+decodeInfo : Decoder Types.GeneralInfo
 decodeInfo =
-    decode Types.Info
+    decode Types.GeneralInfo
         |> required "name" string
         |> required "born" int
         |> required "interests" (list string)

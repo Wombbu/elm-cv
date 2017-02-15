@@ -6,8 +6,15 @@ type Syntax
     | Elm
 
 
+type Info
+    = General
+    | Projects
+    | Employers
+    | Skills
+
+
 type alias CvData =
-    { info : Info
+    { generalInfo : GeneralInfo
     , projects : List Project
     , employers : List Employer
     , languages : List Language
@@ -15,7 +22,7 @@ type alias CvData =
     }
 
 
-type alias Info =
+type alias GeneralInfo =
     { name : String
     , born : Int
     , interests : List String

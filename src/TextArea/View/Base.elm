@@ -10,8 +10,8 @@ import Shared.Styles exposing (justifyContentCenter, styles)
 import TextArea.Types exposing (..)
 
 
-view : SyntaxRenderFunc
-view model =
+view : Html Msg
+view =
     div [ class [ TextWrapper ], styles [ displayFlex ] ]
         [ div [ class [ CenterContent ] ]
             [ p [ styles [ fontSize (em 3), textAlign center ] ]
