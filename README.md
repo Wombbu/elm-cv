@@ -3,5 +3,5 @@
 Get it running locally
 ```
 npm i -g elm elm-css elm-live
-./server.sh
+./start-dev.sh
 ```
