@@ -29,6 +29,7 @@ type alias Project =
     { name : String
     , video : String
     , explanation : String
+    , expanded : Bool
     }
 
 
@@ -42,4 +43,5 @@ type alias Language =
     { language : String
     , technologies : List String
     , skill : Int
+    , expanded : Bool
     }

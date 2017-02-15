@@ -1,9 +1,10 @@
 module Requests.CvData exposing (get)
 
 import Http
-import Json.Decode as Decode exposing (int, string, field, list)
+import Json.Decode as Decode exposing (int, string, bool, list, Decoder)
 import Shared.Types as Types
 import App.Types exposing (Msg(..))
+import Json.Decode.Pipeline exposing (optional, decode, required)
 
 
 get : Cmd Msg
@@ -13,45 +14,47 @@ get =
         (Http.get "./combined.json" decodeCvData)
 
 
-decodeCvData : Decode.Decoder Types.CvData
+decodeCvData : Decoder Types.CvData
 decodeCvData =
-    Decode.map5 Types.CvData
-        (field "info" decodeInfo)
-        (field "projects" (list decodeProjects))
-        (field "employers" (list decodeEmployers))
-        (field "languages" (list decodeLanguages))
-        (field "tools" (list string))
+    decode Types.CvData
+        |> required "info" decodeInfo
+        |> required "projects" (list decodeProjects)
+        |> required "employers" (list decodeEmployers)
+        |> required "languages" (list decodeLanguages)
+        |> required "tools" (list string)
 
 
-decodeInfo : Decode.Decoder Types.Info
+decodeInfo : Decoder Types.Info
 decodeInfo =
-    Decode.map6 Types.Info
-        (field "name" string)
-        (field "born" int)
-        (field "interests" (list string))
-        (field "location" string)
-        (field "photo" string)
-        (field "education" string)
+    decode Types.Info
+        |> required "name" string
+        |> required "born" int
+        |> required "interests" (list string)
+        |> required "location" string
+        |> required "photo" string
+        |> required "education" string
 
 
-decodeProjects : Decode.Decoder Types.Project
+decodeProjects : Decoder Types.Project
 decodeProjects =
-    Decode.map3 Types.Project
-        (field "name" string)
-        (field "video" string)
-        (field "explanation" string)
+    decode Types.Project
+        |> required "name" string
+        |> required "video" string
+        |> required "explanation" string
+        |> optional "expanded" bool False
 
 
-decodeEmployers : Decode.Decoder Types.Employer
+decodeEmployers : Decoder Types.Employer
 decodeEmployers =
-    Decode.map2 Types.Employer
-        (field "name" string)
-        (field "description" (list string))
+    decode Types.Employer
+        |> required "name" string
+        |> required "description" (list string)
 
 
-decodeLanguages : Decode.Decoder Types.Language
+decodeLanguages : Decoder Types.Language
 decodeLanguages =
-    Decode.map3 Types.Language
-        (field "language" string)
-        (field "technologies" (list string))
-        (field "skill" int)
+    decode Types.Language
+        |> required "language" string
+        |> required "technologies" (list string)
+        |> required "skill" int
+        |> optional "expanded" bool False
