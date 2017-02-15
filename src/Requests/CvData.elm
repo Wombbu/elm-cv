@@ -11,7 +11,7 @@ get : Cmd Msg
 get =
     Http.send
         CvDataFetched
-        (Http.get "./combined.json" decodeCvData)
+        (Http.get "./cv-data.json" decodeCvData)
 
 
 decodeCvData : Decoder Types.CvData
