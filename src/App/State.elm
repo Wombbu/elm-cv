@@ -53,19 +53,19 @@ update msg model =
         ClickTabBar msg ->
             case msg of
                 TabBar.Types.Open tabModel ->
-                    ( Debug.log "perse"
-                        { model
-                            | renderFunction = tabModel.textAreaRenderFunc
-                            , textArea = tabModel.textAreaModel
-                            , tabs =
-                                model.tabs
-                                    |> map (\tab -> { tab | active = False })
-                                    |> map (setTabActiveWithText tabModel.text)
-                            , sideBarFolders =
-                                model.sideBarFolders
-                                    |> map (\folder -> { folder | active = False })
-                                    |> map (setFileActiveWithName tabModel.text)
-                        }
+                    ( { model
+                        | renderFunction = tabModel.textAreaRenderFunc
+                        , cvData = tabModel.cvModel
+                        , textArea = tabModel.textAreaModel
+                        , tabs =
+                            model.tabs
+                                |> map (\tab -> { tab | active = False })
+                                |> map (setTabActiveWithText tabModel.text)
+                        , sideBarFolders =
+                            model.sideBarFolders
+                                |> map (\folder -> { folder | active = False })
+                                |> map (setFileActiveWithName tabModel.text)
+                      }
                     , Cmd.none
                     )
 
@@ -110,18 +110,17 @@ update msg model =
                 )
 
         CvDataFetched (Ok newData) ->
-            Debug.log "Data fetch success"
-                ( { model
-                    | cvData = Just newData
-                    , sideBarFolders =
-                        model.sideBarFolders
-                            |> map
-                                (SideBar.State.goThroughAllFiles
-                                    (\file -> { file | cvData = Just newData })
-                                )
-                  }
-                , Cmd.none
-                )
+            ( { model
+                | cvData = Just newData
+                , sideBarFolders =
+                    model.sideBarFolders
+                        |> map
+                            (SideBar.State.goThroughAllFiles
+                                (\file -> { file | cvData = Just newData })
+                            )
+              }
+            , Cmd.none
+            )
 
 
 
