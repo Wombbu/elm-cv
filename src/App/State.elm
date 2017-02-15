@@ -1,6 +1,6 @@
 module App.State exposing (..)
 
-import App.Http
+import Requests.CvData
 import Maybe exposing (withDefault, andThen)
 import List exposing (filter, head, map)
 import TextArea.View.Base
@@ -113,6 +113,12 @@ update msg model =
             Debug.log "Data fetch success"
                 ( { model
                     | cvData = Just newData
+                    , sideBarFolders =
+                        model.sideBarFolders
+                            |> map
+                                (SideBar.State.goThroughAllFiles
+                                    (\file -> { file | cvData = Just newData })
+                                )
                   }
                 , Cmd.none
                 )
@@ -130,7 +136,7 @@ init =
       , renderFunction = TextArea.View.Base.view
       , cvData = Nothing
       }
-    , App.Http.getCvData
+    , Requests.CvData.get
     )
 
 

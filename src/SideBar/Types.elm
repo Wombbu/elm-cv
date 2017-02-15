@@ -2,6 +2,7 @@ module SideBar.Types exposing (..)
 
 import TextArea.Types
 import TabBar.Types
+import Requests.Types exposing (CvData)
 
 
 type alias Model =
@@ -16,6 +17,7 @@ type alias SideBarFile =
     { name : String
     , textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
     , active : Bool
+    , cvData : Maybe CvData
     }
 
 

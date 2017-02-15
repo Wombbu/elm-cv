@@ -1,12 +1,12 @@
-module App.Http exposing (getCvData)
+module Requests.CvData exposing (get)
 
 import Http
 import Json.Decode as Decode exposing (int, string, field, list)
 import App.Types as Types exposing (Msg(..))
 
 
-getCvData : Cmd Types.Msg
-getCvData =
+get : Cmd Types.Msg
+get =
     Http.send
         CvDataFetched
         (Http.get "./combined.json" decodeCvData)

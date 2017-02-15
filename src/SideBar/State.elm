@@ -12,15 +12,15 @@ import TextArea.Types
 
 init : List Model
 init =
-    [ Model "Java" False (initFiles ".java" TextArea.View.Java.view) False
-    , Model "Elm" True (initFiles ".elm" TextArea.View.Elm.view) False
+    [ Model "Java" True (initFiles ".java" TextArea.View.Java.view) False
+    , Model "Elm" False (initFiles ".elm" TextArea.View.Elm.view) False
     ]
 
 
 initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
 initFiles name syntax =
-    [ SideBarFile ("Info" ++ name) syntax False
-    , SideBarFile ("Skills" ++ name) syntax False
+    [ SideBarFile ("Info" ++ name) syntax False Nothing
+    , SideBarFile ("Skills" ++ name) syntax False Nothing
     ]
 
 
