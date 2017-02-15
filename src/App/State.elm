@@ -65,6 +65,7 @@ update msg model =
                             model.sideBarFolders
                                 |> map (\folder -> { folder | active = False })
                                 |> map (setFileActiveWithName tabModel.text)
+                        , activeTab = Just tabModel
                       }
                     , Cmd.none
                     )
@@ -93,6 +94,7 @@ update msg model =
                                     |> andThen (\tab -> Just (tab.textAreaRenderFunc))
                                     |> withDefault TextArea.View.Base.view
                             , sideBarFolders = model.sideBarFolders |> map (setFileActiveWithName newActiveTabName)
+                            , activeTab = head model.tabs
                         }
                     , Cmd.none
                     )
@@ -134,6 +136,7 @@ init =
       , textArea = TextArea.State.init
       , renderFunction = TextArea.View.Base.view
       , cvData = Nothing
+      , activeTab = Nothing
       }
     , Requests.CvData.get
     )

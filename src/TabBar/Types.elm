@@ -2,6 +2,7 @@ module TabBar.Types exposing (..)
 
 import TextArea.Types
 import Requests.Types
+import Shared.Types
 
 
 type alias Model =
@@ -10,6 +11,7 @@ type alias Model =
     , active : Bool
     , textAreaModel : TextArea.Types.Model
     , cvModel : Maybe Requests.Types.CvData
+    , syntax : Shared.Types.Syntax
     }
 
 

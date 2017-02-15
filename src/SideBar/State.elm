@@ -5,6 +5,7 @@ import SideBar.Types exposing (..)
 import TextArea.View.Java
 import TextArea.View.Elm
 import TextArea.Types
+import Shared.Types exposing (Syntax(..))
 
 
 -- Init
@@ -19,8 +20,8 @@ init =
 
 initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
 initFiles name syntax =
-    [ SideBarFile ("Info" ++ name) syntax False Nothing
-    , SideBarFile ("Skills" ++ name) syntax False Nothing
+    [ SideBarFile ("Info" ++ name) syntax False Nothing Java
+    , SideBarFile ("Skills" ++ name) syntax False Nothing Elm
     ]
 
 
