@@ -2,9 +2,6 @@ module SideBar.State exposing (..)
 
 import List exposing (map)
 import SideBar.Types exposing (..)
-import TextArea.View.Java
-import TextArea.View.Elm
-import TextArea.Types
 import Shared.Types exposing (Syntax(..))
 
 
@@ -13,15 +10,15 @@ import Shared.Types exposing (Syntax(..))
 
 init : List Model
 init =
-    [ Model "Java" True (initFiles ".java" TextArea.View.Java.view) False
-    , Model "Elm" False (initFiles ".elm" TextArea.View.Elm.view) False
+    [ Model "Java" True (initFiles ".java") False
+    , Model "Elm" False (initFiles ".elm") False
     ]
 
 
-initFiles : String -> TextArea.Types.SyntaxRenderFunc -> List SideBarFile
-initFiles name syntax =
-    [ SideBarFile ("Info" ++ name) syntax False Nothing Java
-    , SideBarFile ("Skills" ++ name) syntax False Nothing Elm
+initFiles : String -> List SideBarFile
+initFiles name =
+    [ SideBarFile ("Info" ++ name) False Nothing Java
+    , SideBarFile ("Skills" ++ name) False Nothing Elm
     ]
 
 

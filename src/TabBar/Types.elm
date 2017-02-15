@@ -6,8 +6,7 @@ import Shared.Types
 
 
 type alias Model =
-    { textAreaRenderFunc : TextArea.Types.SyntaxRenderFunc
-    , text : String
+    { text : String
     , active : Bool
     , textAreaModel : TextArea.Types.Model
     , cvModel : Maybe Shared.Types.CvData
