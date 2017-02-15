@@ -1,6 +1,7 @@
 module App.Types exposing (..)
 
 import Html exposing (Html)
+import Http
 import TextArea.Types
 import TabBar.Types
 import SideBar.Types
@@ -10,6 +11,7 @@ type Msg
     = ClickTextArea TextArea.Types.Msg
     | ClickSideBar SideBar.Types.Msg
     | ClickTabBar TabBar.Types.Msg
+    | CvDataFetched (Result Http.Error CvData)
     | OnlyHtml ()
 
 
@@ -19,7 +21,7 @@ type alias Model =
     , textArea : TextArea.Types.Model
     , renderFunction :
         TextArea.Types.Model -> Html TextArea.Types.Msg
-        -- , cvData : CvData
+    , cvData : Maybe CvData
     }
 
 

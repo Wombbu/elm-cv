@@ -1,5 +1,6 @@
 module App.State exposing (..)
 
+import App.Http
 import Maybe exposing (withDefault, andThen)
 import List exposing (filter, head, map)
 import TextArea.View.Base
@@ -99,19 +100,37 @@ update msg model =
         OnlyHtml msg ->
             ( model, Cmd.none )
 
+        CvDataFetched (Err e) ->
+            let
+                err =
+                    Debug.log "Error: " e
+            in
+                ( model
+                , Cmd.none
+                )
+
+        CvDataFetched (Ok newData) ->
+            Debug.log "Data fetch success"
+                ( { model
+                    | cvData = Just newData
+                  }
+                , Cmd.none
+                )
+
 
 
 -- Init
 
 
-init : ( Model, Cmd msg )
+init : ( Model, Cmd Msg )
 init =
     ( { sideBarFolders = SideBar.State.init
       , tabs = TabBar.State.init
       , textArea = TextArea.State.init
       , renderFunction = TextArea.View.Base.view
+      , cvData = Nothing
       }
-    , Cmd.none
+    , App.Http.getCvData
     )
 
 
