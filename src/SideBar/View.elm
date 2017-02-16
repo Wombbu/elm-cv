@@ -65,7 +65,7 @@ renderFiles file =
     div
         [ class [ Button, active file.active ]
           -- TODO create tabbar-model at the app.state, not here
-        , onClick (Open (TabBar.Types.Model file.name True file.cvData file.syntax))
+        , onClick (Open (TabBar.Types.Model file.name True file.cvData file.syntax file.info))
         ]
         [ div [ class [ FileContent ] ]
             [ p [ icon SidebarTextFile ] []

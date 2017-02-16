@@ -8,6 +8,7 @@ type alias Model =
     , active : Bool
     , cvModel : Maybe Shared.Types.CvData
     , syntax : Shared.Types.Syntax
+    , info : Shared.Types.Info
     }
 
 

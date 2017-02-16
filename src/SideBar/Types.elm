@@ -18,6 +18,7 @@ type alias SideBarFile =
     , active : Bool
     , cvData : Maybe CvData
     , syntax : Shared.Types.Syntax
+    , info : Shared.Types.Info
     }
 
 
