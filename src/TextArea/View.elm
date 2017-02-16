@@ -19,7 +19,9 @@ view maybeTab =
                     (model.cvModel
                         |> andThen
                             (\cvModel ->
-                                Just ((getRenderFunc model.syntax model.info) cvModel)
+                                Just <|
+                                    getRenderFunc model.syntax model.info <|
+                                        cvModel
                             )
                         |> withDefault Base.view
                     )
@@ -33,27 +35,27 @@ getRenderFunc syntax info =
         Shared.Types.Java ->
             case info of
                 General ->
-                    Java.view
+                    Java.generalInfo
 
                 Projects ->
-                    Java.view
+                    Java.generalInfo
 
                 Employers ->
-                    Java.view
+                    Java.generalInfo
 
                 Skills ->
-                    Java.view
+                    Java.languages
 
         Shared.Types.Elm ->
             case info of
                 General ->
-                    Elm.view
+                    Elm.generalInfo
 
                 Projects ->
-                    Elm.view
+                    Elm.generalInfo
 
                 Employers ->
-                    Elm.view
+                    Elm.generalInfo
 
                 Skills ->
-                    Elm.view
+                    Elm.languages

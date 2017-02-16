@@ -2,7 +2,7 @@ module SideBar.State exposing (..)
 
 import List exposing (map)
 import SideBar.Types exposing (..)
-import Shared.Types exposing (Syntax(..))
+import Shared.Types exposing (Syntax(..), Info(..))
 
 
 -- Init
@@ -17,8 +17,8 @@ init =
 
 initFiles : String -> Syntax -> List SideBarFile
 initFiles name syntax =
-    [ SideBarFile ("Info" ++ name) False Nothing syntax
-    , SideBarFile ("Skills" ++ name) False Nothing syntax
+    [ SideBarFile ("Info" ++ name) False Nothing syntax General
+    , SideBarFile ("Skills" ++ name) False Nothing syntax Skills
     ]
 
 

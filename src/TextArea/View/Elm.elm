@@ -7,51 +7,69 @@ import List exposing (map)
 import TextArea.Styles exposing (..)
 import TextArea.Types exposing (..)
 import Shared.Types
-import Maybe exposing (andThen, withDefault)
 
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
 
 
-view : SyntaxRenderFunc
-view cvModel =
-    div [ class [ TextWrapper ] ]
-        [ h1 [] [ Html.text "elm" ]
-        , renderInfo cvModel.generalInfo
-          -- , renderEmployers model.employers
-          -- , renderLanguages model.languages
-          -- , renderFrameworks model.frameworks
-        ]
+
+-- view : SyntaxRenderFunc
+-- view cvModel =
+--     div [ class [ TextWrapper ] ]
+--         [ h1 [] [ Html.text "elm" ]
+--         , renderInfo cvModel.generalInfo
+--           -- , renderEmployers model.employers
+--           -- , renderLanguages model.languages
+--           -- , renderFrameworks model.frameworks
+--         ]
 
 
-renderInfo : Shared.Types.GeneralInfo -> Html Msg
-renderInfo infoList =
-    div []
-        ([ p [] [ text infoList.name ]
-         , p [] [ text (toString infoList.born) ]
-         , p [] [ text infoList.location ]
-         , p [] [ text infoList.photo ]
-         , p [] [ text infoList.education ]
-         ]
-            ++ (infoList.interests
-                    |> map
-                        (\interest ->
-                            p [] [ text interest ]
-                        )
-               )
-        )
-
-
-renderLanguages : List ( String, Int ) -> Html msg
-renderLanguages languageList =
-    div []
-        (map
-            (\language ->
-                p [] [ text (first language ++ ": " ++ toString (second language) ++ "/5") ]
+generalInfo : SyntaxRenderFunc
+generalInfo cvModel =
+    let
+        info =
+            cvModel.generalInfo
+    in
+        div [ class [ TextWrapper ] ]
+            ([ p [] [ text info.name ]
+             , p [] [ text (toString info.born) ]
+             , p [] [ text info.location ]
+             , p [] [ text info.photo ]
+             , p [] [ text info.education ]
+             ]
+                ++ (info.interests
+                        |> map
+                            (\interest ->
+                                p [] [ text interest ]
+                            )
+                   )
             )
-            languageList
-        )
+
+
+languages : SyntaxRenderFunc
+languages cvData =
+    let
+        languages =
+            cvData.languages
+    in
+        div [ class [ TextWrapper ] ]
+            (languages
+                |> map
+                    (\language ->
+                        div []
+                            ([ p [] [ Html.text language.language ]
+                             , p [] [ Html.text ("Skill: " ++ (toString language.skill)) ]
+                             ]
+                                ++ (language.technologies
+                                        |> map
+                                            (\technology ->
+                                                p [] [ Html.text technology ]
+                                            )
+                                   )
+                            )
+                    )
+            )
 
 
 renderFrameworks : List ( String, Int ) -> Html msg
