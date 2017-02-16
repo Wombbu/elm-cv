@@ -51,7 +51,7 @@ tabsAndTextArea model =
             ]
         , div [ id TextAreaContainer ]
             -- [ Html.map App.Types.ClickTextArea (model.renderFunction model.textArea)
-            [ Html.map App.Types.ClickTextArea (TextArea.View.view model.textArea model.activeTab)
+            [ Html.map App.Types.ClickTextArea (TextArea.View.view model.activeTab)
             ]
         , div [ id BottomBarContainer ]
             [ Html.map App.Types.OnlyHtml BottomBar.View.view

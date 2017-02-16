@@ -3,7 +3,6 @@ module App.State exposing (..)
 import Requests.CvData
 import Maybe exposing (withDefault, andThen)
 import List exposing (filter, head, map)
-import TextArea.State
 import TabBar.State exposing (setTabActiveWithText)
 import SideBar.State exposing (setFileActiveWithName, setFolderActiveWithName)
 import App.Types exposing (..)
@@ -126,7 +125,6 @@ init : ( Model, Cmd Msg )
 init =
     ( { sideBarFolders = SideBar.State.init
       , tabs = TabBar.State.init
-      , textArea = TextArea.State.init
       , cvData = Nothing
       , activeTab = Nothing
       }

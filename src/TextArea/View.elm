@@ -9,8 +9,8 @@ import TextArea.View.Elm as Elm
 import TabBar.Types
 
 
-view : Model -> Maybe TabBar.Types.Model -> Html Msg
-view model maybeTab =
+view : Maybe TabBar.Types.Model -> Html Msg
+view maybeTab =
     case maybeTab of
         Just tabModel ->
             case tabModel.cvModel of

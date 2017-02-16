@@ -19,7 +19,6 @@ type Msg
 type alias Model =
     { sideBarFolders : List SideBar.Types.Model
     , tabs : List TabBar.Types.Model
-    , textArea : TextArea.Types.Model
     , cvData : Maybe CvData
     , activeTab : Maybe TabBar.Types.Model
     }
