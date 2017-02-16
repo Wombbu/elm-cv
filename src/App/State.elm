@@ -54,7 +54,6 @@ update msg model =
                 TabBar.Types.Open tabModel ->
                     ( { model
                         | cvData = tabModel.cvModel
-                        , textArea = tabModel.textAreaModel
                         , tabs =
                             model.tabs
                                 |> map (\tab -> { tab | active = False })

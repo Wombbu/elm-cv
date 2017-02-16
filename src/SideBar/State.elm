@@ -10,15 +10,15 @@ import Shared.Types exposing (Syntax(..))
 
 init : List Model
 init =
-    [ Model "Java" True (initFiles ".java") False
-    , Model "Elm" False (initFiles ".elm") False
+    [ Model "Java" True (initFiles ".java" Java) False
+    , Model "Elm" False (initFiles ".elm" Elm) False
     ]
 
 
-initFiles : String -> List SideBarFile
-initFiles name =
-    [ SideBarFile ("Info" ++ name) False Nothing Java
-    , SideBarFile ("Skills" ++ name) False Nothing Elm
+initFiles : String -> Syntax -> List SideBarFile
+initFiles name syntax =
+    [ SideBarFile ("Info" ++ name) False Nothing syntax
+    , SideBarFile ("Skills" ++ name) False Nothing syntax
     ]
 
 

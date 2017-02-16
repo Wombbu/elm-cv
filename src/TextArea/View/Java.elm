@@ -6,8 +6,12 @@ import Tuple exposing (first, second)
 import List exposing (map)
 import TextArea.Styles exposing (Classes(..), indent, hi)
 import TextArea.Types exposing (..)
-import Css exposing (..)
-import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight)
+
+
+-- import Css exposing (..)
+-- import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight)
+
+import Shared.Types
 
 
 { id, class, classList } =
@@ -15,27 +19,29 @@ import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHili
 
 
 view : SyntaxRenderFunc
-view model =
+view cvModel =
     div [ class [ TextWrapper ] ]
-        [ p [] [ hi "public class" colorBlue, hi " Info" colorTabTextHilight, Html.text " {" ]
-        , div [ indent 2 ]
-            [ renderInfo model.info
-            , renderEmployers model.employers
-            , renderLanguages model.languages
-            , renderFrameworks model.frameworks
-            ]
-        , p [] [ Html.text "}" ]
+        [ h1 [] [ Html.text "java" ]
+        , renderInfo cvModel.generalInfo
+          -- , renderEmployers model.employers
+          -- , renderLanguages model.languages
+          -- , renderFrameworks model.frameworks
         ]
 
 
-renderInfo : List ( String, String ) -> Html msg
+renderInfo : Shared.Types.GeneralInfo -> Html Msg
 renderInfo infoList =
-    div [ styles [ paddingBottom (em 1) ] ]
-        (p [] [ hi "private final String" colorBlue, Html.text " LIFE_PREFIX = ", hi "\"NO\"" colorTabTextHilight, Html.text ";" ]
-            :: (infoList
+    div []
+        ([ p [] [ Html.text infoList.name ]
+         , p [] [ Html.text (toString infoList.born) ]
+         , p [] [ Html.text infoList.location ]
+         , p [] [ Html.text infoList.photo ]
+         , p [] [ Html.text infoList.education ]
+         ]
+            ++ (infoList.interests
                     |> map
-                        (\info ->
-                            p [ styles [ color colorTabText ] ] [ Html.text ("//" ++ Tuple.first info ++ ": " ++ second info) ]
+                        (\interest ->
+                            p [] [ Html.text interest ]
                         )
                )
         )

@@ -10,7 +10,6 @@ import Html.CssHelpers
 import Shared.Styles exposing (pickClass, tabBarHeight, tabHeightPct, colorSidebarBg, styles)
 import SideBar.Types exposing (..)
 import TabBar.Types
-import TextArea.State
 import Shared.Icons exposing (icon, Icon(..))
 
 
@@ -66,7 +65,7 @@ renderFiles file =
     div
         [ class [ Button, active file.active ]
           -- TODO create tabbar-model at the app.state, not here
-        , onClick (Open (TabBar.Types.Model file.name True TextArea.State.init file.cvData file.syntax))
+        , onClick (Open (TabBar.Types.Model file.name True file.cvData file.syntax))
         ]
         [ div [ class [ FileContent ] ]
             [ p [ icon SidebarTextFile ] []

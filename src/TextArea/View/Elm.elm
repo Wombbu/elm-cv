@@ -6,6 +6,8 @@ import Tuple exposing (first, second)
 import List exposing (map)
 import TextArea.Styles exposing (..)
 import TextArea.Types exposing (..)
+import Shared.Types
+import Maybe exposing (andThen, withDefault)
 
 
 { id, class, classList } =
@@ -13,24 +15,31 @@ import TextArea.Types exposing (..)
 
 
 view : SyntaxRenderFunc
-view model =
+view cvModel =
     div [ class [ TextWrapper ] ]
         [ h1 [] [ Html.text "elm" ]
-        , renderInfo model.info
-        , renderEmployers model.employers
-        , renderLanguages model.languages
-        , renderFrameworks model.frameworks
+        , renderInfo cvModel.generalInfo
+          -- , renderEmployers model.employers
+          -- , renderLanguages model.languages
+          -- , renderFrameworks model.frameworks
         ]
 
 
-renderInfo : List ( String, String ) -> Html msg
+renderInfo : Shared.Types.GeneralInfo -> Html Msg
 renderInfo infoList =
     div []
-        (map
-            (\info ->
-                p [] [ text (first info ++ "     " ++ second info) ]
-            )
-            infoList
+        ([ p [] [ text infoList.name ]
+         , p [] [ text (toString infoList.born) ]
+         , p [] [ text infoList.location ]
+         , p [] [ text infoList.photo ]
+         , p [] [ text infoList.education ]
+         ]
+            ++ (infoList.interests
+                    |> map
+                        (\interest ->
+                            p [] [ text interest ]
+                        )
+               )
         )
 
 

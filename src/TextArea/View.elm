@@ -7,19 +7,24 @@ import TextArea.View.Base as Base
 import TextArea.View.Java as Java
 import TextArea.View.Elm as Elm
 import TabBar.Types
-import Maybe exposing (andThen, withDefault)
 
 
 view : Model -> Maybe TabBar.Types.Model -> Html Msg
 view model maybeTab =
     case maybeTab of
         Just tabModel ->
-            case tabModel.syntax of
-                Shared.Types.Elm ->
-                    Elm.view model
+            case tabModel.cvModel of
+                Just model ->
+                    case tabModel.syntax of
+                        Shared.Types.Elm ->
+                            Elm.view model
 
-                Shared.Types.Java ->
-                    Java.view model
+                        Shared.Types.Java ->
+                            Java.view model
 
+                Nothing ->
+                    Base.view
+
+        --Todo error view here
         Nothing ->
             Base.view

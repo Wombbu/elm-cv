@@ -1,6 +1,8 @@
 module TextArea.Types exposing (..)
 
 import Html exposing (Html)
+import TabBar.Types
+import Shared.Types
 
 
 type alias Model =
@@ -32,4 +34,4 @@ type Msg
 
 
 type alias SyntaxRenderFunc =
-    Model -> Html Msg
+    Shared.Types.CvData -> Html Msg
