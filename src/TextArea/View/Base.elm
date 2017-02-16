@@ -7,10 +7,9 @@ import Css exposing (..)
 import Css.Namespace exposing (namespace)
 import Html.CssHelpers
 import Shared.Styles exposing (justifyContentCenter, styles)
-import TextArea.Types exposing (..)
 
 
-view : Html Msg
+view : Html msg
 view =
     div [ class [ TextWrapper ], styles [ displayFlex ] ]
         [ div [ class [ CenterContent ] ]

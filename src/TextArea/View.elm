@@ -1,30 +1,59 @@
 module TextArea.View exposing (view)
 
 import Html exposing (Html)
-import Shared.Types exposing (CvData, Syntax(..))
-import TextArea.Types exposing (Model, Msg)
+import Shared.Types exposing (CvData, Syntax(..), Info, Info(..))
+import TextArea.Types exposing (Model, Msg, SyntaxRenderFunc)
 import TextArea.View.Base as Base
 import TextArea.View.Java as Java
 import TextArea.View.Elm as Elm
 import TabBar.Types
+import Maybe exposing (andThen, withDefault)
 
 
 view : Maybe TabBar.Types.Model -> Html Msg
 view maybeTab =
-    case maybeTab of
-        Just tabModel ->
-            case tabModel.cvModel of
-                Just model ->
-                    case tabModel.syntax of
-                        Shared.Types.Elm ->
-                            Elm.view model
+    maybeTab
+        |> andThen
+            (\model ->
+                Just
+                    (model.cvModel
+                        |> andThen
+                            (\cvModel ->
+                                Just ((getRenderFunc model.syntax model.info) cvModel)
+                            )
+                        |> withDefault Base.view
+                    )
+            )
+        |> withDefault Base.view
 
-                        Shared.Types.Java ->
-                            Java.view model
 
-                Nothing ->
-                    Base.view
+getRenderFunc : Syntax -> Info -> SyntaxRenderFunc
+getRenderFunc syntax info =
+    case syntax of
+        Shared.Types.Java ->
+            case info of
+                General ->
+                    Java.view
 
-        --Todo error view here
-        Nothing ->
-            Base.view
+                Projects ->
+                    Java.view
+
+                Employers ->
+                    Java.view
+
+                Skills ->
+                    Java.view
+
+        Shared.Types.Elm ->
+            case info of
+                General ->
+                    Elm.view
+
+                Projects ->
+                    Elm.view
+
+                Employers ->
+                    Elm.view
+
+                Skills ->
+                    Elm.view
