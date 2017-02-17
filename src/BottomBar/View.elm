@@ -77,6 +77,7 @@ css =
             , displayFlex
             , alignItems stretch
             , justifyContentSpaceBetween
+            , overflow hidden
             , descendants
                 [ Css.Elements.p
                     [ color colorSidebarTextMain

@@ -1,6 +1,5 @@
 module App.Types exposing (..)
 
-import Html exposing (Html)
 import Http
 import TextArea.Types
 import TabBar.Types
