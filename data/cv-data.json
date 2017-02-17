@@ -13,11 +13,11 @@
     }
 , "projects":
     [ { "name": "JavaGameEngine"
-      , "video": "http://www.youtube.com"
+      , "video": "https://www.youtube.com/embed/Q6zX6vE6d3M"
       , "explanation": "A game engine made with java swing :D:D :("
       }
     , { "name": "Vect"
-      , "video": "http://www.youtube.com"
+      , "video": "https://www.youtube.com/embed/Q6zX6vE6d3M"
       , "explanation": "A game made with LibGDX"
       }
     ]
@@ -27,12 +27,14 @@
         [ "Create API"
         , "Test automation with Robot Framework"
         ]
+      , "years": "2016"
       }
     , { "name": "Sasken"
       , "description":
         [ "Create 2 online ticket games"
         , "Mobile software with ionic 2"
         ]
+      , "years": "2016-2017"
       }
     ]
 , "languages":

@@ -1,8 +1,8 @@
 module TextArea.View.Java exposing (..)
 
-import Html exposing (Html, div, h1, text, ul, li, p)
+import Html exposing (Html, div, h1, text, ul, li, p, iframe)
+import Html.Attributes exposing (src)
 import Html.CssHelpers
-import Tuple exposing (first, second)
 import List exposing (map)
 import TextArea.Styles exposing (Classes(..), indent, hi)
 import TextArea.Types exposing (..)
@@ -14,18 +14,6 @@ import TextArea.Types exposing (..)
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
-
-
-
--- view : SyntaxRenderFunc
--- view cvModel =
---     div [ class [ TextWrapper ] ]
---         [ h1 [] [ Html.text "java" ]
---         , renderInfo cvModel.generalInfo
---           -- , renderEmployers model.employers
---           -- , renderLanguages model.languages
---           -- , renderFrameworks model.frameworks
---         ]
 
 
 generalInfo : SyntaxRenderFunc
@@ -50,14 +38,17 @@ generalInfo cvData =
             )
 
 
-languages : SyntaxRenderFunc
-languages cvData =
+skills : SyntaxRenderFunc
+skills cvData =
     let
         languages =
             cvData.languages
+
+        tools =
+            cvData.tools
     in
         div [ class [ TextWrapper ] ]
-            (languages
+            ((languages
                 |> map
                     (\language ->
                         div []
@@ -71,31 +62,55 @@ languages cvData =
                                    )
                             )
                     )
+             )
+                ++ (tools
+                        |> map
+                            (\tool ->
+                                p [] [ Html.text tool ]
+                            )
+                   )
             )
 
 
-renderFrameworks : List ( String, Int ) -> Html msg
-renderFrameworks fwList =
-    div []
-        (fwList
-            |> map
-                (\fw ->
-                    p [] [ Html.text (Tuple.first fw ++ ": " ++ toString (second fw) ++ "/5") ]
-                )
-        )
+employers : SyntaxRenderFunc
+employers cvData =
+    let
+        employers =
+            cvData.employers
+    in
+        div [ class [ TextWrapper ] ]
+            (employers
+                |> map
+                    (\employer ->
+                        div []
+                            ([ p [] [ Html.text ("Name: " ++ employer.name) ]
+                             , p [] [ Html.text ("Years " ++ employer.years) ]
+                             ]
+                                ++ (employer.description
+                                        |> map
+                                            (\task ->
+                                                p [] [ Html.text task ]
+                                            )
+                                   )
+                            )
+                    )
+            )
 
 
-renderEmployers : List Employer -> Html msg
-renderEmployers employers =
-    div []
-        (employers
-            |> map
-                (\employer ->
-                    div []
-                        [ p [] [ Html.text ("Name: " ++ employer.name) ]
-                        , p [] [ Html.text ("Tasks: " ++ employer.description) ]
-                        , p [] [ Html.text ("Start date: " ++ employer.startDate) ]
-                        , p [] [ Html.text ("End date: " ++ employer.endDate) ]
-                        ]
-                )
-        )
+projects : SyntaxRenderFunc
+projects cvData =
+    let
+        projects =
+            cvData.projects
+    in
+        div [ class [ TextWrapper ] ]
+            (projects
+                |> map
+                    (\project ->
+                        div []
+                            [ p [] [ Html.text ("Name: " ++ project.name) ]
+                            , p [] [ Html.text ("Explanation: " ++ project.explanation) ]
+                            , iframe [ src project.video ] []
+                            ]
+                    )
+            )

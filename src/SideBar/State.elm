@@ -19,6 +19,8 @@ initFiles : String -> Syntax -> List SideBarFile
 initFiles name syntax =
     [ SideBarFile ("Info" ++ name) False Nothing syntax General
     , SideBarFile ("Skills" ++ name) False Nothing syntax Skills
+    , SideBarFile ("Employers" ++ name) False Nothing syntax Employers
+    , SideBarFile ("Projects" ++ name) False Nothing syntax Projects
     ]
 
 

@@ -49,6 +49,7 @@ decodeEmployers =
     decode Types.Employer
         |> required "name" string
         |> required "description" (list string)
+        |> required "years" string
 
 
 decodeLanguages : Decoder Types.Language

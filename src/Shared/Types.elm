@@ -43,6 +43,7 @@ type alias Project =
 type alias Employer =
     { name : String
     , description : List String
+    , years : String
     }
 
 

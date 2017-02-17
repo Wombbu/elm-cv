@@ -38,13 +38,13 @@ getRenderFunc syntax info =
                     Java.generalInfo
 
                 Projects ->
-                    Java.generalInfo
+                    Java.projects
 
                 Employers ->
-                    Java.generalInfo
+                    Java.employers
 
                 Skills ->
-                    Java.languages
+                    Java.skills
 
         Shared.Types.Elm ->
             case info of
@@ -52,10 +52,10 @@ getRenderFunc syntax info =
                     Elm.generalInfo
 
                 Projects ->
-                    Elm.generalInfo
+                    Elm.projects
 
                 Employers ->
                     Elm.generalInfo
 
                 Skills ->
-                    Elm.languages
+                    Elm.skills

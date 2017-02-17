@@ -1,7 +1,6 @@
 module TextArea.Types exposing (..)
 
 import Html exposing (Html)
-import TabBar.Types
 import Shared.Types
 
 
