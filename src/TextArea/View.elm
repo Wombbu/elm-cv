@@ -2,7 +2,7 @@ module TextArea.View exposing (view)
 
 import Html exposing (Html)
 import Shared.Types exposing (CvData, Syntax(..), Info, Info(..))
-import TextArea.Types exposing (Model, Msg, SyntaxRenderFunc)
+import TextArea.Types exposing (Msg, SyntaxRenderFunc)
 import TextArea.View.Base as Base
 import TextArea.View.Java as Java
 import TextArea.View.Elm as Elm
