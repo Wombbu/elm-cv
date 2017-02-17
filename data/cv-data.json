@@ -38,28 +38,25 @@
 , "languages":
     [ { "language": "Java 8"
       , "technologies":
-        [ "Jersey"
-        , "Guice"
-        , "Lombok"
-        , "Maven"
-        , "Gradle"
+        [ { "name": "Jersey", "skill": 4 }
+        , { "name": "Guice", "skill": 4 }
+        , { "name": "Lombok", "skill": 4 }
+        , { "name": "Maven", "skill": 4 }
+        , { "name": "Gradle", "skill": 4 }
         ]
-      , "skill": 4
       }
-    , { "language": "Javascript"
+    , { "language": "Javascript - ES6"
       , "technologies":
-        [ "ES6"
-        , "Typescript"
-        , "Angular 1&2"
-        , "Ionic 1&2"
+        [ { "name":"ES6", "skill": 4 }
+        , { "name":"Typescript", "skill": 4 }
+        , { "name":"Angular 1&2", "skill": 4 }
+        , { "name":"Ionic 1&2", "skill": 4 }
         ]
-      , "skill": 3
       }
     , { "language": "Elm"
       , "technologies":
-        [ "I made this site with Elm :)"
+        [ { "name": "elm-css", "skill": 4 }
         ]
-      , "skill": 3
       }
     ]
 , "tools":

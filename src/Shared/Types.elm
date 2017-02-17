@@ -48,7 +48,12 @@ type alias Employer =
 
 type alias Language =
     { language : String
-    , technologies : List String
-    , skill : Int
+    , technologies : List TechnologyAndSkill
     , expanded : Bool
+    }
+
+
+type alias TechnologyAndSkill =
+    { name : String
+    , skill : Int
     }

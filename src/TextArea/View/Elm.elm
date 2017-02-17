@@ -6,7 +6,6 @@ import Tuple exposing (first, second)
 import List exposing (map)
 import TextArea.Styles exposing (..)
 import TextArea.Types exposing (..)
-import Shared.Types
 
 
 { id, class, classList } =
@@ -59,12 +58,11 @@ languages cvData =
                     (\language ->
                         div []
                             ([ p [] [ Html.text language.language ]
-                             , p [] [ Html.text ("Skill: " ++ (toString language.skill)) ]
                              ]
                                 ++ (language.technologies
                                         |> map
                                             (\technology ->
-                                                p [] [ Html.text technology ]
+                                                p [] [ Html.text (technology.name ++ " " ++ toString technology.skill) ]
                                             )
                                    )
                             )

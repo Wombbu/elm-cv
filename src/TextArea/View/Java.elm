@@ -62,12 +62,11 @@ languages cvData =
                     (\language ->
                         div []
                             ([ p [] [ Html.text language.language ]
-                             , p [] [ Html.text ("Skill: " ++ (toString language.skill)) ]
                              ]
                                 ++ (language.technologies
                                         |> map
                                             (\technology ->
-                                                p [] [ Html.text technology ]
+                                                p [] [ Html.text (technology.name ++ " " ++ toString technology.skill) ]
                                             )
                                    )
                             )

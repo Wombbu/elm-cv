@@ -55,6 +55,12 @@ decodeLanguages : Decoder Types.Language
 decodeLanguages =
     decode Types.Language
         |> required "language" string
-        |> required "technologies" (list string)
-        |> required "skill" int
+        |> required "technologies" (list decodeTechnologies)
         |> optional "expanded" bool False
+
+
+decodeTechnologies : Decoder Types.TechnologyAndSkill
+decodeTechnologies =
+    decode Types.TechnologyAndSkill
+        |> required "name" string
+        |> required "skill" int
