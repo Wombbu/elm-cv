@@ -7,24 +7,21 @@ import TextArea.View.Base as Base
 import TextArea.View.Java as Java
 import TextArea.View.Elm as Elm
 import TabBar.Types
-import Maybe exposing (andThen, withDefault)
+import Maybe exposing (andThen, withDefault, map)
 
 
 view : Maybe TabBar.Types.Model -> Html Msg
 view maybeTab =
     maybeTab
-        |> andThen
+        |> map
             (\model ->
-                Just
-                    (model.cvModel
-                        |> andThen
-                            (\cvModel ->
-                                Just <|
-                                    getRenderFunc model.syntax model.info <|
-                                        cvModel
-                            )
-                        |> withDefault Base.view
-                    )
+                model.cvModel
+                    |> map
+                        (\cvModel ->
+                            getRenderFunc model.syntax model.info <|
+                                cvModel
+                        )
+                    |> withDefault Base.view
             )
         |> withDefault Base.view
 
