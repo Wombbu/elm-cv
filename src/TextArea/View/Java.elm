@@ -20,9 +20,9 @@ import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHili
 -- General
 
 
-renderClassHeader : String -> List ( String, String ) -> Html msg
-renderClassHeader className params =
-    p []
+classHeader : String -> List ( String, String ) -> List (Html msg)
+classHeader className params =
+    [ p []
         (([ span [ styles [ float left ] ] [ Html.text ("public class") ]
           , span [ styles [ float left, color colorBlue, indentMixin 1 ] ] [ Html.text (className) ]
           , span [ styles [ float left ] ] [ Html.text "(" ]
@@ -42,6 +42,21 @@ renderClassHeader className params =
                , br [] []
                ]
         )
+    ]
+
+
+closingBracket : List (Html msg)
+closingBracket =
+    [ p [] [ Html.text "}" ] ]
+
+
+renderClass : String -> List ( String, String ) -> List (Html msg) -> Html msg
+renderClass name arguments content =
+    div [ class [ TextWrapper ] ]
+        (classHeader name arguments
+            ++ [ div [ indent 4 ] content ]
+            ++ closingBracket
+        )
 
 
 
@@ -54,14 +69,14 @@ generalInfo cvData =
         info =
             cvData.generalInfo
     in
-        div [ class [ TextWrapper ] ]
-            ([ (renderClassHeader "Info" [ ( "Juuh", "juuh" ), ( "Eiss", "eiss" ) ]) ]
-                ++ [ p [] [ Html.text info.name ]
-                   , p [] [ Html.text (toString info.born) ]
-                   , p [] [ Html.text info.location ]
-                   , p [] [ Html.text info.photo ]
-                   , p [] [ Html.text info.education ]
-                   ]
+        renderClass "Info"
+            [ ( "Juuh", "eiss" ), ( "Voiv", "hele" ) ]
+            ([ p [] [ Html.text info.name ]
+             , p [] [ Html.text (toString info.born) ]
+             , p [] [ Html.text info.location ]
+             , p [] [ Html.text info.photo ]
+             , p [] [ Html.text info.education ]
+             ]
                 ++ renderInterests info.interests
             )
 
@@ -88,7 +103,8 @@ skills cvData =
         tools =
             cvData.tools
     in
-        div [ class [ TextWrapper ] ]
+        renderClass "Skills"
+            [ ( "Juuh", "elicks" ), ( "Eiss", "eiss" ) ]
             (renderLanguages languages
                 ++ renderTools tools
             )
@@ -134,7 +150,8 @@ employers cvData =
         employers =
             cvData.employers
     in
-        div [ class [ TextWrapper ] ]
+        renderClass "Skills"
+            [ ( "Juuh", "elicks" ), ( "Eiss", "eiss" ) ]
             (renderEmployers employers)
 
 
@@ -167,8 +184,9 @@ projects cvData =
         projects =
             cvData.projects
     in
-        div [ class [ TextWrapper ] ]
-            (projects
+        renderClass "Skills"
+            [ ( "Juuh", "elicks" ), ( "Eiss", "eiss" ) ]
+            ((projects
                 |> map
                     (\project ->
                         div []
@@ -177,4 +195,5 @@ projects cvData =
                             , iframe [ Attr.src project.video ] []
                             ]
                     )
+             )
             )

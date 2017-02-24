@@ -7,7 +7,7 @@ import TextArea.View.Base as Base
 import TextArea.View.Java as Java
 import TextArea.View.Elm as Elm
 import TabBar.Types
-import Maybe exposing (andThen, withDefault, map)
+import Maybe exposing (withDefault, map)
 
 
 view : Maybe TabBar.Types.Model -> Html Msg
