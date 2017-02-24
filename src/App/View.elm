@@ -11,6 +11,7 @@ import SideBar.View
 import TabBar.View
 import BottomBar.View
 import TextArea.View
+import Maybe
 
 
 view : Model -> Html Msg
@@ -54,7 +55,7 @@ tabsAndTextArea model =
             [ Html.map App.Types.ClickTextArea (TextArea.View.view model.activeTab)
             ]
         , div [ id BottomBarContainer ]
-            [ Html.map App.Types.OnlyHtml BottomBar.View.view
+            [ Html.map App.Types.OnlyHtml (BottomBar.View.view (model.activeTab |> Maybe.map (\tab -> tab.syntax)))
             ]
         ]
 

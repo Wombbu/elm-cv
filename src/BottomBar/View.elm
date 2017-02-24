@@ -24,34 +24,58 @@ import Shared.Styles
         , justifyContentFlexEnd
         )
 import Shared.Icons exposing (Icon(..), icon)
+import Shared.Types exposing (Syntax(..))
+import Maybe
 
 
 type Msg
     = OnlyHtml
 
 
-view : Html ()
-view =
+view : Maybe Syntax -> Html ()
+view syntax =
     div [ class [ BarContainer ] ]
         [ div [ class [ ContainerLeft ] ]
             [ span [ icon BottomBarOk, styles [ fontSize (em 0.8), color colorTabBlue ] ] []
             , p [ styles [ color colorTabBlue ] ] [ Html.text "No Issues" ]
             ]
         , div [ class [ ContainerRight ] ]
+            ((getSyntaxHtml syntax)
+                ++ [ span [ class [ Spacer ] ] []
+                   , span [ icon BottomBarUp, styles [ fontSize (em 0.6) ] ] []
+                   , p [] [ Html.text "2" ]
+                   , span [ class [ Spacer ] ] []
+                   , span [ icon BottombarGit ] []
+                   , p [] [ Html.text "master" ]
+                   , span [ styles [ marginLeft (px 7) ] ] []
+                   ]
+            )
+        ]
+
+
+getSyntaxText : Syntax -> String
+getSyntaxText syntax =
+    case syntax of
+        Java ->
+            "Java"
+
+        Elm ->
+            "Elm"
+
+
+getSyntaxHtml : Maybe Syntax -> List (Html ())
+getSyntaxHtml maybeSyntax =
+    case maybeSyntax of
+        Just syntax ->
             [ p [] [ Html.text "LF" ]
             , span [ class [ Spacer ] ] []
             , p [] [ Html.text "UTF-8" ]
             , span [ class [ Spacer ] ] []
-            , p [] [ Html.text "Elm" ]
-            , span [ class [ Spacer ] ] []
-            , span [ icon BottomBarUp, styles [ fontSize (em 0.6) ] ] []
-            , p [] [ Html.text "2" ]
-            , span [ class [ Spacer ] ] []
-            , span [ icon BottombarGit ] []
-            , p [] [ Html.text "master" ]
-            , span [ styles [ marginLeft (px 7) ] ] []
+            , p [] [ Html.text (getSyntaxText syntax) ]
             ]
-        ]
+
+        Nothing ->
+            []
 
 
 
