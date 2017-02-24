@@ -23,26 +23,31 @@ import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHili
 classHeader : String -> List ( String, String ) -> List (Html msg)
 classHeader className params =
     [ p []
-        (([ span [ styles [ float left ] ] [ Html.text ("public class") ]
-          , span [ styles [ float left, color colorBlue, indentMixin 1 ] ] [ Html.text (className) ]
+        (([ span [ styles [ float left, color colorPurpleHilight ] ] [ Html.text ("public class") ]
+          , span [ styles [ float left, color colorHilightYellow, indentMixin 1 ] ] [ Html.text (className) ]
           , span [ styles [ float left ] ] [ Html.text "(" ]
           ]
-            ++ (params
-                    |> map
-                        (\param ->
-                            div [ indent 4 ]
-                                -- Todo take the first from the list and render it and the rest of the list separetelly
-                                [ span [ styles [ float left, color colorTabCloseActive, indentMixin 1 ] ] [ Html.text (Tuple.first param) ]
-                                , span [ styles [ float left, indentMixin 1 ] ] [ Html.text ((Tuple.second param) ++ ",") ]
-                                ]
-                        )
-               )
+            ++ renderParams params
          )
             ++ [ span [ styles [ float left, indentMixin 1 ] ] [ Html.text ") {" ]
                , br [] []
                ]
         )
     ]
+
+
+renderParams : List ( String, String ) -> List (Html msg)
+renderParams params =
+    (params
+        |> map
+            (\param ->
+                div []
+                    -- Todo take the first from the list and render it and the rest of the list separetelly
+                    [ span [ styles [ float left, color colorHilightYellow, indentMixin 1 ] ] [ Html.text (Tuple.first param) ]
+                    , span [ styles [ float left, indentMixin 1 ] ] [ Html.text ((Tuple.second param) ++ ",") ]
+                    ]
+            )
+    )
 
 
 closingBracket : List (Html msg)
@@ -59,8 +64,52 @@ renderClass name arguments content =
         )
 
 
+syntaxHilight : List ( String, Color ) -> Html msg
+syntaxHilight wordsAndColors =
+    p []
+        (wordsAndColors
+            |> map
+                (\wordAndColor ->
+                    span [ styles [ color (Tuple.second wordAndColor) ] ]
+                        [ Html.text (Tuple.first wordAndColor) ]
+                )
+        )
 
--- Info
+
+variable : String -> String -> List ( String, Color ) -> Html msg
+variable typeName name wordsAndColors =
+    syntaxHilight
+        ([ ( "private ", colorPurpleHilight )
+         , ( typeName, colorRedHilight )
+         , ( name, colorHilightYellow )
+         , ( " = ", Shared.Styles.colorTextMain )
+         ]
+            ++ wordsAndColors
+            ++ [ ( ";", Shared.Styles.colorTextMain ) ]
+        )
+
+
+string : String -> String -> Html msg
+string name value =
+    variable
+        "String "
+        name
+        [ ( "\"" ++ value ++ "\"", colorGreenHilight ) ]
+
+
+newClass : String -> String -> List String -> Html msg
+newClass typeName name params =
+    variable typeName
+        name
+        ([ ( "new ", colorPurpleHilight )
+         , ( typeName, colorHilightYellow )
+         , ( "(", colorRedHilight )
+         ]
+            ++ (params
+                    |> map (\param -> ( param, Shared.Styles.colorTextMain ))
+               )
+            ++ [ ( ")", colorRedHilight ) ]
+        )
 
 
 generalInfo : SyntaxRenderFunc
@@ -71,8 +120,9 @@ generalInfo cvData =
     in
         renderClass "Info"
             [ ( "Juuh", "eiss" ), ( "Voiv", "hele" ) ]
-            ([ p [] [ Html.text info.name ]
-             , p [] [ Html.text (toString info.born) ]
+            ([ (string "name" info.name)
+               --  , p [] [ Html.text (toString info.born) ]
+             , (newClass "Year" " born" [ toString info.born ])
              , p [] [ Html.text info.location ]
              , p [] [ Html.text info.photo ]
              , p [] [ Html.text info.education ]
@@ -197,3 +247,32 @@ projects cvData =
                     )
              )
             )
+
+
+
+-- Colors
+
+
+colorHilightYellow : Color
+colorHilightYellow =
+    rgb 229 192 123
+
+
+colorPurpleHilight : Color
+colorPurpleHilight =
+    rgb 198 120 221
+
+
+colorBlueHilight : Color
+colorBlueHilight =
+    rgb 95 171 233
+
+
+colorRedHilight : Color
+colorRedHilight =
+    rgb 224 108 117
+
+
+colorGreenHilight : Color
+colorGreenHilight =
+    rgb 152 195 121
