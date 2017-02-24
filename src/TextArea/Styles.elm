@@ -57,7 +57,7 @@ textStyle =
 
 indentMixin : Float -> Css.Mixin
 indentMixin spaces =
-    paddingLeft (em (spaces))
+    paddingLeft (ex (spaces))
 
 
 indent : Float -> Html.Attribute msg

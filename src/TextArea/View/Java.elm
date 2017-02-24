@@ -1,20 +1,47 @@
 module TextArea.View.Java exposing (..)
 
-import Html exposing (Html, div, h1, text, ul, li, p, iframe)
+import Html exposing (Html, div, h1, text, ul, li, p, iframe, span, br)
 import Html.Attributes as Attr
 import Html.CssHelpers
+import Css exposing (..)
 import List exposing (map)
-import TextArea.Styles exposing (Classes(..), indent, hi)
+import TextArea.Styles exposing (Classes(..), indent, indentMixin, hi)
 import TextArea.Types exposing (..)
 import Shared.Types exposing (Language, TechnologyAndSkill, Employer)
-
-
--- import Css exposing (..)
--- import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight)
+import Tuple
+import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight, colorTabCloseActive)
 
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace "text-area"
+
+
+
+-- General
+
+
+renderClassHeader : String -> List ( String, String ) -> Html msg
+renderClassHeader className params =
+    p []
+        (([ span [ styles [ float left ] ] [ Html.text ("public class") ]
+          , span [ styles [ float left, color colorBlue, indentMixin 1 ] ] [ Html.text (className) ]
+          , span [ styles [ float left ] ] [ Html.text "(" ]
+          ]
+            ++ (params
+                    |> map
+                        (\param ->
+                            div [ indent 4 ]
+                                -- Todo take the first from the list and render it and the rest of the list separetelly
+                                [ span [ styles [ float left, color colorTabCloseActive, indentMixin 1 ] ] [ Html.text (Tuple.first param) ]
+                                , span [ styles [ float left, indentMixin 1 ] ] [ Html.text ((Tuple.second param) ++ ",") ]
+                                ]
+                        )
+               )
+         )
+            ++ [ span [ styles [ float left, indentMixin 1 ] ] [ Html.text ") {" ]
+               , br [] []
+               ]
+        )
 
 
 
@@ -28,12 +55,13 @@ generalInfo cvData =
             cvData.generalInfo
     in
         div [ class [ TextWrapper ] ]
-            ([ p [] [ Html.text info.name ]
-             , p [] [ Html.text (toString info.born) ]
-             , p [] [ Html.text info.location ]
-             , p [] [ Html.text info.photo ]
-             , p [] [ Html.text info.education ]
-             ]
+            ([ (renderClassHeader "Info" [ ( "Juuh", "juuh" ), ( "Eiss", "eiss" ) ]) ]
+                ++ [ p [] [ Html.text info.name ]
+                   , p [] [ Html.text (toString info.born) ]
+                   , p [] [ Html.text info.location ]
+                   , p [] [ Html.text info.photo ]
+                   , p [] [ Html.text info.education ]
+                   ]
                 ++ renderInterests info.interests
             )
 
