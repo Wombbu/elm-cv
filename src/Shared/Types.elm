@@ -24,7 +24,7 @@ type alias CvData =
 
 type alias GeneralInfo =
     { name : String
-    , born : Int
+    , born : String
     , interests : List String
     , location : String
     , photo : String

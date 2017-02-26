@@ -9,7 +9,7 @@ import TextArea.Styles exposing (Classes(..), indent, indentMixin, hi)
 import TextArea.Types exposing (..)
 import Shared.Types exposing (Language, TechnologyAndSkill, Employer)
 import Tuple
-import Shared.Styles exposing (colorTabText, styles, colorBlue, colorTabTextHilight, colorTabCloseActive)
+import Shared.Styles exposing (styles, colorTextMain)
 
 
 { id, class, classList } =
@@ -59,7 +59,7 @@ renderClass : String -> List ( String, String ) -> List (Html msg) -> Html msg
 renderClass name arguments content =
     div [ class [ TextWrapper ] ]
         (classHeader name arguments
-            ++ [ div [ indent 4 ] content ]
+            ++ [ div [ indent 2 ] content ]
             ++ closingBracket
         )
 
@@ -82,10 +82,10 @@ variable typeName name wordsAndColors =
         ([ ( "private ", colorPurpleHilight )
          , ( typeName, colorRedHilight )
          , ( name, colorHilightYellow )
-         , ( " = ", Shared.Styles.colorTextMain )
+         , ( " = ", colorTextMain )
          ]
             ++ wordsAndColors
-            ++ [ ( ";", Shared.Styles.colorTextMain ) ]
+            ++ [ ( ";", colorTextMain ) ]
         )
 
 
@@ -97,19 +97,39 @@ string name value =
         [ ( "\"" ++ value ++ "\"", colorGreenHilight ) ]
 
 
-newClass : String -> String -> List String -> Html msg
+newClass : String -> String -> List ( String, Color ) -> Html msg
 newClass typeName name params =
-    variable typeName
+    variable
+        typeName
         name
         ([ ( "new ", colorPurpleHilight )
          , ( typeName, colorHilightYellow )
-         , ( "(", colorRedHilight )
+         , ( "(", colorTextMain )
          ]
             ++ (params
-                    |> map (\param -> ( param, Shared.Styles.colorTextMain ))
+                    |> map (\param -> ( Tuple.first param, Tuple.second param ))
                )
-            ++ [ ( ")", colorRedHilight ) ]
+            ++ [ ( ")", colorTextMain ) ]
         )
+
+
+newArray : String -> String -> String -> List ( String, Color ) -> Html msg
+newArray prefix typeName name content =
+    div []
+        [ syntaxHilight
+            [ ( prefix ++ " ", colorPurpleHilight )
+            , ( typeName ++ " ", colorRedHilight )
+            , ( name, colorHilightYellow )
+            , ( " = ", colorTextMain )
+            ]
+        , div [ indent 2 ]
+            ([ p [] [ Html.text "{" ] ]
+                ++ (content
+                        |> map (\entry -> syntaxHilight [ entry ])
+                   )
+                ++ [ p [] [ Html.text "};" ] ]
+            )
+        ]
 
 
 generalInfo : SyntaxRenderFunc
@@ -122,21 +142,12 @@ generalInfo cvData =
             [ ( "Juuh", "eiss" ), ( "Voiv", "hele" ) ]
             ([ (string "name" info.name)
                --  , p [] [ Html.text (toString info.born) ]
-             , (newClass "Year" " born" [ toString info.born ])
-             , p [] [ Html.text info.location ]
+             , (newClass "Date" " birthday" [ ( "\"" ++ info.born ++ "\"", colorGreenHilight ) ])
+             , (string "location" info.location)
              , p [] [ Html.text info.photo ]
-             , p [] [ Html.text info.education ]
+             , (string "education" info.education)
+             , newArray "private" "String" "interests" (info.interests |> map (\interest -> ( "\"" ++ interest ++ "\"", colorGreenHilight )))
              ]
-                ++ renderInterests info.interests
-            )
-
-
-renderInterests : List String -> List (Html msg)
-renderInterests interests =
-    interests
-        |> map
-            (\interest ->
-                p [] [ Html.text interest ]
             )
 
 

@@ -28,7 +28,7 @@ decodeInfo : Decoder Types.GeneralInfo
 decodeInfo =
     decode Types.GeneralInfo
         |> required "name" string
-        |> required "born" int
+        |> required "born" string
         |> required "interests" (list string)
         |> required "location" string
         |> required "photo" string
