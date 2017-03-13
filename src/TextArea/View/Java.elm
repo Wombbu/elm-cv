@@ -1,11 +1,11 @@
 module TextArea.View.Java exposing (..)
 
-import Html exposing (Html, div, h1, text, ul, li, p, iframe, span, br)
+import Html exposing (Html, div, h1, text, ul, li, p, iframe, span, br, img)
 import Html.Attributes as Attr
 import Html.CssHelpers
 import Css exposing (..)
 import List exposing (map)
-import TextArea.Styles exposing (Classes(..), indent, indentMixin, hi)
+import TextArea.Styles exposing (Classes(..), indent, indentMixin, hi, innerShadow)
 import TextArea.Types exposing (..)
 import Shared.Types exposing (Language, TechnologyAndSkill, Employer)
 import Tuple
@@ -24,12 +24,12 @@ classHeader : String -> List ( String, String ) -> List (Html msg)
 classHeader className params =
     [ p []
         (([ span [ styles [ float left, color colorPurpleHilight ] ] [ Html.text ("public class") ]
-          , span [ styles [ float left, color colorHilightYellow, indentMixin 1 ] ] [ Html.text (className) ]
+          , span [ styles [ float left, color colorHilightYellow, indentMixin 2 ] ] [ Html.text (className) ]
           , span [ styles [ float left ] ] [ Html.text "(" ]
           ]
             ++ renderParams params
          )
-            ++ [ span [ styles [ float left, indentMixin 1 ] ] [ Html.text ") {" ]
+            ++ [ span [ styles [ float left, indentMixin 2 ] ] [ Html.text ") {" ]
                , br [] []
                ]
         )
@@ -59,7 +59,7 @@ renderClass : String -> List ( String, String ) -> List (Html msg) -> Html msg
 renderClass name arguments content =
     div [ class [ TextWrapper ] ]
         (classHeader name arguments
-            ++ [ div [ indent 2 ] content ]
+            ++ [ div [ indent 4 ] content ]
             ++ closingBracket
         )
 
@@ -122,13 +122,26 @@ newArray prefix typeName name content =
             , ( name, colorHilightYellow )
             , ( " = ", colorTextMain )
             ]
-        , div [ indent 2 ]
+        , div [ indent 4 ]
             ([ p [] [ Html.text "{" ] ]
                 ++ (content
                         |> map (\entry -> syntaxHilight [ entry ])
                    )
                 ++ [ p [] [ Html.text "};" ] ]
             )
+        ]
+
+
+newPhoto : String -> String -> String -> Html msg
+newPhoto prefix name imageUrl =
+    div []
+        [ syntaxHilight
+            [ ( prefix ++ " ", colorPurpleHilight )
+            , ( "Image ", colorRedHilight )
+            , ( name, colorHilightYellow )
+            , ( " = ", colorTextMain )
+            ]
+        , div [ styles [ innerShadow, width (px 300), height (px 300), indentMixin 4, backgroundImage (url imageUrl) ] ] []
         ]
 
 
@@ -140,12 +153,11 @@ generalInfo cvData =
     in
         renderClass "Info"
             [ ( "Juuh", "eiss" ), ( "Voiv", "hele" ) ]
-            ([ (string "name" info.name)
-               --  , p [] [ Html.text (toString info.born) ]
-             , (newClass "Date" " birthday" [ ( "\"" ++ info.born ++ "\"", colorGreenHilight ) ])
-             , (string "location" info.location)
-             , p [] [ Html.text info.photo ]
-             , (string "education" info.education)
+            ([ string "name" info.name
+             , newClass "Date" " birthday" [ ( "\"" ++ info.born ++ "\"", colorGreenHilight ) ]
+             , string "location" info.location
+             , newPhoto "private" "photo" info.photo
+             , string "education" info.education
              , newArray "private" "String" "interests" (info.interests |> map (\interest -> ( "\"" ++ interest ++ "\"", colorGreenHilight )))
              ]
             )

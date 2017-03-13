@@ -57,9 +57,14 @@ textStyle =
 
 indentMixin : Float -> Css.Mixin
 indentMixin spaces =
-    paddingLeft (ex (spaces))
+    marginLeft (ex (spaces))
 
 
 indent : Float -> Html.Attribute msg
 indent spaces =
-    styles [ paddingLeft (em (spaces)) ]
+    styles [ marginLeft (ex (spaces)) ]
+
+
+innerShadow : Mixin
+innerShadow =
+    property "box-shadow" <| "inset 0px 0px 31px 5px rgb(24, 26, 31)"

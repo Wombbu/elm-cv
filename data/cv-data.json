@@ -8,7 +8,7 @@
         , "Design"
         ]
     , "location": "Tampere"
-    , "photo": "http://imgur.com/32442.jpg"
+    , "photo": "./bg.jpg"
     , "education": "TAMK - Bachelor of Business 2017"
     }
 , "projects":
